@@ -11,7 +11,7 @@ import {
 const OfferItem = ({ title }) => {
     return (
         <View>
-            <Text>{title}</Text>
+            <Text>{title} hola</Text>
         </View>
     )
 }
