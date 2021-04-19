@@ -23,15 +23,15 @@ const OffersHomeScreen = ({ navigation }) => {
     const [isLoading, setLoading] = useState(false)
     const [offers, setOffers] = useState([
         {
-            id: 1,
+            id: '1',
             title: 'Hola'
         },
         {
-            id: 2,
+            id: '2',
             title: 'Que'
         },
         {
-            id: 3,
+            id: '3',
             title: 'Tal'
         },
     ])

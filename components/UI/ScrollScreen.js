@@ -4,19 +4,19 @@ import React from 'react'
 // React Native
 import {
     StyleSheet,
-    View
+    ScrollView
 } from 'react-native'
 
 // Constants
 import Colors from '../../constants/Colors'
 
-const Screen = ({ children }) => <View style={styles.screen}>{children}</View>
+const ScrollScreen = ({ children }) => <ScrollView showsVerticalScrollIndicator={false} style={styles.screen}>{children}</ScrollView>
 
 const styles = StyleSheet.create({
     screen: {
-        flex: 1,
+        height: '100%',
         backgroundColor: Colors.white
     }
 })
 
-export default Screen
+export default ScrollScreen

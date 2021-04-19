@@ -12,7 +12,7 @@ import Colors from '../../constants/Colors'
 
 const TabBar = ({ state, navigation }) => {
     // Set Ofertas as default loading screen
-    const [selected, setSelected] = useState('Posiciones')
+    const [selected, setSelected] = useState('Ofertas')
     // Validates if its the selected tab
     const isSelectedHandler = routeName => routeName !== selected ? false : true
     // Change selected tab and render its component
