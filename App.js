@@ -18,7 +18,7 @@ import firebaseConfig from './env'
 import firebase from 'firebase/app'
 
 // Getting Firebase ready to go!
-firebase.initializeApp(firebaseConfig)
+// firebase.initializeApp(firebaseConfig)
 
 // Redux
 import { createStore, combineReducers, applyMiddleware } from 'redux'
@@ -27,10 +27,12 @@ import ReduxThunk from 'redux-thunk'
 
 // Reducers
 import authReducer from './store/reducers/auth'
+import offersReducer from './store/reducers/offers'
 
 // Introducimos todos nuestros reducers en un global
 const rootReducer = combineReducers({
-    auth: authReducer
+    auth: authReducer,
+    offers: offersReducer
 })
 
 // y agregamos nuestro reducer global al store de Redux

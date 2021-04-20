@@ -4,8 +4,18 @@ import React from 'react'
 // React Native
 import { StyleSheet, View } from 'react-native'
 
-const Card = ({ noMargin, children }) => (
-    <View style={noMargin ? {...styles.shadow, ...{ marginBottom: 0 }} : styles.shadow}>
+const Card = ({ noMargin, noPadding, children }) => (
+    <View
+        style={
+            noMargin ?
+                noPadding ? 
+                    {...styles.shadow, ...{ marginBottom: 0, padding: 0 }} :
+                    {...styles.shadow, ...{ marginBottom: 0 }} :
+                noPadding ?
+                    {...styles.shadow, ...{ padding: 0 }} :
+                    styles.shadow
+        }
+    >
         {children}
     </View>
 )
