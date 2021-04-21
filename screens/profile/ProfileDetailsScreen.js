@@ -12,6 +12,8 @@ import HeaderTitle from "../../components/UI/HeaderTitle";
 import Colors from "../../constants/Colors";
 import LinkItem from "../../components/profile/LinkItem";
 import ProfileItem from "../../components/profile/ProfileItem";
+import Family from '../../constants/FontFamily';
+import Divider from "../../components/UI/Divider";
 
 const ProfileDetailsScreen = ({ navigation, route }) => {
   const { profile } = route.params;
@@ -35,18 +37,33 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
         <ProfileItem title="Número de teléfono" content={profile.phoneNumber} />
         <ProfileItem title="Email" content={profile.email} />
         <ProfileItem title="Fecha de Nacimiento" content={profile.birthday} />
+        <Divider style={{marginTop: 10}}/>
         <LinkItem
           title="Información privada"
           icon="arrow-forward"
+          style={{
+            color: Colors.black,
+            fontSize: 17,
+            fontFamily: Family.bold,
+          }}
           onSelect={() =>
-            navigation.navigate("ProfileStack", { screen: "ProfilePrivateDetails" })
+            navigation.navigate("ProfileStack", {
+              screen: "ProfilePrivateDetails",
+            })
           }
         />
         <LinkItem
           title="Información de conducción"
           icon="arrow-forward"
+          style={{
+            color: Colors.black,
+            fontSize: 17,
+            fontFamily: Family.bold,
+          }}
           onSelect={() =>
-            navigation.navigate("ProfileStack", { screen: "ProfilePrivateDetails" })
+            navigation.navigate("ProfileStack", {
+              screen: "ProfilePrivateDetails",
+            })
           }
         />
       </ScrollView>
@@ -63,7 +80,6 @@ const styles = StyleSheet.create({
     marginTop: 24,
     paddingHorizontal: 24,
   },
-  
 });
 
 export default ProfileDetailsScreen;

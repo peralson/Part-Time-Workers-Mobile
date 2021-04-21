@@ -15,8 +15,7 @@ import { Ionicons, Feather } from '@expo/vector-icons'
 import Colors from '../../constants/Colors'
 import Family from '../../constants/FontFamily'
 import Size from '../../constants/FontSize'
-
-const LinkItem = ({ title, onSelect, icon }) => {
+const LinkItem = ({ title, onSelect, icon, style }) => {
     let Icon = Ionicons
 
     if (icon === 'log-out') {
@@ -29,7 +28,7 @@ const LinkItem = ({ title, onSelect, icon }) => {
             activeOpacity={0.8}
             onPress={onSelect}
         >
-            <Text style={styles.text}>{title}</Text>
+            <Text style={{...styles.text, ...style}}>{title}</Text>
             <Icon name={icon} color={Colors.darkPrimary} size={14} />
         </TouchableOpacity>
     )
