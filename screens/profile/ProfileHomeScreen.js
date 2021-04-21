@@ -37,7 +37,19 @@ const ProfileHomeScreen = ({ navigation }) => {
 
     const profile = {
         name: 'Tito Martin Roch',
-        image: 'https://media-exp1.licdn.com/dms/image/C5603AQE4UkXJA_04OQ/profile-displayphoto-shrink_800_800/0/1519913090300?e=1624492800&v=beta&t=3rO6IYYAAOYbLe-1ZBJT6QJ2NiA8P1uuxkv9uk4AHCU'
+        image: 'https://media-exp1.licdn.com/dms/image/C5603AQE4UkXJA_04OQ/profile-displayphoto-shrink_800_800/0/1519913090300?e=1624492800&v=beta&t=3rO6IYYAAOYbLe-1ZBJT6QJ2NiA8P1uuxkv9uk4AHCU',
+        description: 'Hago fotos con cámaras muy caras y cuando tengo tiempo libre salgo a pescar',
+        address: 'Avenida de Barcelona',
+        email: 'tito@tito.com',
+        phoneNumber: '984123432',
+        birthday: '12-3-1996',
+        professionalImage: 'professionalImage',
+        nationality: 'Spain',
+        dniNumber: '35289473R',
+        dniImage: 'dniImage',
+        expiryDate: '20-4-22',
+        gender: 'male',
+        ssNumber: '834759384753489',
     }
 
     return (
@@ -45,9 +57,9 @@ const ProfileHomeScreen = ({ navigation }) => {
             <SectionContainer>
                 <ProfileInfo profile={profile} />
                 <LinkItem
-                    title="Información general"
+                    title="Mi información"
                     icon="arrow-forward"
-                    onSelect={() => navigation.navigate('ProfileStack', { screen: 'ProfileDetails' })}
+                    onSelect={() => navigation.navigate('ProfileStack', { screen: 'ProfileDetails', params:{ profile: profile } })}
                 />
             </SectionContainer>
             <SectionContainer>

@@ -14,7 +14,7 @@ const HeaderTitle = ({ title }) => <Text style={styles.title}>{title}</Text>
 const styles = StyleSheet.create({
     title: {
         fontFamily: Family.bold,
-        fontSize: Size.big,
+        fontSize: Size.huge,
         color: Colors.black,
         lineHeight: 32,
     }
