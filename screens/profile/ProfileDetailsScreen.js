@@ -12,6 +12,7 @@ import HeaderTitle from "../../components/UI/HeaderTitle";
 import Colors from "../../constants/Colors";
 import LinkItem from "../../components/profile/LinkItem";
 import ProfileItem from "../../components/profile/ProfileItem";
+import ProfileInfo from "../../components/profile/ProfileInfo";
 import Family from "../../constants/FontFamily";
 import Divider from "../../components/UI/Divider";
 
@@ -27,17 +28,24 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
       />
       <ScrollView style={styles.container}>
         <ProfileItem title="Nombre" content={profile.name} />
-        <ProfileItem title="Imagen Personal" content={profile.image} />
-        <ProfileItem
-          title="Imagen Profesional"
-          content={profile.professionalImage}
-        />
         <ProfileItem title="Biografía" content={profile.description} />
-        <ProfileItem title="Dirección" content={profile.address} />
-        <ProfileItem title="Número de teléfono" content={profile.phoneNumber} />
         <ProfileItem title="Email" content={profile.email} />
+        <ProfileItem title="Número de teléfono" content={profile.phoneNumber} />
+        <ProfileItem title="Dirección" content={profile.address} />
         <ProfileItem title="Fecha de Nacimiento" content={profile.birthday} />
-        <Divider style={{ marginTop: 10 }} />
+        <ProfileInfo
+          title="Imagen personal"
+          image={profile.image}
+          containerStyle={{marginBottom: 15}}
+          titleStyle={{ fontSize: 17 }}
+        />
+        <ProfileInfo
+          title="Imagen profesional"
+          image={profile.professionalImage}
+          containerStyle={{marginBottom: 15}}
+          titleStyle={{ fontSize: 17 }}
+        />
+        <Divider />
         <LinkItem
           title="Información legal"
           icon="arrow-forward"
@@ -48,7 +56,8 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
           }}
           onSelect={() =>
             navigation.navigate("ProfileStack", {
-              screen: "ProfilePrivateDetails", params: { profile: profile },
+              screen: "ProfilePrivateDetails",
+              params: { profile: profile },
             })
           }
         />
@@ -63,7 +72,8 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
           }}
           onSelect={() =>
             navigation.navigate("ProfileStack", {
-              screen: "ProfileDrivingDetails", params: { profile: profile },
+              screen: "ProfileDrivingDetails",
+              params: { profile: profile },
             })
           }
         />
@@ -80,6 +90,9 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 24,
     paddingHorizontal: 24,
+  },
+  imageRow: {
+    flexDirection: "row",
   },
 });
 

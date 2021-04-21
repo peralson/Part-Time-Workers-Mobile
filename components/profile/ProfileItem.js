@@ -21,7 +21,7 @@ const ProfileItem = (props) => {
 
 const styles = StyleSheet.create({
   ProfileItem: {
-    width: "100%",
+    flex: 1,
     marginVertical: 15,
   },
   title: {

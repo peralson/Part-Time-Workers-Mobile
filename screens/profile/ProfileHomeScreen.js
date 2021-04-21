@@ -45,7 +45,8 @@ const ProfileHomeScreen = ({ navigation }) => {
     email: "tito@tito.com",
     phoneNumber: "984123432",
     birthday: "12-3-1996",
-    professionalImage: "professionalImage",
+    professionalImage:
+      "https://www.altonivel.com.mx/wp-content/uploads/2018/02/presentacion-de-negocios-profesional.jpg",
     nationality: "Spain",
     dniNumber: "35289473R",
     dniImage: "dniImage",
@@ -54,7 +55,7 @@ const ProfileHomeScreen = ({ navigation }) => {
     ssNumber: "834759384753489",
     bankAccount: "234829347982349",
     carLicense: "car license image",
-    hasCar: "yes"
+    hasCar: "yes",
   };
 
   return (
@@ -64,7 +65,7 @@ const ProfileHomeScreen = ({ navigation }) => {
       showsVerticalScrollIndicator={false}
     >
       <SectionContainer>
-        <ProfileInfo profile={profile} />
+        <ProfileInfo title={profile.name} image={profile.image} containerStyle={{marginBottom: 24}} />
         <LinkItem
           title="Mi información"
           icon="arrow-forward"

@@ -14,13 +14,13 @@ import Colors from '../../constants/Colors'
 import Family from '../../constants/FontFamily'
 import Size from '../../constants/FontSize'
 
-const ProfileInfo = ({ profile }) => (
-    <View style={styles.profile}>
+const ProfileInfo = ({ title, image, titleStyle, containerStyle }) => (
+    <View style={{...styles.profile, ...containerStyle}}>
         <View style={styles.imageContainer}>
-            <Image style={styles.image} source={{ uri: profile.image }} />
+            <Image style={styles.image} source={{ uri: image }} />
         </View>
         <View style={styles.profileMainText}>
-            <Text style={styles.name}>{profile.name}</Text>
+            <Text style={{...styles.name , ...titleStyle}}>{title}</Text>
         </View>
     </View>
 )
@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
     profile: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 24
     },
     imageContainer: {
         height: 48,
