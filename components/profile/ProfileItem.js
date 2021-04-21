@@ -1,16 +1,12 @@
 // React
-import React from 'react'
+import React from "react";
 
 // React Native
-import {
-    Text,
-    StyleSheet,
-    View
-} from 'react-native'
+import { Text, StyleSheet, View } from "react-native";
 
 // Constants
-import Colors from '../../constants/Colors'
-import Family from '../../constants/FontFamily'
+import Colors from "../../constants/Colors";
+import Family from "../../constants/FontFamily";
 
 const ProfileItem = (props) => {
   return (
@@ -49,6 +45,6 @@ const styles = StyleSheet.create({
     color: Colors.darkGrey,
     fontSize: 15,
   },
-})
+});
 
-export default ProfileItem
+export default ProfileItem;

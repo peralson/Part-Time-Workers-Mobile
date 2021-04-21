@@ -11,18 +11,9 @@ import BackButton from "../../components/UI/BackButton";
 import HeaderTitle from "../../components/UI/HeaderTitle";
 import Colors from "../../constants/Colors";
 import Family from "../../constants/FontFamily";
-import LinkItem from "../../components/profile/LinkItem";
+import ProfileItem from "../../components/profile/ProfileItem";
 
-const ProfileItem = (props) => {
-  return (
-    <View style={styles.ProfileItem}>
-      <Text style={styles.title}>{props.title}</Text>
-      <View style={styles.card}>
-        <Text style={styles.text}>{props.content}</Text>
-      </View>
-    </View>
-  );
-};
+
 
 const ProfilePrivateDetails = ({ navigation, route }) => {
   const { profile } = route.params;
@@ -32,10 +23,16 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
     <Screen>
       <HomeWrapper
         leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
-        rightComponent={<HeaderTitle title="Mi información" />}
+        rightComponent={<HeaderTitle title="Información legal" />}
       />
       <ScrollView style={styles.container}>
-        <Text>ola</Text>
+      <ProfileItem title="Nacionalidad" content={profile.nationality} />
+      <ProfileItem title="Imagen de DNI" content={profile.dniImage} />
+      <ProfileItem title="Número de DNI" content={profile.dniNumber} />
+      <ProfileItem title="Fecha de caducidad del DNI" content={profile.dniExpiryDate} />
+      <ProfileItem title="Género" content={profile.gender} />
+      <ProfileItem title="Nº Seguridad Social" content={profile.ssNumber} />
+      <ProfileItem title="Cuenta bancaria" content={profile.bankAccount} />
       </ScrollView>
     </Screen>
   );
@@ -49,31 +46,6 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 24,
     paddingHorizontal: 24,
-  },
-  ProfileItem: {
-    width: "100%",
-    marginVertical: 15,
-  },
-  title: {
-    fontSize: 17,
-    marginBottom: 15,
-    fontFamily: Family.bold,
-  },
-  card: {
-    borderRadius: 10,
-    elevation: 1,
-    shadowColor: Colors.grey,
-    shadowOpacity: 0.26,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 10,
-    padding: 15,
-    justifyContent: "center",
-    alignItems: "flex-start",
-    backgroundColor: "white",
-  },
-  text: {
-    color: Colors.darkGrey,
-    fontSize: 15,
   },
 });
 

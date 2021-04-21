@@ -12,7 +12,7 @@ import HeaderTitle from "../../components/UI/HeaderTitle";
 import Colors from "../../constants/Colors";
 import LinkItem from "../../components/profile/LinkItem";
 import ProfileItem from "../../components/profile/ProfileItem";
-import Family from '../../constants/FontFamily';
+import Family from "../../constants/FontFamily";
 import Divider from "../../components/UI/Divider";
 
 const ProfileDetailsScreen = ({ navigation, route }) => {
@@ -37,9 +37,9 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
         <ProfileItem title="Número de teléfono" content={profile.phoneNumber} />
         <ProfileItem title="Email" content={profile.email} />
         <ProfileItem title="Fecha de Nacimiento" content={profile.birthday} />
-        <Divider style={{marginTop: 10}}/>
+        <Divider style={{ marginTop: 10 }} />
         <LinkItem
-          title="Información privada"
+          title="Información legal"
           icon="arrow-forward"
           style={{
             color: Colors.black,
@@ -48,21 +48,22 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
           }}
           onSelect={() =>
             navigation.navigate("ProfileStack", {
-              screen: "ProfilePrivateDetails",
+              screen: "ProfilePrivateDetails", params: { profile: profile },
             })
           }
         />
         <LinkItem
-          title="Información de conducción"
+          title="Información de transporte"
           icon="arrow-forward"
           style={{
             color: Colors.black,
             fontSize: 17,
             fontFamily: Family.bold,
+            marginBottom: 10,
           }}
           onSelect={() =>
             navigation.navigate("ProfileStack", {
-              screen: "ProfilePrivateDetails",
+              screen: "ProfileDrivingDetails", params: { profile: profile },
             })
           }
         />
