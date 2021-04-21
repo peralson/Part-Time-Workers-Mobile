@@ -29,7 +29,7 @@ export const fetchOpenOffers = () => {
                     offer.data.date,
                     offer.data.description,
                     offer.data.qty,
-                    offer.data.alreadyAssigned,
+                    offer.data.already_assigned,
                     offer.data.schedule,
                     offer.data.salary,
                     offer.data.extraSalary,

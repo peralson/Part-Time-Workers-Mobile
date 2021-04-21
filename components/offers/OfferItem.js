@@ -26,7 +26,7 @@ import Size from '../../constants/FontSize'
 // Components
 import Card from '../UI/Card'
 
-const OfferItem = ({ onSelect, onApplication, category, location, date, schedule, salary }) => {
+const OfferItem = ({ onSelect, onApplication, category, location, qty, alreadyAssigned, date, schedule, salary }) => {
     const { hours, minutes } = totalHoursCalc(schedule)
     const total = salary * (hours + (minutes / 60))
     
@@ -67,7 +67,7 @@ const OfferItem = ({ onSelect, onApplication, category, location, date, schedule
                 </View>
                 <View style={styles.bottomContainer}>
                     <TouchableOpacity style={styles.buttonContainer} activeOpacity={0.8} onPress={onApplication}>
-                        <Text style={styles.button}>Aplicar</Text>
+                        <Text style={styles.button}>Aplicar ({`${alreadyAssigned}/${qty}`})</Text>
                     </TouchableOpacity>
                     <Text style={styles.more}>Ver más</Text>
                 </View>
@@ -156,12 +156,12 @@ const styles = StyleSheet.create({
     },
     button: {
         fontFamily: Family.bold,
-        fontSize: Size.small,
+        fontSize: Size.tiny,
         color: Colors.accent
     },
     more: {
         fontFamily: Family.normal,
-        fontSize: Size.small,
+        fontSize: Size.tiny,
         color: Colors.primary,
         flex: 1,
         textAlign: 'center'
