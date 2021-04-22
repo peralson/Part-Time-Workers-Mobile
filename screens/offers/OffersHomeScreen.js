@@ -12,7 +12,6 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 
 // Actions
-import * as authActions from '../../store/actions/auth'
 import * as offersActions from '../../store/actions/offers'
 
 // Components

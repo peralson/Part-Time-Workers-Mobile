@@ -1,5 +1,6 @@
 // React
-import React from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
+import { useFocusEffect } from '@react-navigation/native'
 
 // React Native
 import {
@@ -12,6 +13,9 @@ import {
 // Redux
 import { useSelector, useDispatch } from 'react-redux'
 
+// Actions
+import * as applicationActions from '../../store/actions/applications'
+
 // Components
 import Screen from '../../components/UI/Screen'
 import HomeWrapper from '../../components/UI/HomeWrapper'
@@ -23,7 +27,31 @@ import EmptyList from '../../components/works/EmptyList'
 
 const WorksHomeScreen = ({ navigation }) => {
     const jobs = []
-    const applications = useSelector(state => state.offers.openOffers)
+    const applications = [] // useSelector(state => state.offers.openOffers)
+
+    const dispatch = useDispatch()
+
+    const loadApplications = async () => {
+        try {
+            await dispatch(applicationActions.fetchOpenApplications())
+        } catch (e) { 
+            console.log('error', e.message)
+        }
+    }
+
+    // Aseguramos que la pantalla repita el fetch cada vez que entre
+    useFocusEffect(
+        useCallback(() => {
+            loadApplications()
+        }, [dispatch])
+    )
+
+    // Cargamos los proyectos de una manera visible al entrar por primera vez
+    useEffect(() => {
+        // setLoading(true)
+        loadApplications()
+            // .then(() => setLoading(false))
+    }, [])
 
     const offerDetailHandler = offerId => {
         navigation.navigate(
@@ -55,7 +83,7 @@ const WorksHomeScreen = ({ navigation }) => {
                 )}
                 <View style={{ paddingHorizontal: 24 }}>
                     <Label>Ofertas a las que he aplicado</Label>
-                    {applications.length === 0 ? <EmptyList quote="No tienes aplicaciones... ¡Aplícate!" image={require('../../assets/sin_posiciones.png')} /> :
+                    {applications.length === 0 ? <EmptyList quote="No tienes aplicaciones..." image={require('../../assets/sin_posiciones.png')} onApply={() => navigation.navigate('Home', { screen: 'Ofertas' })} /> :
                         applications.map(application => <OfferItem key={application.id} {...application} onSelect={() => offerDetailHandler(application.id)} />)
                     }
                 </View>

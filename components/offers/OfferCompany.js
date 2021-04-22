@@ -18,7 +18,11 @@ import Size from '../../constants/FontSize'
 // Components
 import Card from '../UI/Card'
 
-const OfferCompany = ({ name, image, onSelect }) => (
+const OfferCompany = ({
+    name,
+    image,
+    onSelect
+}) => (
     <Card>
         <TouchableOpacity activeOpacity={0.8} onPress={onSelect} style={styles.content}>
             <View style={styles.textContainer}>
