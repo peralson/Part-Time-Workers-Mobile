@@ -16,7 +16,7 @@ const defaultStackOptions = {
 const OffersStack = () => (
     <Stack.Navigator>
         <Stack.Screen
-            name="OfferDetails" 
+            name="OfferDetails"
             component={OfferDetails}
             options={defaultStackOptions}
         />
