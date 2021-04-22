@@ -12,7 +12,7 @@ import Colors from '../../constants/Colors'
 
 const BackButton = ({ onGoBack }) => (
     <HeaderButton onSelect={onGoBack}>
-        <Ionicons name="arrow-back" size={24} color={Colors.primary} />
+        <Ionicons name="arrow-back" size={21} color={Colors.primary} />
     </HeaderButton>
 )
 

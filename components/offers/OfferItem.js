@@ -61,10 +61,12 @@ const OfferItem = ({ onSelect, onApplication, name, category, location, qty, alr
                     </View>
                     <Text style={styles.amount}>{total.toFixed(0)}€</Text>
                 </View>
-                <View style={styles.bottomContainer}>
-                    <ApplyButton qty={qty} alreadyAssigned={alreadyAssigned} onSelect={onApplication} />
-                    <Text style={styles.more}>Ver más</Text>
-                </View>
+                {onApplication && (
+                    <View style={styles.bottomContainer}>
+                        <ApplyButton qty={qty} alreadyAssigned={alreadyAssigned} onSelect={onApplication} />
+                        <Text style={styles.more}>Ver más</Text>
+                    </View>
+                )}
             </Card>
         </TouchableOpacity>
     )
@@ -83,7 +85,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontFamily: Family.bold,
-        fontSize: Size.big,
+        fontSize: Size.medium,
         color: Colors.black,
         marginBottom: 8
     },
@@ -111,10 +113,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-around',
-        marginBottom: 24
+        marginBottom: 8
     },
     column: {
-        alignItems: 'center'
+        alignItems: 'center',
+        flex: 1
     },
     columnTop: {
         fontFamily: Family.bold,
@@ -130,11 +133,14 @@ const styles = StyleSheet.create({
     amount: {
         fontFamily: Family.bold,
         fontSize: Size.huge,
-        color: Colors.darkPrimary
+        color: Colors.darkPrimary,
+        flex: 1,
+        textAlign: 'center'
     },
     bottomContainer: {
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop: 16
     },
     more: {
         fontFamily: Family.normal,

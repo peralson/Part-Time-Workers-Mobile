@@ -1,5 +1,5 @@
 // React
-import React from "react";
+import React from "react"
 
 // React Native
 import {
@@ -8,16 +8,16 @@ import {
   TouchableOpacity,
   View,
   Platform,
-} from "react-native";
+} from "react-native"
 
 // Constants
-import Colors from "../../constants/Colors";
-import Family from "../../constants/FontFamily";
-import Size from "../../constants/FontSize";
+import Colors from "../../constants/Colors"
+import Family from "../../constants/FontFamily"
+import Size from "../../constants/FontSize"
 
 const Tab = ({ isSelected, setNewSelected, name }) => {
-  const selectedWrapper = isSelected ? styles.selectedWrapper : {};
-  const selectedText = isSelected ? styles.selectedTabText : {};
+  const selectedWrapper = isSelected ? styles.selectedWrapper : {}
+  const selectedText = isSelected ? styles.selectedTabText : {}
 
   return (
     <View style={styles.wrapper}>
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   selectedTabText: {
     fontFamily: Family.bold,
-  },
-});
+  }
+})
 
-export default Tab;
+export default Tab
