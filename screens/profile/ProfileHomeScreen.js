@@ -61,49 +61,43 @@ const ProfileHomeScreen = ({ navigation }) => {
 
   return (
     <Screen>
-      <ProfileInfo
-        title={profile.name}
-        image={profile.image}
-        percentage="40%"
-      />
-      <ScrollView
-        style={styles.screen}
-        contentContainerStyle={styles.scroll}
-        showsVerticalScrollIndicator={false}
-      >
+      <ProfileInfo title={profile.name} image={profile.image} percentage="40%" />
+      <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <SectionContainer>
+          <Label>Mi perfil</Label>
+          <LabelInfo>
+            Visualiza y modifica todo tu información.
+          </LabelInfo>
           <LinkItem
-            title="Información general"
+            title="General"
             icon="arrow-forward"
-            onSelect={() =>
-              navigation.navigate("ProfileStack", {
-                screen: "ProfileDetails",
-                params: { profile: profile },
-              })
-            }
+            onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfileDetails", params: { profile: profile } })}
+          />
+          <LinkItem
+            title="Legal"
+            icon="arrow-forward"
+            onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfilePrivateDetails", params: { profile: profile } })}
+          />
+          <LinkItem
+            title="Transporte"
+            icon="arrow-forward"
+            onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfileDrivingDetails", params: { profile: profile } })}
           />
         </SectionContainer>
         <SectionContainer>
           <Label>Gestión laboral</Label>
           <LabelInfo>
-            Visualiza toda la información laboral referente a tus
-            contrataciones.
+            Visualiza toda la información laboral referente a tus contrataciones.
           </LabelInfo>
           <LinkItem
             title="Contratos"
             icon="arrow-forward"
-            onSelect={() =>
-              navigation.navigate("ProfileStack", {
-                screen: "ProfileContracts",
-              })
-            }
+            onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfileContracts" })}
           />
           <LinkItem
             title="Nóminas"
             icon="arrow-forward"
-            onSelect={() =>
-              navigation.navigate("ProfileStack", { screen: "ProfilePayrolls" })
-            }
+            onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfilePayrolls" })}
           />
         </SectionContainer>
         <SectionContainer>
@@ -117,7 +111,7 @@ const ProfileHomeScreen = ({ navigation }) => {
             onSelect={() => {
               Linking.openURL(
                 `whatsapp://send?text=Hola Pablo, tengo una duda sobre Part Time Workers&phone=34607570778`
-              ).catch(() => Alert("Debes tener Whatsapp instalado"));
+              ).catch(() => Alert("Debes tener Whatsapp instalado"))
             }}
           />
           <LinkItem
@@ -126,7 +120,7 @@ const ProfileHomeScreen = ({ navigation }) => {
             onSelect={() => {
               Linking.openURL(
                 `mailto: pabloperaltapalacios@gmail.com`
-              ).catch(() => Alert("Debes tener un correo instalado"));
+              ).catch(() => Alert("Debes tener un correo instalado"))
             }}
           />
         </SectionContainer>
@@ -138,8 +132,8 @@ const ProfileHomeScreen = ({ navigation }) => {
             onSelect={() => {
               Alert.alert("¿Quieres cerrar la sesión?", "", [
                 { text: "No" },
-                { text: "Cerrar", style: "destructive", onPress: () => {} },
-              ]);
+                { text: "Cerrar", style: "destructive", onPress: () => {} }
+              ])
             }}
           />
         </SectionContainer>
@@ -152,6 +146,7 @@ const styles = StyleSheet.create({
   scroll: {
     paddingHorizontal: 24,
     paddingBottom: 80,
+    paddingTop: 24,
   },
 });
 
