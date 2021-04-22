@@ -29,8 +29,6 @@ const OffersHomeScreen = ({ navigation }) => {
 
     const dispatch = useDispatch()
 
-    // dispatch(authActions.fakeLogin())
-
     const loadOffers = async () => {
         try {
             await dispatch(offersActions.fetchOpenOffers())
