@@ -1,50 +1,29 @@
 // React
-import React from "react";
+import React from "react"
 
 // React Native
-import { Text, StyleSheet, View } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  View
+} from "react-native"
 
-// Constants
-import Colors from "../../constants/Colors";
-import Family from "../../constants/FontFamily";
+// Components
+import Input from "../form/Input"
+import Label from '../UI/Label'
 
-const ProfileItem = (props) => {
-  return (
-    <View style={styles.ProfileItem}>
-      <Text style={styles.title}>{props.title}</Text>
-      <View style={styles.card}>
-        <Text style={styles.text}>{props.content}</Text>
-      </View>
-    </View>
-  );
-};
+const ProfileItem = ({ title, content }) => (
+	<View style={styles.profileItem}>
+		<Label>{title}</Label>
+		<Input placeholder={content} />
+	</View>
+)
 
 const styles = StyleSheet.create({
-  ProfileItem: {
+  profileItem: {
     flex: 1,
-    marginVertical: 15,
+    marginVertical: 16,
   },
-  title: {
-    fontSize: 17,
-    marginBottom: 15,
-    fontFamily: Family.bold,
-  },
-  card: {
-    borderRadius: 10,
-    elevation: 1,
-    shadowColor: Colors.grey,
-    shadowOpacity: 0.26,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 10,
-    padding: 15,
-    justifyContent: "center",
-    alignItems: "flex-start",
-    backgroundColor: "white",
-  },
-  text: {
-    color: Colors.darkGrey,
-    fontSize: 15,
-  },
-});
+})
 
-export default ProfileItem;
+export default ProfileItem
