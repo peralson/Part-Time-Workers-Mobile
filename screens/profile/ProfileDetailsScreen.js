@@ -1,24 +1,25 @@
 // React
-import React from "react";
+import React from 'react';
 
 // React Native
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 
 //Constants
-import FontSize from "../../constants/FontSize";
-import FontFamily from "../../constants/FontFamily";
+import FontSize from '../../constants/FontSize';
+import FontFamily from '../../constants/FontFamily';
 
 // Components
-import Screen from "../../components/UI/Screen";
-import HomeWrapper from "../../components/UI/HomeWrapper";
-import BackButton from "../../components/UI/BackButton";
-import HeaderTitle from "../../components/UI/HeaderTitle";
-import Colors from "../../constants/Colors";
-import LinkItem from "../../components/profile/LinkItem";
-import ProfileItem from "../../components/profile/ProfileItem";
-import ProfileInfo from "../../components/profile/ProfileInfo";
-import Family from "../../constants/FontFamily";
-import Divider from "../../components/UI/Divider";
+import Screen from '../../components/UI/Screen';
+import HomeWrapper from '../../components/UI/HomeWrapper';
+import BackButton from '../../components/UI/BackButton';
+import HeaderTitle from '../../components/UI/HeaderTitle';
+import Colors from '../../constants/Colors';
+import LinkItem from '../../components/profile/LinkItem';
+import ProfileItem from '../../components/profile/ProfileItem';
+import ProfileInfo from '../../components/profile/ProfileInfo';
+import Family from '../../constants/FontFamily';
+import Divider from '../../components/UI/Divider';
+import ImagePicker from '../../components/UI/ImagePicker';
 
 const ProfileDetailsScreen = ({ navigation, route }) => {
   const { profile } = route.params;
@@ -28,46 +29,36 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
     <Screen>
       <HomeWrapper
         leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
-        rightComponent={<HeaderTitle title="Mi información" />}
+        rightComponent={<HeaderTitle title='Mi información' />}
       />
-      <ScrollView style={styles.container}>
-        <ProfileItem title="Nombre" content={profile.name} />
-        <ProfileItem title="Biografía" content={profile.description} />
-        <ProfileItem title="Email" content={profile.email} />
-        <ProfileItem title="Número de teléfono" content={profile.phoneNumber} />
-        <ProfileItem title="Dirección" content={profile.address} />
-        <ProfileItem title="Fecha de Nacimiento" content={profile.birthday} />
-        <ProfileInfo
-          title="Imagen personal"
-          image={profile.image}
-          containerStyle={{marginBottom: 15}}
-          titleStyle={{ fontSize: FontSize.medium }}
-        />
-        <ProfileInfo
-          title="Imagen profesional"
-          image={profile.professionalImage}
-          containerStyle={{marginBottom: 15}}
-          titleStyle={{ fontSize: FontSize.medium }}
-        />
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+        <ProfileItem title='Nombre' content={profile.name} />
+        <ProfileItem title='Biografía' content={profile.description} />
+        <ProfileItem title='Email' content={profile.email} />
+        <ProfileItem title='Número de teléfono' content={profile.phoneNumber} />
+        <ProfileItem title='Dirección' content={profile.address} />
+        <ProfileItem title='Fecha de Nacimiento' content={profile.birthday} />
+        <ImagePicker title="Imagen personal"image={profile.image} />
+        <ImagePicker title="Imagen profesional" image={profile.professionalImage} />
         <Divider />
         <LinkItem
-          title="Información legal"
-          icon="arrow-forward"
+          title='Información legal'
+          icon='arrow-forward'
           style={{
             color: Colors.black,
             fontSize: 17,
             fontFamily: Family.bold,
           }}
           onSelect={() =>
-            navigation.navigate("ProfileStack", {
-              screen: "ProfilePrivateDetails",
+            navigation.navigate('ProfileStack', {
+              screen: 'ProfilePrivateDetails',
               params: { profile: profile },
             })
           }
         />
         <LinkItem
-          title="Información de transporte"
-          icon="arrow-forward"
+          title='Información de transporte'
+          icon='arrow-forward'
           style={{
             color: Colors.black,
             fontSize: 17,
@@ -75,8 +66,8 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
             marginBottom: 10,
           }}
           onSelect={() =>
-            navigation.navigate("ProfileStack", {
-              screen: "ProfileDrivingDetails",
+            navigation.navigate('ProfileStack', {
+              screen: 'ProfileDrivingDetails',
               params: { profile: profile },
             })
           }
@@ -96,7 +87,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   imageRow: {
-    flexDirection: "row",
+    flexDirection: 'row',
   },
 });
 
