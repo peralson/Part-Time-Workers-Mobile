@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 // Screens & Stacks
 import OfferDetails from '../../screens/offers/OfferDetailsScreen'
+import Map from '../../screens/offers/MapScreen'
 
 const Stack = createStackNavigator()
 
@@ -18,6 +19,11 @@ const OffersStack = () => (
         <Stack.Screen
             name="OfferDetails" 
             component={OfferDetails}
+            options={defaultStackOptions}
+        />
+        <Stack.Screen
+            name="Map" 
+            component={Map}
             options={defaultStackOptions}
         />
     </Stack.Navigator>

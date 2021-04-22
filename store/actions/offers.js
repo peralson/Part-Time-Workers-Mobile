@@ -38,6 +38,9 @@ export const fetchOpenOffers = () => {
                     offer.data.offerData.schedule,
                     offer.data.offerData.salary,
                     offer.data.offerData.extraSalary,
+                    "ID Neemboo",
+                    "AJE Neemboo",
+                    "https://www.mintformations.co.uk/blog/wp-content/uploads/2020/05/shutterstock_583717939.jpg"
                 )
             )
         })

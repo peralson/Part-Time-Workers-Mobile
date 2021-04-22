@@ -12,6 +12,9 @@ class Offer {
         schedule,
         salary,
         extraSalary,
+        companyId,
+        companyName,
+        companyImage
     ) {
         this.id = id
         this.name = name
@@ -25,6 +28,9 @@ class Offer {
         this.schedule = schedule
         this.salary = salary
         this.extraSalary = extraSalary
+        this.companyId = companyId
+        this.companyName = companyName
+        this.companyImage = companyImage
     }
 }
 
