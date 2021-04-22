@@ -61,7 +61,7 @@ const ProfileHomeScreen = ({ navigation }) => {
 
   return (
     <Screen>
-      <ProfileInfo title={profile.name} image={profile.image} percentage="40%" />
+      <ProfileInfo title={profile.name} image={profile.image} percentage={40} />
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <SectionContainer>
           <Label>Mi perfil</Label>

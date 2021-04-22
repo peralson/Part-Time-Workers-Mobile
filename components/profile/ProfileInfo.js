@@ -1,27 +1,32 @@
 // React
-import React from "react";
+import React from "react"
 
 // React Native
-import { Image, Text, StyleSheet, View } from "react-native";
+import {
+  Image,
+  Text,
+  StyleSheet,
+  View
+} from "react-native"
 
 // Constants
-import Colors from "../../constants/Colors";
-import Family from "../../constants/FontFamily";
-import Size from "../../constants/FontSize";
+import Colors from "../../constants/Colors"
+import Family from "../../constants/FontFamily"
+import Size from "../../constants/FontSize"
 
 const ProfileInfo = ({
   title,
   image,
   percentage,
-  titleStyle,
+  titleStyle
 }) => (
   <View style={styles.component}>
     <View style={styles.profile}>
       <View style={styles.profileMainText}>
         <Text style={{ ...styles.name, ...titleStyle }}>{title}</Text>
         {percentage && (
-          <Text style={styles.profileState}>
-            Perfil incompleto ({percentage})
+          <Text style={percentage === 100 ? { ...styles.profileState, ...{ color: 'green' }} : styles.profileState}>
+            {percentage === 100 ? 'Perfil completo' : `Perfil incompleto (${percentage}%)`}
           </Text>
         )}
       </View>
@@ -69,7 +74,6 @@ const styles = StyleSheet.create({
     fontSize: Size.tiny,
     color: "red",
     marginTop: 12,
-    paddingLeft: 2,
   },
   itemContainer: {
     paddingHorizontal: 8,
