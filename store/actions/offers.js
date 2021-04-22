@@ -5,13 +5,16 @@ export const FETCH_OPEN_OFFERS = 'FETCH_OPEN_OFFERS'
 import Offer from '../../models/Offer'
 
 export const fetchOpenOffers = () => {
-    return async dispatch => {
+    return async (dispatch, getState) => {
+        const token = getState().auth.token
+
         const response = await fetch(
-            'https://us-central1-partime-60670.cloudfunctions.net/api/offer',
+            'https://us-central1-partime-60670.cloudfunctions.net/api/offer/myOffers',
             {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application.json'
+                    'Content-Type': 'application.json',
+                    'Authorization': `Bearer ${token}`
                 }
             }
         )
@@ -24,15 +27,17 @@ export const fetchOpenOffers = () => {
             loadedOffers.push(
                 new Offer(
                     offer.id,
-                    offer.data.category,
-                    { address: 'Poeta Alonso de Bonilla, 19, Córdoba, España' },
-                    offer.data.date,
-                    offer.data.description,
-                    offer.data.qty,
-                    offer.data.already_assigned,
-                    offer.data.schedule,
-                    offer.data.salary,
-                    offer.data.extraSalary,
+                    offer.data.eventData.name,
+                    offer.data.offerData.category,
+                    offer.data.eventData.location,
+                    offer.data.eventData.date,
+                    offer.data.eventData.description,
+                    offer.data.offerData.description,
+                    offer.data.offerData.qty,
+                    offer.data.offerData.already_assigned,
+                    offer.data.offerData.schedule,
+                    offer.data.offerData.salary,
+                    offer.data.offerData.extraSalary,
                 )
             )
         })

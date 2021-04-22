@@ -2,9 +2,39 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 // Actions
 export const AUTHENTICATE = 'AUTHENTICATE'
+export const LOGIN = 'LOGIN'
 export const LOGOUT = 'LOGOUT'
 
 let timer
+
+export const fakeLogin = () => {
+    return async dispatch => {
+        const response = await fetch(
+            'https://us-central1-partime-60670.cloudfunctions.net/api/auth/login/',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application.json',
+                },
+                body: JSON.stringify({
+                    "email": "micromartino@gmail.com",
+                    "password": "123456"
+                })
+            }
+        )
+
+        const resData = await response.json()
+
+        console.log('\n')
+        console.log('\n')
+        console.log(resData)
+
+        // dispatch({
+        //     type: LOGIN,
+        //     token: resData
+        // })
+    }
+}
 
 export const login = data => {
     return async dispatch => {

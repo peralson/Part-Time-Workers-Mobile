@@ -19,7 +19,7 @@ const IsLoading = () => (
 
 const styles = StyleSheet.create({
     centered: {
-        height: '85%',
+        height: '100%',
         justifyContent: 'center',
         alignItems: 'center'
     }

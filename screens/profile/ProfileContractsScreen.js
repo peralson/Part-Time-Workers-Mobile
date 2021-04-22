@@ -8,11 +8,15 @@ import { StyleSheet, Text, View } from 'react-native'
 import Screen from '../../components/UI/Screen'
 import HomeWrapper from '../../components/UI/HomeWrapper'
 import BackButton from '../../components/UI/BackButton'
+import HeaderTitle from '../../components/UI/HeaderTitle'
 
 const ProfileContractsScreen = ({ navigation }) => {
     return (
         <Screen>
-            <HomeWrapper leftComponent={<BackButton onGoBack={() => navigation.goBack()} />} />
+            <HomeWrapper
+                leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
+                rightComponent={<HeaderTitle title="Contratos" />}
+            />
         </Screen>
     )
 }

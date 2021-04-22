@@ -9,9 +9,6 @@ import {
     TouchableOpacity
 } from 'react-native'
 
-// Expo
-import { Ionicons } from '@expo/vector-icons'
-
 // Libs
 import formattedSalary from '../../libs/formattedSalary'
 import totalHoursCalc from '../../libs/totalHoursCalc'
@@ -25,21 +22,21 @@ import Size from '../../constants/FontSize'
 
 // Components
 import Card from '../UI/Card'
+import ApplyButton from '../offers/ApplyButton'
 
-const OfferItem = ({ onSelect, onApplication, category, location, qty, alreadyAssigned, date, schedule, salary }) => {
+const OfferItem = ({ onSelect, onApplication, name, category, location, qty, alreadyAssigned, date, schedule, salary }) => {
     const { hours, minutes } = totalHoursCalc(schedule)
     const total = salary * (hours + (minutes / 60))
+
+    if (alreadyAssigned / qty === 1) return null
     
     return (
         <TouchableOpacity activeOpacity={0.8} onPress={onSelect}>
             <Card>
                 <View style={styles.topContainer}>
                     <View style={styles.titleLocation}>
-                        <Text style={styles.title}>{category}</Text>
-                        <View style={styles.locationContainer}>
-                            <Ionicons name="location-outline" color={Colors.darkGrey} size={Size.tiny} />
-                            <Text style={styles.location}>{location.address.split(',')[0]}</Text>
-                        </View>
+                        <Text style={styles.title}>{name}</Text>
+                        <Text style={styles.location}>{category} | {location.address.split(',')[0]}</Text>
                     </View>
                     <View style={styles.date}>
                         <Text style={styles.day}>{moment(date).format('DD')}</Text>
@@ -54,21 +51,18 @@ const OfferItem = ({ onSelect, onApplication, category, location, qty, alreadyAs
                     <View style={styles.column}>
                         <Text style={styles.columnTop}>
                             {hours}
-                            {minutes === 0 ?
-                                '' :
+                            {minutes !== 0 && (
                                 minutes < 10 ?
                                     `:0${minutes}` :
                                     `:${minutes}`
-                            }
+                            )}
                         </Text>
                         <Text style={styles.columnBottom}>horas</Text>
                     </View>
                     <Text style={styles.amount}>{total.toFixed(0)}€</Text>
                 </View>
                 <View style={styles.bottomContainer}>
-                    <TouchableOpacity style={styles.buttonContainer} activeOpacity={0.8} onPress={onApplication}>
-                        <Text style={styles.button}>Aplicar ({`${alreadyAssigned}/${qty}`})</Text>
-                    </TouchableOpacity>
+                    <ApplyButton qty={qty} alreadyAssigned={alreadyAssigned} onSelect={onApplication} />
                     <Text style={styles.more}>Ver más</Text>
                 </View>
             </Card>
@@ -93,15 +87,10 @@ const styles = StyleSheet.create({
         color: Colors.black,
         marginBottom: 8
     },
-    locationContainer: {
-        flexDirection: 'row',
-        alignItems: 'flex-end',
-    },
     location: {
         fontFamily: Family.normal,
         fontSize: Size.tiny,
         color: Colors.darkGrey,
-        marginLeft: 4
     },
     date: {
         padding: 8,
@@ -146,18 +135,6 @@ const styles = StyleSheet.create({
     bottomContainer: {
         flexDirection: 'row',
         alignItems: 'center'
-    },
-    buttonContainer: {
-        paddingVertical: 16,
-        alignItems: 'center',
-        flex: 1,
-        backgroundColor: Colors.lightAccent,
-        borderRadius: 16
-    },
-    button: {
-        fontFamily: Family.bold,
-        fontSize: Size.tiny,
-        color: Colors.accent
     },
     more: {
         fontFamily: Family.normal,

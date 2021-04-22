@@ -4,6 +4,10 @@ import React from "react";
 // React Native
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 
+//Constants
+import FontSize from "../../constants/FontSize";
+import FontFamily from "../../constants/FontFamily";
+
 // Components
 import Screen from "../../components/UI/Screen";
 import HomeWrapper from "../../components/UI/HomeWrapper";
@@ -37,13 +41,13 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
           title="Imagen personal"
           image={profile.image}
           containerStyle={{marginBottom: 15}}
-          titleStyle={{ fontSize: 17 }}
+          titleStyle={{ fontSize: FontSize.medium }}
         />
         <ProfileInfo
           title="Imagen profesional"
           image={profile.professionalImage}
           containerStyle={{marginBottom: 15}}
-          titleStyle={{ fontSize: 17 }}
+          titleStyle={{ fontSize: FontSize.medium }}
         />
         <Divider />
         <LinkItem
