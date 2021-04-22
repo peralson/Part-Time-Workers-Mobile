@@ -17,13 +17,12 @@ import Size from "../../constants/FontSize"
 const ProfileInfo = ({
   title,
   image,
-  percentage,
-  titleStyle
+  percentage
 }) => (
   <View style={styles.component}>
     <View style={styles.profile}>
       <View style={styles.profileMainText}>
-        <Text style={{ ...styles.name, ...titleStyle }}>{title}</Text>
+        <Text style={styles.name}>{title}</Text>
         {percentage && (
           <Text style={percentage === 100 ? { ...styles.profileState, ...{ color: 'green' }} : styles.profileState}>
             {percentage === 100 ? 'Perfil completo' : `Perfil incompleto (${percentage}%)`}
@@ -39,14 +38,14 @@ const ProfileInfo = ({
 
 const styles = StyleSheet.create({
   component: {
-    paddingTop: Platform.OS === "android" ? 16 : 72,
+    paddingTop: Platform.OS === 'android' ? 16 : 72,
     backgroundColor: Colors.white,
     borderBottomColor: Colors.grey,
     borderBottomWidth: 0.6,
   },
   profile: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingHorizontal: 24,
     paddingBottom: 16,
   },
@@ -54,11 +53,11 @@ const styles = StyleSheet.create({
     height: 48,
     width: 48,
     borderRadius: 4,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   image: {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
   },
   profileMainText: {
     flex: 1,
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
   profileState: {
     fontFamily: Family.normal,
     fontSize: Size.tiny,
-    color: "red",
+    color: 'red',
     marginTop: 12,
   },
   itemContainer: {
@@ -86,4 +85,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileInfo;
+export default ProfileInfo

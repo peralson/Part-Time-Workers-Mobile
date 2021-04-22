@@ -1,63 +1,53 @@
 // React
-import React from "react";
+import React from 'react';
 
 // React Native
 import {
-  ScrollView,
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  Share,
-  Linking,
-  Alert,
-} from "react-native";
-
-// Constants
-import Colors from "../../constants/Colors";
-
-// Expo
-import { Ionicons } from "@expo/vector-icons";
+    ScrollView,
+    StyleSheet,
+    Linking,
+    Alert,
+} from 'react-native'
 
 // Redux
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
 
 // Actions
 // import * as authActions from '../../store/actions/auth'
 
 // Components
-import ProfileInfo from "../../components/profile/ProfileInfo";
-import Screen from "../../components/UI/Screen";
-import SectionContainer from "../../components/UI/SectionContainer";
-import Label from "../../components/UI/Label";
-import LabelInfo from "../../components/UI/LabelInfo";
-import LinkItem from "../../components/profile/LinkItem";
+import ProfileInfo from '../../components/profile/ProfileInfo';
+import Screen from '../../components/UI/Screen';
+import SectionContainer from '../../components/UI/SectionContainer';
+import Label from '../../components/UI/Label';
+import LabelInfo from '../../components/UI/LabelInfo';
+import LinkItem from '../../components/profile/LinkItem';
 
 const ProfileHomeScreen = ({ navigation }) => {
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  const profile = {
-    name: "Tito Martin Roch",
-    image:
-      "https://media-exp1.licdn.com/dms/image/C5603AQE4UkXJA_04OQ/profile-displayphoto-shrink_800_800/0/1519913090300?e=1624492800&v=beta&t=3rO6IYYAAOYbLe-1ZBJT6QJ2NiA8P1uuxkv9uk4AHCU",
-    description:
-      "Hago fotos con cámaras muy caras y cuando tengo tiempo libre salgo a pescar",
-    address: "Avenida de Barcelona",
-    email: "tito@tito.com",
-    phoneNumber: "984123432",
-    birthday: "12-3-1996",
-    professionalImage:
-      "https://www.altonivel.com.mx/wp-content/uploads/2018/02/presentacion-de-negocios-profesional.jpg",
-    nationality: "Spain",
-    dniNumber: "35289473R",
-    dniImage: "dniImage",
-    dniExpiryDate: "20-4-22",
-    gender: "male",
-    ssNumber: "834759384753489",
-    bankAccount: "234829347982349",
-    carLicense: "car license image",
-    hasCar: "yes",
-  };
+    const profile = {
+        name: 'Tito Martin Roch',
+        image:
+            'https://media-exp1.licdn.com/dms/image/C5603AQE4UkXJA_04OQ/profile-displayphoto-shrink_800_800/0/1519913090300?e=1624492800&v=beta&t=3rO6IYYAAOYbLe-1ZBJT6QJ2NiA8P1uuxkv9uk4AHCU',
+        description:
+            'Hago fotos con cámaras muy caras y cuando tengo tiempo libre salgo a pescar',
+        address: 'Avenida de Barcelona',
+        email: 'tito@tito.com',
+        phoneNumber: '984123432',
+        birthday: '12-3-1996',
+        professionalImage:
+            'https://www.altonivel.com.mx/wp-content/uploads/2018/02/presentacion-de-negocios-profesional.jpg',
+        nationality: 'Spain',
+        dniNumber: '35289473R',
+        dniImage: 'dniImage',
+        dniExpiryDate: '20-4-22',
+        gender: 'male',
+        ssNumber: '834759384753489',
+        bankAccount: '234829347982349',
+        carLicense: 'car license image',
+        hasCar: 'yes',
+    };
 
   return (
     <Screen>
