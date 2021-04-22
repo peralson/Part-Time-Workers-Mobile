@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
         color: Colors.darkGrey,
         fontFamily: Family.normal,
         fontSize: Size.small,
-        paddingHorizontal: 24,
-        lineHeight: 21
+        lineHeight: 21,
+        paddingBottom: 8,
     }
 })
 

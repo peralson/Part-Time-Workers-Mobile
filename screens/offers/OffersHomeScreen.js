@@ -12,13 +12,13 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 
 // Actions
+import * as authActions from '../../store/actions/auth'
 import * as offersActions from '../../store/actions/offers'
 
 // Components
 import Screen from '../../components/UI/Screen'
 import HomeWrapper from '../../components/UI/HomeWrapper'
 import HeaderTitle from '../../components/UI/HeaderTitle'
-import HomeDesc from '../../components/UI/HomeDesc'
 import IsLoading from '../../components/UI/IsLoading'
 import NoOffers from '../../components/offers/NoOffers'
 import OfferItem from '../../components/offers/OfferItem'
@@ -28,6 +28,8 @@ const OffersHomeScreen = ({ navigation }) => {
     const offers = useSelector(state => state.offers.openOffers)
 
     const dispatch = useDispatch()
+
+    // dispatch(authActions.fakeLogin())
 
     const loadOffers = async () => {
         try {
@@ -56,10 +58,7 @@ const OffersHomeScreen = ({ navigation }) => {
 
     return (
         <Screen>
-            <HomeWrapper leftComponent={<HeaderTitle title="Ofertas" />} />
-            <HomeDesc>
-                Aquí llegarán las ofertas de trabajo de las empresas que busquen contratarte.
-            </HomeDesc>
+            <HomeWrapper leftComponent={<HeaderTitle title="Ofertas" />} description="Aquí llegarán las ofertas de trabajo de las empresas que busquen contratarte." />
             {isLoading ? <IsLoading /> : (
                 <>
                     {offers.length === 0 ? <NoOffers /> : (

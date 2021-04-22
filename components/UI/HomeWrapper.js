@@ -4,22 +4,34 @@ import React from 'react'
 // React Native
 import { View, StyleSheet } from 'react-native'
 
-const HomeWrapper = ({ leftComponent, rightComponent }) => (
+// Constants
+import Colors from '../../constants/Colors'
+
+// Components
+import HomeDesc from './HomeDesc'
+
+const HomeWrapper = ({ leftComponent, rightComponent, description }) => (
     <View style={styles.header}>
-        {leftComponent ? leftComponent : <View></View>}
-        {rightComponent ? rightComponent : <View></View>}
+        <View style={styles.top}>
+            {leftComponent ? leftComponent : <View></View>}
+            {rightComponent ? rightComponent : <View></View>}
+        </View>
+        {description && <HomeDesc>{description}</HomeDesc>}
     </View>
 )
 
 const styles = StyleSheet.create({
     header: {
+        paddingHorizontal: 24,
+        paddingTop: 56,
+        borderBottomColor: Colors.grey,
+        borderBottomWidth: .6
+    },
+    top: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: '100%',
-        marginBottom: 8,
-        paddingHorizontal: 24,
-        paddingTop: 60
+        paddingBottom: 8
     },
 })
 
