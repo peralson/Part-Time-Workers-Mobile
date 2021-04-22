@@ -28,11 +28,13 @@ import ReduxThunk from 'redux-thunk'
 // Reducers
 import authReducer from './store/reducers/auth'
 import offersReducer from './store/reducers/offers'
+import applicationsReducer from './store/reducers/applications'
 
 // Introducimos todos nuestros reducers en un global
 const rootReducer = combineReducers({
     auth: authReducer,
-    offers: offersReducer
+    offers: offersReducer,
+    applications: applicationsReducer
 })
 
 // y agregamos nuestro reducer global al store de Redux
