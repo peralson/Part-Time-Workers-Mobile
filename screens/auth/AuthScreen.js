@@ -19,7 +19,6 @@ const AuthScreen = ({ navigation }) => {
     const handleLogIn = () => {
         firebase.auth().signInWithEmailAndPassword('micromartino@gmail.com', '123456')
             .then(({ user }) => {
-                console.log('que');
                 if (user.emailVerified) {
                     return firebase.auth().currentUser.getIdTokenResult(true)
                 } else {

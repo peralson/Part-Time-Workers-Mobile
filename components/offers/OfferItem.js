@@ -63,7 +63,9 @@ const OfferItem = ({ onSelect, onApplication, name, category, location, qty, alr
                 </View>
                 {onApplication && (
                     <View style={styles.bottomContainer}>
-                        <ApplyButton qty={qty} alreadyAssigned={alreadyAssigned} onSelect={onApplication} />
+                        <ApplyButton onSelect={onApplication}>
+                            Aplicar
+                        </ApplyButton>
                         <Text style={styles.more}>Ver más</Text>
                     </View>
                 )}

@@ -13,9 +13,9 @@ import Colors from '../../constants/Colors'
 import Family from '../../constants/FontFamily'
 import Size from '../../constants/FontSize'
 
-const ApplyButton = ({ onSelect }) => (
+const ApplyButton = ({ onSelect, children }) => (
     <TouchableOpacity style={styles.buttonContainer} activeOpacity={0.8} onPress={onSelect}>
-        <Text style={styles.button}>Aplicar</Text>
+        <Text style={styles.button}>{children}</Text>
     </TouchableOpacity>
 )
 

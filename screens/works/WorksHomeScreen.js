@@ -11,6 +11,9 @@ import { useSelector, useDispatch } from 'react-redux';
 //Actions
 import * as applicationsActions from '../../store/actions/applications';
 
+// Actions
+import * as applicationActions from '../../store/actions/applications';
+
 // Components
 import Screen from '../../components/UI/Screen';
 import HomeWrapper from '../../components/UI/HomeWrapper';
@@ -21,11 +24,32 @@ import OfferItem from '../../components/offers/OfferItem';
 import EmptyList from '../../components/works/EmptyList';
 
 const WorksHomeScreen = ({ navigation }) => {
-  const [isLoading, setLoading] = useState(false);
   const jobs = [];
-  const applications = useSelector(
-    (state) => state.applications.userApplications
+  const applications = []; // useSelector(state => state.offers.openOffers)
+
+  const dispatch = useDispatch();
+
+  const loadApplications = async () => {
+    try {
+      await dispatch(applicationActions.fetchOpenApplications());
+    } catch (e) {
+      console.log('error', e.message);
+    }
+  };
+
+  // Aseguramos que la pantalla repita el fetch cada vez que entre
+  useFocusEffect(
+    useCallback(() => {
+      loadApplications();
+    }, [dispatch])
   );
+
+  // Cargamos los proyectos de una manera visible al entrar por primera vez
+  useEffect(() => {
+    // setLoading(true)
+    loadApplications();
+    // .then(() => setLoading(false))
+  }, []);
 
   //Obtenemos los datos de las ofertas a partir de las aplicaciones
   const getOffers = (applications) => {
@@ -102,11 +126,12 @@ const WorksHomeScreen = ({ navigation }) => {
           <Label>Ofertas a las que he aplicado</Label>
           {applications.length === 0 ? (
             <EmptyList
-              quote='No tienes aplicaciones... ¡Aplícate!'
+              quote='No tienes aplicaciones...'
               image={require('../../assets/sin_posiciones.png')}
+              onApply={() => navigation.navigate('Home', { screen: 'Ofertas' })}
             />
           ) : (
-            offerApplications.map((application) => (
+            applications.map((application) => (
               <OfferItem
                 key={application.id}
                 {...application}

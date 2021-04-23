@@ -9,8 +9,7 @@ import { StyleSheet, FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Actions
-import * as authActions from '../../store/actions/auth';
-import * as offersActions from '../../store/actions/offers';
+import * as offersActions from '../../store/actions/offers'
 
 // Components
 import Screen from '../../components/UI/Screen';

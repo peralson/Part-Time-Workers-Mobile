@@ -2,7 +2,14 @@
 import React, { useState } from 'react'
 
 // React Native
-import { Alert, ScrollView, StyleSheet, View } from 'react-native'
+import {
+    Alert,
+    ScrollView,
+    StyleSheet,
+    View,
+    Platform,
+    Image
+} from 'react-native'
 
 // Expo
 import { Ionicons } from '@expo/vector-icons'
@@ -65,14 +72,11 @@ const OfferDetailScreen = ({ navigation, route }) => {
 
     const handleCancelApplication = () => {
         Alert.alert(
-            '¿Estas seguro?',
-            '',
-            [
-                { text: 'No' },
-                { text: 'Sí', style: 'destructive', onPress: () => {} },
-            ]
+            '¿Estas seguro?', '',
+            [{ text: 'No' }, { text: 'Sí', style: 'destructive', onPress: () => {} }]
         )
     }
+
     return (
         <Screen>
             <HomeWrapper
@@ -133,7 +137,9 @@ const OfferDetailScreen = ({ navigation, route }) => {
             </ScrollView>
             {(!application || !job) && (
                 <View onLayout={e => setHeight(e.nativeEvent.layout.height)} style={styles.bottomAbsolute}>
-                    <ApplyButton qty={offerData.qty} alreadyAssigned={offerData.alreadyAssigned} onSelect={offerApplicationHandler} />
+                    <ApplyButton onSelect={offerApplicationHandler}>
+                        Aplicar
+                    </ApplyButton>
                 </View>
             )}
         </Screen>
@@ -170,7 +176,7 @@ const styles = StyleSheet.create({
         bottom: 0,
         width: '100%',
         backgroundColor: Colors.white,
-        paddingBottom: 32,
+        paddingBottom: Platform.OS === 'ios' ? 32 : 8,
         paddingTop: 8,
         paddingHorizontal: 24,
         borderTopColor: Colors.grey,

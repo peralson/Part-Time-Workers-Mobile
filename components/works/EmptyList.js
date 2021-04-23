@@ -6,7 +6,8 @@ import {
     StyleSheet,
     Text,
     View,
-    Image
+    Image,
+    TouchableOpacity
 } from 'react-native'
 
 // Constants
@@ -14,7 +15,7 @@ import Colors from '../../constants/Colors'
 import Family from '../../constants/FontFamily'
 import Size from '../../constants/FontSize'
 
-const EmptyList = ({ image, quote }) => (
+const EmptyList = ({ image, quote, onApply }) => (
     <View style={styles.container}>
         <View style={styles.imageContainer}>
             <Image
@@ -24,13 +25,17 @@ const EmptyList = ({ image, quote }) => (
             />
         </View>
         <Text style={styles.quote}>{quote}</Text>
+        {quote === "No tienes aplicaciones..." && (
+            <TouchableOpacity activeOpacity={0.6} onPress={onApply}>
+                <Text style={styles.apply}>Aplica</Text>
+            </TouchableOpacity>
+        )}
     </View>
 )
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 16,
-        marginBottom: 32,
+        marginVertical: 32,
         alignItems: 'center'
     },
     imageContainer: {
@@ -48,6 +53,12 @@ const styles = StyleSheet.create({
         color: Colors.darkPrimary,
         textAlign: 'center',
         marginTop: 16
+    },
+    apply: {
+        padding: 16,
+        color: Colors.accent,
+        fontFamily: Family.normal,
+        fontSize: Size.small
     }
 })
 
