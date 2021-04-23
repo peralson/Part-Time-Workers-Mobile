@@ -18,7 +18,11 @@ import firebaseConfig from './env'
 import firebase from 'firebase/app'
 
 // Getting Firebase ready to go!
-firebase.initializeApp(firebaseConfig)
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}else {
+  firebase.app(); // if already initialized, use that one
+}
 
 // Redux
 import { createStore, combineReducers, applyMiddleware } from 'redux'
