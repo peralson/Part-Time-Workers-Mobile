@@ -11,14 +11,14 @@ import * as Font from 'expo-font'
 
 // Navigator
 import { NavigationContainer } from '@react-navigation/native'
-import MainNavigation from './navigation/MainNavigation'
+import AuthNavigation from './navigation/AuthNavigation'
 
 // Firebase Init
 import firebaseConfig from './env'
 import firebase from 'firebase/app'
 
 // Getting Firebase ready to go!
-// firebase.initializeApp(firebaseConfig)
+firebase.initializeApp(firebaseConfig)
 
 // Redux
 import { createStore, combineReducers, applyMiddleware } from 'redux'
@@ -65,7 +65,7 @@ const App = () => {
             <View style={{ flex: 1 }}>
                 <StatusBar style="dark" />
                 <NavigationContainer>
-                    <MainNavigation />
+                    <AuthNavigation />
                 </NavigationContainer>
             </View>
         </Provider>

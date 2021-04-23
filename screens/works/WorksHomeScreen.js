@@ -27,7 +27,22 @@ const WorksHomeScreen = ({ navigation }) => {
     (state) => state.applications.userApplications
   );
 
-  // const applications = [];
+  //Obtenemos los datos de las ofertas a partir de las aplicaciones
+  const getOffers = (applications) => {
+    let offers = [];
+    applications.map((application) =>
+      offers.push(
+        useSelector((state) =>
+          state.offers.openOffers.find(
+            (offer) => offer.id === application.offerId
+          )
+        )
+      )
+    );
+    return offers;
+  };
+
+  const offerApplications = getOffers(applications);
 
   const dispatch = useDispatch();
 
@@ -52,21 +67,6 @@ const WorksHomeScreen = ({ navigation }) => {
     setLoading(true);
     loadApplications().then(() => setLoading(false));
   }, []);
-
-
-  const getOffers = (applications) => {
-    let offers = [];
-    applications.map((application) =>
-      offers.push(
-        useSelector((state) =>
-          state.offers.openOffers.find(
-            (offer) => offer.id === application.offerId
-          )
-        )
-      )
-    );
-    return offers;
-  };
 
   const offerDetailHandler = (offerId) => {
     navigation.navigate('OffersStack', {
@@ -106,7 +106,7 @@ const WorksHomeScreen = ({ navigation }) => {
               image={require('../../assets/sin_posiciones.png')}
             />
           ) : (
-            getOffers(applications).map((application) => (
+            offerApplications.map((application) => (
               <OfferItem
                 key={application.id}
                 {...application}

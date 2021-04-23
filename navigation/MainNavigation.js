@@ -12,6 +12,7 @@ import OffersStack from './Stacks/OffersStack'
 import ApplicationsStack from './Stacks/ApplicationsStack'
 
 // Other Screens
+import AuthScreen from '../screens/auth/AuthScreen'
 
 // Tab & Stack declarations
 const Stack = createStackNavigator()
@@ -46,7 +47,7 @@ const AppNavigation = () => (
 )
 
 const MainNavigation = createSwitchNavigator({
-    // Auth: AuthScreen,
+    Auth: AuthScreen,
     App: AppNavigation
 })
 

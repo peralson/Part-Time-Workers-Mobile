@@ -26,15 +26,13 @@ const OffersHomeScreen = ({ navigation }) => {
 
   const dispatch = useDispatch();
 
-  // dispatch(authActions.fakeLogin())
-
-  const loadOffers = async () => {
-    try {
-      await dispatch(offersActions.fetchOpenOffers());
-    } catch (e) {
-      console.log('error', e.message);
+    const loadOffers = async () => {
+        try {
+            await dispatch(offersActions.fetchOpenOffers())
+        } catch (e) { 
+            console.log('error', e.message)
+        }
     }
-  };
 
   // Aseguramos que la pantalla repita el fetch cada vez que entre
   useFocusEffect(
