@@ -21,57 +21,59 @@ import OfferItem from '../../components/offers/OfferItem';
 import EmptyList from '../../components/works/EmptyList';
 
 const WorksHomeScreen = ({ navigation }) => {
-  const [isLoading, setLoading] = useState(false);
-  const dispatch = useDispatch();
-  const jobs = [];
-  const applications = useSelector(
-    (state) => state.applications.userApplications
-  );
-  const offers = useSelector((state) => state.offers.openOffers);
+  const [isLoading, setLoading] = useState(false)
 
-  const getOffers = (applications) => {
-    let offerApplications = [];
-    applications.map((application) =>
-      application.state === 'pending'
-        ? offerApplications.push(
-            offers.find((offer) => offer.id === application.offerId)
-          )
-        : null
-    );
-    return offerApplications;
+  const jobs = []
+  const applications = useSelector(state => state.applications.userApplications)
+  const offers = useSelector(state => state.offers.openOffers)
+
+  const dispatch = useDispatch()
+
+  const getOffers = applications => {
+    let offerApplications = []
+
+    applications.map(application => {
+      if (application.state === 'pending') {
+        const found = offers.find(offer => offer.id === application.offerId)
+        found.applicationId = application.id
+        offerApplications.push(found)
+      }
+    })
+
+    return offerApplications
   };
 
 
   const loadApplications = async () => {
     try {
-      await dispatch(applicationsActions.fetchApplications());
+      await dispatch(applicationsActions.fetchApplications())
     } catch (e) {
-      console.log('error', e.message);
+      console.log('error', e.message)
     }
   };
 
   // Aseguramos que la pantalla repita el fetch cada vez que entre
   useFocusEffect(
     useCallback(() => {
-      loadApplications();
+      loadApplications()
     }, [dispatch, setLoading])
   );
 
   // Cargamos los proyectos de una manera visible al entrar por primera vez
   useEffect(() => {
-    setLoading(true);
-    loadApplications().then(() => setLoading(false));
-  }, []);
+    setLoading(true)
+    loadApplications().then(() => setLoading(false))
+  }, [])
 
-  const offerDetailHandler = (offerId) => {
+  const offerDetailHandler = (offerId, applicationId) => {
     navigation.navigate('OffersStack', {
       screen: 'OfferDetails',
       params: {
         offerId: offerId,
-        application: true,
-      },
-    });
-  };
+        applicationId: applicationId
+      }
+    })
+  }
 
   return (
     <Screen>
@@ -96,19 +98,12 @@ const WorksHomeScreen = ({ navigation }) => {
         <View style={{ paddingHorizontal: 24 }}>
           <Label>Ofertas a las que he aplicado</Label>
           {applications.length === 0 ? (
-            <EmptyList
-              quote='No tienes aplicaciones...'
-              image={require('../../assets/sin_posiciones.png')}
-              onApply={() => navigation.navigate('Home', { screen: 'Ofertas' })}
-            />
-          ) : (
-            getOffers(applications).map((application) => (
-              <OfferItem
-                key={application.id}
-                {...application}
-                onSelect={() => offerDetailHandler(application.id)}
+              <EmptyList
+                quote='No tienes aplicaciones...'
+                image={require('../../assets/sin_posiciones.png')}
+                onApply={() => navigation.navigate('Home', { screen: 'Ofertas' })}
               />
-            ))
+            ) : getOffers(applications).map(application => <OfferItem key={application.id} {...application} onSelect={() => offerDetailHandler(application.id, application.applicationId)} />
           )}
         </View>
       </ScrollView>

@@ -7,8 +7,7 @@ import {
     ScrollView,
     StyleSheet,
     View,
-    Platform,
-    Image
+    Platform
 } from 'react-native'
 
 // Expo
@@ -16,7 +15,10 @@ import { Ionicons } from '@expo/vector-icons'
 import * as Calendar from 'expo-calendar'
 
 // Redux
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+
+// Actions
+import * as applicationActions from '../../store/actions/applications'
 
 // Libs
 import formattedSalary from '../../libs/formattedSalary'
@@ -46,8 +48,10 @@ import OfferContract from '../../components/offers/OfferContract'
 const OfferDetailScreen = ({ navigation, route }) => {
     const [height, setHeight] = useState(0)
 
-    const { offerId, application, job } = route.params
+    const { offerId, applicationId, job } = route.params
     const offerData = useSelector(state => state.offers.openOffers.find(offer => offer.id === offerId))
+
+    const dispatch = useDispatch()
 
     const { hours, minutes } = totalHoursCalc(offerData.schedule)
     const totalSalary = ((hours + (minutes / 60)) * offerData.salary).toFixed(0)
@@ -66,14 +70,24 @@ const OfferDetailScreen = ({ navigation, route }) => {
         const { status } = await Calendar.requestCalendarPermissionsAsync()
         
         if (status === 'granted') {
-          createCalendar()
+            createCalendar()
         }
     }
 
     const handleCancelApplication = () => {
         Alert.alert(
             '¿Estas seguro?', '',
-            [{ text: 'No' }, { text: 'Sí', style: 'destructive', onPress: () => {} }]
+            [
+                { text: 'No' },
+                {
+                    text: 'Sí',
+                    style: 'destructive',
+                    onPress: async () => {
+                        await dispatch(applicationActions.cancelApplication(applicationId))
+                        navigation.navigate('Home', { screen: 'Trabajos' })
+                    }
+                }
+            ]
         )
     }
 
@@ -81,11 +95,10 @@ const OfferDetailScreen = ({ navigation, route }) => {
         <Screen>
             <HomeWrapper
                 leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
-                rightComponent={application && <TopRightButton title="Anular aplicación" color="red" onSelect={handleCancelApplication} />}
+                rightComponent={applicationId && <TopRightButton title="Anular aplicación" color="red" onSelect={handleCancelApplication} />}
             />
             <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1, marginBottom: height, paddingVertical: 16, paddingHorizontal: 24 }}>
                 <OfferHeader category={offerData.category} name={offerData.name} totalSalary={totalSalary} />
-
                 <DetailsContainer>
                     <DetailItem
                         title={moment(offerData.date).format('D MMMM')}
@@ -108,17 +121,14 @@ const OfferDetailScreen = ({ navigation, route }) => {
                         />
                     )}
                 </DetailsContainer>
-
                 {offerData.requirements.length !== 0 && (
                     <>
                         <Label>Requerimientos</Label>
                         <Description>{offerData.requirements}</Description>
                     </>
                 )}
-
                 <Label>Horario</Label>
                 <Schedules schedules={offerData.schedule} hours={hours} minutes={minutes} />
-
                 <Label>Más información</Label>
                 <OfferCompany name={offerData.companyName} image={offerData.companyImage} />
                 <OfferInfoItem left="Salario" right={formattedSalary(offerData.salary) + '€'} />
@@ -131,11 +141,10 @@ const OfferDetailScreen = ({ navigation, route }) => {
                         <Description>{offerData.description}</Description>
                     </>
                 )}
-
                 <Label>Contrato</Label>
                 <OfferContract name="Contrato de camarero" onSelect={() => {}} />
             </ScrollView>
-            {(!application || !job) && (
+            {(!applicationId || !job) && (
                 <View onLayout={e => setHeight(e.nativeEvent.layout.height)} style={styles.bottomAbsolute}>
                     <ApplyButton onSelect={offerApplicationHandler}>
                         Aplicar

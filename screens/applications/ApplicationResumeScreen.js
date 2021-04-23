@@ -31,19 +31,16 @@ const ApplicationResumeScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
 
   const offerApplicationHandler = async () => {
-    setLoading(true);
-    await dispatch(applicationActions.sendApplication(offerId));
-    navigation.navigate('Home', { screen: 'Ofertas' });
-    setLoading(false);
+    setLoading(true)
+    await dispatch(applicationActions.sendApplication(offerId))
+    navigation.navigate('Home', { screen: 'Ofertas' })
+    setLoading(false)
   };
 
   return (
     <Screen>
-      <HomeWrapper
-        leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
-      />
-      <ScrollView
-        showsVerticalScrollIndicator={false}
+      <HomeWrapper leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}/>
+      <ScrollView showsVerticalScrollIndicator={false}
         style={{
           flex: 1,
           paddingTop: 16,
@@ -53,10 +50,7 @@ const ApplicationResumeScreen = ({ navigation, route }) => {
       >
         <Text>{offerData.category}</Text>
       </ScrollView>
-      <View
-        onLayout={(e) => setHeight(e.nativeEvent.layout.height)}
-        style={styles.bottomAbsolute}
-      >
+      <View onLayout={(e) => setHeight(e.nativeEvent.layout.height)} style={styles.bottomAbsolute}>
         <ApplyButton onSelect={offerApplicationHandler}>
           {isLoading ? 'Aplicando...' : 'Aplicar'}
         </ApplyButton>
