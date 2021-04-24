@@ -1,15 +1,15 @@
-import { FETCH_APPLICATIONS } from '../actions/applications'
+import { FETCH_JOBS } from '../actions/jobs'
 
 const initialState = {
-    userApplications: [],
+    userJobs: [],
 }
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_APPLICATIONS:
+        case FETCH_JOBS:
             return {
                 ...state,
-                userApplications: action.userApplications
+                userJobs: action.userJobs
             }
           
         default:

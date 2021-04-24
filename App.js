@@ -1,9 +1,6 @@
 // React
 import React, { useState } from 'react'
 
-// React Native
-import { View } from 'react-native'
-
 // Expo
 import { StatusBar } from 'expo-status-bar'
 import AppLoading from 'expo-app-loading'
@@ -19,9 +16,9 @@ import firebase from 'firebase/app'
 
 // Getting Firebase ready to go!
 if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
+    firebase.initializeApp(firebaseConfig)
 }else {
-  firebase.app(); // if already initialized, use that one
+    firebase.app() // if already initialized, use that one
 }
 
 // Redux
@@ -33,22 +30,24 @@ import ReduxThunk from 'redux-thunk'
 import authReducer from './store/reducers/auth'
 import offersReducer from './store/reducers/offers'
 import applicationsReducer from './store/reducers/applications'
+import jobsReducer from './store/reducers/jobs'
 
 // Introducimos todos nuestros reducers en un global
 const rootReducer = combineReducers({
     auth: authReducer,
     offers: offersReducer,
-    applications: applicationsReducer
+    applications: applicationsReducer,
+    jobs: jobsReducer
 })
 
 // y agregamos nuestro reducer global al store de Redux
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk))
     
 const fetchFonts = async () => {
-  return await Font.loadAsync({
-      'gotham-book': require('./assets/fonts/Gotham-Book.otf'),
-      'gotham-bold': require('./assets/fonts/Gotham-Bold.otf'),
-  })
+    return await Font.loadAsync({
+        'gotham-book': require('./assets/fonts/Gotham-Book.otf'),
+        'gotham-bold': require('./assets/fonts/Gotham-Bold.otf')
+    })
 }
 
 const App = () => {
@@ -66,12 +65,10 @@ const App = () => {
 
     return (
         <Provider store={store}>
-            <View style={{ flex: 1 }}>
-                <StatusBar style="dark" />
-                <NavigationContainer>
-                    <AuthNavigation />
-                </NavigationContainer>
-            </View>
+            <StatusBar style="dark" />
+            <NavigationContainer>
+                <AuthNavigation />
+            </NavigationContainer>
         </Provider>
     )
 }

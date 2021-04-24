@@ -1,14 +1,9 @@
 class Application {
-  constructor (
-      id,
-      state,
-      offerId,
-      userId,
-  ) {
-      this.id = id
-      this.state = state
-      this.offerId = offerId
-      this.userId = userId
+  constructor (offerData, eventData, companyData, applicationData) {
+      this.offerData = offerData
+      this.eventData = eventData
+      this.companyData = companyData
+      this.applicationData = applicationData
   }
 }
 

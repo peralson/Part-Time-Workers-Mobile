@@ -7,64 +7,98 @@ export const CANCEL_APPLICATIONS = 'CANCEL_APPLICATION'
 import Application from '../../models/Application'
 
 export const fetchApplications = userId => {
-  return async (dispatch, getState) => {
+	return async (dispatch, getState) => {
+		// const token = getState().auth.token
 
-    //TODO conectar a firebase
+		// const response = await fetch(
+		// 	`https://us-central1-partime-60670.cloudfunctions.net/api/application/myApplications`,
+		// 	{
+		// 		method: 'GET',
+		// 		headers: {
+		// 			'Content-Type': 'application.json',
+		// 			'Authorization': `Bearer ${token}`
+		// 		}
+		// 	}
+		// )
+		
+		// const resData = await response.json()
 
-    const loadedApplications = []
+		const loadedApplications = []
 
-    loadedApplications.push(
-      new Application(49384, 'pending', 'hOz2u0cC3EJnPoEwmzKP', 'userid')
-    )
+		// loadedApplications.push(
+		// 	new Application(
+		// 		{
+		// 			id: '123456',
+		// 			category: 'Camarero',
+		// 			qty: 2,
+		// 			alreadyAssigned: 1,
+		// 			schedule: [{ start: { _seconds: 0 }, end: { _seconds: 100000 } }],
+		// 			salary: 12,
+		// 			extraSalary: 15,
+		// 			requirements: 'Nada de malroyismo'
+		// 		},
+		// 		{
+		// 			name: 'Boda Isabel y Marcos',
+		// 			location: { address: 'Poeta Paredes 50', lat: 40.200000, lng: -1.225543 },
+		// 			date: 1234561789,
+		// 			description: 'Se ha liado parda en la boda'
+		// 		},
+		// 		{
+		// 			id: '1000',
+		// 			name: 'AJE Neemboo',
+		// 			image: ''
+		// 		},
+		// 		{
+		// 			id: '100000'
+		// 		}
+		// 	)
+		// )
 
-    dispatch({
-      type: FETCH_APPLICATIONS,
-      userApplications: loadedApplications,
-    })
-  }
+		dispatch({
+			type: FETCH_APPLICATIONS,
+			userApplications: loadedApplications,
+		})
+	}
 }
 
 export const sendApplication = offerId => {
-  return async (dispatch, getState) => {
-    const token = getState().auth.token
+	return async (dispatch, getState) => {
+		const token = getState().auth.token
 
-    const response = await fetch(
-        `https://us-central1-partime-60670.cloudfunctions.net/api/application/apply/${offerId}`,
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application.json',
-                'Authorization': `Bearer ${token}`
-            }
-        }
-    )
+		const response = await fetch(
+			`https://us-central1-partime-60670.cloudfunctions.net/api/application/apply/${offerId}`,
+			{
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application.json',
+					'Authorization': `Bearer ${token}`
+				}
+			}
+		)
 
-    const resData = await response.json()
+		const resData = await response.json()
 
-    console.log(resData)
-  }
+		// TODO -> Add to State
+	}
 }
 
 export const cancelApplication = applicationId => {
-  return async (dispatch, getState) => {
-    const token = getState().auth.token
+	return async (dispatch, getState) => {
+		const token = getState().auth.token
 
-    const response = await fetch(
-        `https://us-central1-partime-60670.cloudfunctions.net/api/application/${applicationId}`,
-        {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application.json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({
-              "action": "deny"
-            })
-        }
-    )
+		const response = await fetch(
+			`https://us-central1-partime-60670.cloudfunctions.net/api/application/${applicationId}?action=cancel`,
+			{
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application.json',
+					'Authorization': `Bearer ${token}`
+				}
+			}
+		)
 
-    const resData = await response.json()
+		const resData = await response.json()
 
-    console.log(resData)
-  }
+		// TODO -> Add to State
+	}
 }
