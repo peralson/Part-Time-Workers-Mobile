@@ -1,6 +1,6 @@
 class Offer {
-    constructor (offerId, offerData, eventData, companyData) {
-        this.offerId = offerId
+    constructor (id, offerData, eventData, companyData) {
+        this.id = id
         this.offerData = offerData
         this.eventData = eventData
         this.companyData = companyData

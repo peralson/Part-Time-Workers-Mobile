@@ -1,5 +1,6 @@
 class Application {
-  constructor (offerData, eventData, companyData, applicationData) {
+  constructor (id, offerData, eventData, companyData, applicationData) {
+      this.id = id
       this.offerData = offerData
       this.eventData = eventData
       this.companyData = companyData
