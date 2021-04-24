@@ -54,7 +54,12 @@ const OfferDetailScreen = ({ navigation, route }) => {
         offerData,
         eventData,
         companyData
-    } = useSelector(state => state.offers.openOffers.find(offer => offer.id === offerId))
+    } = (applicationId || job) ?
+            applicationId ?
+                useSelector(state => state.applications.userApplications.find(offer => offer.id === offerId)) :
+                null
+            :
+        useSelector(state => state.offers.openOffers.find(offer => offer.id === offerId))
 
     const dispatch = useDispatch()
 
@@ -115,7 +120,7 @@ const OfferDetailScreen = ({ navigation, route }) => {
                         title={eventData.location.address.split(',')[0]}
                         icon={<Ionicons name="map-outline" size={21} color={Colors.darkPrimary} />}
                         cta="Ver"
-                        onSelect={() => navigation.navigate('Map', { address: eventData.location.address.split(',')[0], lat: offerData.location.lat, lng: offerData.location.lng, })}
+                        onSelect={() => navigation.navigate('Map', { address: eventData.location.address.split(',')[0], lat: eventData.location.lat, lng: eventData.location.lng, })}
                     />
                     {job && (
                         <DetailItem
@@ -149,7 +154,7 @@ const OfferDetailScreen = ({ navigation, route }) => {
                 <Label>Contrato</Label>
                 <OfferContract name="Contrato de camarero" onSelect={() => {}} />
             </ScrollView>
-            {(!applicationId || !job) && (
+            {(!applicationId || job) && (
                 <View onLayout={e => setHeight(e.nativeEvent.layout.height)} style={styles.bottomAbsolute}>
                     <ApplyButton onSelect={offerApplicationHandler}>
                         Aplicar

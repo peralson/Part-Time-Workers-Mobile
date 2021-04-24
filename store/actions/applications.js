@@ -25,34 +25,32 @@ export const fetchApplications = userId => {
 
 		const loadedApplications = []
 
-		// loadedApplications.push(
-		// 	new Application(
-		// 		{
-		// 			id: '123456',
-		// 			category: 'Camarero',
-		// 			qty: 2,
-		// 			alreadyAssigned: 1,
-		// 			schedule: [{ start: { _seconds: 0 }, end: { _seconds: 100000 } }],
-		// 			salary: 12,
-		// 			extraSalary: 15,
-		// 			requirements: 'Nada de malroyismo'
-		// 		},
-		// 		{
-		// 			name: 'Boda Isabel y Marcos',
-		// 			location: { address: 'Poeta Paredes 50', lat: 40.200000, lng: -1.225543 },
-		// 			date: 1234561789,
-		// 			description: 'Se ha liado parda en la boda'
-		// 		},
-		// 		{
-		// 			id: '1000',
-		// 			name: 'AJE Neemboo',
-		// 			image: ''
-		// 		},
-		// 		{
-		// 			id: '100000'
-		// 		}
-		// 	)
-		// )
+		loadedApplications.push(
+		 	new Application(
+				'1234',
+		 		{
+		 			category: 'Camarero',
+		 			schedule: [{ start: { _seconds: 0 }, end: { _seconds: 100000 } }],
+		 			salary: 12,
+		 			extraSalary: 15,
+		 			description: 'Nada de malroyismo'
+		 		},
+		 		{
+		 			name: 'Boda Isabel y Marcos',
+		 			location: { address: 'Poeta Paredes 50', lat: 37.915664368425624, lng: -4.809941902130738 },
+		 			date: 1234561789,
+		 			description: 'Se ha liado parda en la boda'
+		 		},
+		 		{
+					companyId: '1000',
+		 			companyName: 'AJE Neemboo',
+		 			companyImage: 'https://media-exp1.licdn.com/dms/image/C5603AQHPeEunkS-1TA/profile-displayphoto-shrink_800_800/0/1558198122304?e=1624492800&v=beta&t=v6bbkad-o517THcsB04G9x3Ypu6BE52lRoSD_CDfx4g'
+		 		},
+		 		{
+		 			id: '100000'
+		 		}
+		 	)
+		)
 
 		dispatch({
 			type: FETCH_APPLICATIONS,
@@ -78,6 +76,8 @@ export const sendApplication = offerId => {
 
 		const resData = await response.json()
 
+		console.log(resData)
+
 		// TODO -> Add to State
 	}
 }
@@ -98,6 +98,8 @@ export const cancelApplication = applicationId => {
 		)
 
 		const resData = await response.json()
+
+		console.log(resData)
 
 		// TODO -> Add to State
 	}

@@ -129,9 +129,9 @@ const WorksHomeScreen = ({ navigation }) => {
 							) : (
 								applications.map(application => (
 									<OfferItem
-										key={application.offerData.id}
+										key={application.id}
 										{...application}
-										onSelect={() => offerDetailHandler(application.id, application.applicationId)}
+										onSelect={() => offerDetailHandler(application.id, application.applicationData.id)}
 									/>
 								))
 							)}

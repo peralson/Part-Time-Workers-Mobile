@@ -29,7 +29,11 @@ const ApplicationResumeScreen = ({ navigation, route }) => {
     const [height, setHeight] = useState(0)
 
     const { offerId } = route.params
-    const offerData = useSelector(state => state.offers.openOffers.find((offer) => offer.id === offerId))
+    const {
+		offerData,
+		eventData,
+		companyData
+	} = useSelector(state => state.offers.openOffers.find((offer) => offer.id === offerId))
 
     const dispatch = useDispatch()
 
