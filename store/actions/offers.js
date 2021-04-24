@@ -27,27 +27,16 @@ export const fetchOpenOffers = () => {
             loadedOffers.push(
                 new Offer(
                     offer.id,
-                    offer.data.eventData.name,
-                    offer.data.offerData.category,
-                    offer.data.eventData.location,
-                    offer.data.eventData.date,
-                    offer.data.eventData.description,
-                    offer.data.offerData.description,
-                    offer.data.offerData.qty,
-                    offer.data.offerData.already_assigned,
-                    offer.data.offerData.schedule,
-                    offer.data.offerData.salary,
-                    offer.data.offerData.extraSalary,
-                    "ID Neemboo",
-                    "AJE Neemboo",
-                    "https://www.mintformations.co.uk/blog/wp-content/uploads/2020/05/shutterstock_583717939.jpg"
+                    offer.data.offerData,
+                    offer.data.eventData,
+                    { companyId: "12345313", companyName: "AJE Neemboo", companyPhoto: "https://www.mintformations.co.uk/blog/wp-content/uploads/2020/05/shutterstock_583717939.jpg" }
                 )
             )
         })
 
         const sortedOffers = loadedOffers.sort((a, b) => {
-            if (a.date < b.date) return -1
-            if (a.date < b.date) return 1
+            if (a.eventData.date < b.eventData.date) return -1
+            if (a.eventData.date < b.eventData.date) return 1
             return 0
         })
 

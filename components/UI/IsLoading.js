@@ -11,15 +11,11 @@ import {
 // Constants
 import Colors from '../../constants/Colors'
 
-const IsLoading = () => (
-    <View style={styles.centered}>
-        <ActivityIndicator size="large" color={Colors.primary} />
-    </View>
-)
+const IsLoading = () => <View style={styles.centered}><ActivityIndicator size="large" color={Colors.primary} /></View>
 
 const styles = StyleSheet.create({
     centered: {
-        height: '100%',
+        height: '60%',
         justifyContent: 'center',
         alignItems: 'center'
     }

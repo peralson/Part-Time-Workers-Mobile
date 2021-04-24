@@ -49,7 +49,12 @@ const OfferDetailScreen = ({ navigation, route }) => {
     const [height, setHeight] = useState(0)
 
     const { offerId, applicationId, job } = route.params
-    const offerData = useSelector(state => state.offers.openOffers.find(offer => offer.id === offerId))
+    
+    const {
+        offerData,
+        eventData,
+        companyData
+    } = useSelector(state => state.offers.openOffers.find(offer => offer.id === offerId))
 
     const dispatch = useDispatch()
 
@@ -98,19 +103,19 @@ const OfferDetailScreen = ({ navigation, route }) => {
                 rightComponent={applicationId && <TopRightButton title="Anular aplicación" color="red" onSelect={handleCancelApplication} />}
             />
             <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1, marginBottom: height, paddingVertical: 16, paddingHorizontal: 24 }}>
-                <OfferHeader category={offerData.category} name={offerData.name} totalSalary={totalSalary} />
+                <OfferHeader category={offerData.category} name={eventData.name} totalSalary={totalSalary} />
                 <DetailsContainer>
                     <DetailItem
-                        title={moment(offerData.date).format('D MMMM')}
+                        title={moment(eventData.date).format('D MMMM')}
                         icon={<Ionicons name="calendar-outline" size={21} color={Colors.darkPrimary} />}
                         cta="Añadir"
                         onSelect={handleCalendar}
                     />
                     <DetailItem
-                        title={offerData.location.address.split(',')[0]}
+                        title={eventData.location.address.split(',')[0]}
                         icon={<Ionicons name="map-outline" size={21} color={Colors.darkPrimary} />}
                         cta="Ver"
-                        onSelect={() => navigation.navigate('Map', { address: offerData.location.address.split(',')[0], lat: offerData.location.lat, lng: offerData.location.lng, })}
+                        onSelect={() => navigation.navigate('Map', { address: eventData.location.address.split(',')[0], lat: offerData.location.lat, lng: offerData.location.lng, })}
                     />
                     {job && (
                         <DetailItem
@@ -121,24 +126,24 @@ const OfferDetailScreen = ({ navigation, route }) => {
                         />
                     )}
                 </DetailsContainer>
-                {offerData.requirements.length !== 0 && (
+                {offerData.description.length !== 0 && (
                     <>
                         <Label>Requerimientos</Label>
-                        <Description>{offerData.requirements}</Description>
+                        <Description>{offerData.description}</Description>
                     </>
                 )}
                 <Label>Horario</Label>
                 <Schedules schedules={offerData.schedule} hours={hours} minutes={minutes} />
                 <Label>Más información</Label>
-                <OfferCompany name={offerData.companyName} image={offerData.companyImage} />
+                <OfferCompany name={companyData.companyName} image={companyData.companyImage} />
                 <OfferInfoItem left="Salario" right={formattedSalary(offerData.salary) + '€'} />
                 <OfferInfoItem left="Salario extra" right={formattedSalary(offerData.extraSalary) + '€'} />
                 <OfferInfoItem left="Desplazamiento" right="Si" />
                 <OfferInfoItem left="Nocturnidad" right="No" />
-                {offerData.description.length !== 0 && (
+                {eventData.description.length !== 0 && (
                     <>
                         <OfferInfoItem left="Descrición" />
-                        <Description>{offerData.description}</Description>
+                        <Description>{eventData.description}</Description>
                     </>
                 )}
                 <Label>Contrato</Label>

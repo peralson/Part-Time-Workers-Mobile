@@ -24,28 +24,28 @@ import Size from '../../constants/FontSize'
 import Card from '../UI/Card'
 import ApplyButton from '../offers/ApplyButton'
 
-const OfferItem = ({ onSelect, onApplication, name, category, location, qty, alreadyAssigned, date, schedule, salary }) => {
-    const { hours, minutes } = totalHoursCalc(schedule)
-    const total = salary * (hours + (minutes / 60))
+const OfferItem = ({ offerData, eventData, onSelect, onApplication }) => {
+    const { hours, minutes } = totalHoursCalc(offerData.schedule)
+    const total = offerData.salary * (hours + (minutes / 60))
 
-    if (alreadyAssigned / qty === 1) return null
+    if (offerData.already_assigned / offerData.qty === 1) return null
     
     return (
         <TouchableOpacity activeOpacity={0.8} onPress={onSelect}>
             <Card>
                 <View style={styles.topContainer}>
                     <View style={styles.titleLocation}>
-                        <Text style={styles.title}>{name}</Text>
-                        <Text style={styles.location}>{category} | {location.address.split(',')[0]}</Text>
+                        <Text style={styles.title}>{eventData.name}</Text>
+                        <Text style={styles.location}>{offerData.category} | {eventData.location.address.split(',')[0]}</Text>
                     </View>
                     <View style={styles.date}>
-                        <Text style={styles.day}>{moment(date).format('DD')}</Text>
-                        <Text style={styles.month}>{moment(date).format('MMM').split('.')[0].toUpperCase()}</Text>
+                        <Text style={styles.day}>{moment(eventData.date).format('DD')}</Text>
+                        <Text style={styles.month}>{moment(eventData.date).format('MMM').split('.')[0].toUpperCase()}</Text>
                     </View>
                 </View>
                 <View style={styles.middleContainer}>
                     <View style={styles.column}>
-                        <Text style={styles.columnTop}>{formattedSalary(salary)}</Text>
+                        <Text style={styles.columnTop}>{formattedSalary(offerData.salary)}</Text>
                         <Text style={styles.columnBottom}>€/hora</Text>
                     </View>
                     <View style={styles.column}>

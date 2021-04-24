@@ -3,7 +3,7 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { useFocusEffect } from '@react-navigation/native'
 
 // React Native
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native'
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux'
@@ -20,12 +20,13 @@ import Label from '../../components/UI/Label'
 import SideScrollPicker from '../../components/UI/SideScrollPicker'
 import OfferItem from '../../components/offers/OfferItem'
 import EmptyList from '../../components/works/EmptyList'
+import IsLoadingMini from '../../components/UI/IsLoadingMini'
 
 const WorksHomeScreen = ({ navigation }) => {
-	const [applicationsLoading, setApplicationsLoading] = useState(false)
+	const [applicationsLoading, setApplicationsLoading] = useState(true)
 	const applications = useSelector(state => state.applications.userApplications)
 
-	const [jobsLoading, setJobsLoading] = useState(false)
+	const [jobsLoading, setJobsLoading] = useState(true)
 	const jobs = useSelector(state => state.jobs.userJobs)
 	
 	// const offers = useSelector(state => state.offers.openOffers)
@@ -33,7 +34,7 @@ const WorksHomeScreen = ({ navigation }) => {
 	const dispatch = useDispatch()
 
 	// const getOffers = applications => {
-	// 	let offerApplications = []
+	//  	let offerApplications = []
 
 	// 	applications.map(application => {
 	// 		if (application.state === 'pending') {
@@ -44,7 +45,7 @@ const WorksHomeScreen = ({ navigation }) => {
 	// 	})
 
 	// 	return offerApplications
-	// };
+	// }
 
 
 	const loadApplications = async () => {
@@ -101,7 +102,7 @@ const WorksHomeScreen = ({ navigation }) => {
 				<View style={{ paddingHorizontal: 24 }}>
 				<Label>Próximos trabajos</Label>
 				</View>
-				{jobsLoading ? null : (
+				{jobsLoading ? <IsLoadingMini text="trabajos" /> : (
 					<>
 						{jobs.length === 0 ? (
 							<EmptyList
@@ -117,7 +118,7 @@ const WorksHomeScreen = ({ navigation }) => {
 				)}
 				<View style={{ paddingHorizontal: 24 }}>
 					<Label>Ofertas a las que he aplicado</Label>
-					{applicationsLoading ? null : (
+					{applicationsLoading ? <IsLoadingMini text="aplicaciones" /> : (
 						<>
 							{applications.length === 0 ? (
 								<EmptyList

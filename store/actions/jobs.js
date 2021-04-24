@@ -54,7 +54,7 @@ export const fetchJobs = () => {
 
 		dispatch({
 			type: FETCH_JOBS,
-			userJobs: loadedJobs,
+			userJobs: loadedJobs
 		})
 	}
 }
