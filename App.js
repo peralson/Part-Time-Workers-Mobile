@@ -31,13 +31,15 @@ import authReducer from './store/reducers/auth'
 import offersReducer from './store/reducers/offers'
 import applicationsReducer from './store/reducers/applications'
 import jobsReducer from './store/reducers/jobs'
+import profileReducer from './store/reducers/profile'
 
 // Introducimos todos nuestros reducers en un global
 const rootReducer = combineReducers({
     auth: authReducer,
     offers: offersReducer,
     applications: applicationsReducer,
-    jobs: jobsReducer
+    jobs: jobsReducer,
+    profile: profileReducer,
 })
 
 // y agregamos nuestro reducer global al store de Redux

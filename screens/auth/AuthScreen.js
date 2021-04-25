@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux'
 
 // Actions
 import * as authActions from '../../store/actions/auth'
+import * as profileActions from '../../store/actions/profile'
 
 // Components
 import Screen from '../../components/UI/Screen'
@@ -27,6 +28,7 @@ const AuthScreen = ({ navigation }) => {
             })
             .then(data => {
                 dispatch(authActions.login(data))
+                dispatch(profileActions.fetchProfile())
                 navigation.navigate('App')
             })
             .catch(err => {
