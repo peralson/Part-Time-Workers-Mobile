@@ -27,11 +27,11 @@ export const fetchApplications = userId => {
 
 		loadedApplications.push(
 		 	new Application(
-				'1234',
+				'1',
 		 		{
 		 			category: 'Camarero',
-		 			schedule: [{ start: { _seconds: 0 }, end: { _seconds: 100000 } }],
-		 			salary: 12,
+		 			schedule: [{ start: { _seconds: 0 }, end: { _seconds: 19850 } }],
+		 			salary: 9.2,
 		 			extraSalary: 15,
 		 			description: 'Nada de malroyismo'
 		 		},
@@ -51,6 +51,60 @@ export const fetchApplications = userId => {
 		 		}
 		 	)
 		)
+
+		loadedApplications.push(
+			new Application(
+			   '2',
+				{
+					category: 'Camarero',
+					schedule: [{ start: { _seconds: 0 }, end: { _seconds: 201000 } }],
+					salary: 8.75,
+					extraSalary: 15,
+					description: ''
+				},
+				{
+					name: 'Día en el hotel',
+					location: { address: 'Avenida Robledo 7', lat: 37.915664368425624, lng: -4.809941902130738 },
+					date: 1434561789,
+					description: ''
+				},
+				{
+					companyId: '1000',
+					companyName: 'AJE Neemboo',
+					companyImage: 'https://media-exp1.licdn.com/dms/image/C5603AQHPeEunkS-1TA/profile-displayphoto-shrink_800_800/0/1558198122304?e=1624492800&v=beta&t=v6bbkad-o517THcsB04G9x3Ypu6BE52lRoSD_CDfx4g'
+				},
+				{
+					id: '100000'
+				}
+			)
+	   	)
+
+		loadedApplications.push(
+			new Application(
+			   '3',
+				{
+					category: 'Limpieza',
+					schedule: [{ start: { _seconds: 0 }, end: { _seconds: 201000 } }],
+					salary: 10,
+					extraSalary: 15,
+					description: ''
+				},
+				{
+					name: 'Noches sucias',
+					location: { address: 'General Pardiñas 34', lat: 37.915664368425624, lng: -4.809941902130738 },
+					date: 1934561789,
+					description: ''
+				},
+				{
+					companyId: '1000',
+					companyName: 'AJE Neemboo',
+					companyImage: 'https://media-exp1.licdn.com/dms/image/C5603AQHPeEunkS-1TA/profile-displayphoto-shrink_800_800/0/1558198122304?e=1624492800&v=beta&t=v6bbkad-o517THcsB04G9x3Ypu6BE52lRoSD_CDfx4g'
+				},
+				{
+					id: '100000'
+				}
+			)
+	   	)
 
 		dispatch({
 			type: FETCH_APPLICATIONS,

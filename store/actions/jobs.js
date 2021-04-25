@@ -23,34 +23,61 @@ export const fetchJobs = () => {
 
 		const loadedJobs = []
 
-		// loadedJobs.push(
-		//     new Job(
-		// 		{
-		// 			id: '123456',
-		// 			category: 'Camarero',
-		// 			qty: 2,
-		// 			alreadyAssigned: 1,
-		// 			schedule: [{ start: { _seconds: 0 }, end: { _seconds: 100000 } }],
-		// 			salary: 12,
-		// 			extraSalary: 15,
-		// 			requirements: 'Nada de malroyismo'
-		// 		},
-		// 		{
-		// 			name: 'Boda Isabel y Marcos',
-		// 			location: { address: 'Poeta Paredes 50', lat: 40.200000, lng: -1.225543 },
-		// 			date: 1234561789,
-		// 			description: 'Se ha liado parda en la boda'
-		// 		},
-		// 		{
-		// 			id: '1000',
-		// 			name: 'AJE Neemboo',
-		// 			image: ''
-		// 		},
-		// 		{
-		// 			id: '100000'
-		// 		}
-		// 	)
-		// )
+		loadedJobs.push(
+			new Job(
+			   '1',
+				{
+					category: 'Camarero',
+					schedule: [{ start: { _seconds: 0 }, end: { _seconds: 100000 } }],
+					salary: 12,
+					extraSalary: 15,
+					description: ''
+				},
+				{
+					name: 'Chiringuito',
+					location: { address: 'Tirso de Molina', lat: 37.915664368425624, lng: -4.809941902130738 },
+					date: 1134561789,
+					description: ''
+				},
+				{
+					companyId: '1000',
+					companyName: 'AJE Neemboo',
+					companyImage: 'https://media-exp1.licdn.com/dms/image/C5603AQHPeEunkS-1TA/profile-displayphoto-shrink_800_800/0/1558198122304?e=1624492800&v=beta&t=v6bbkad-o517THcsB04G9x3Ypu6BE52lRoSD_CDfx4g'
+				},
+				{
+					id: '100000',
+					active: true
+				}
+			)
+	   	)
+
+		loadedJobs.push(
+			new Job(
+			   '2',
+				{
+					category: 'Camarero',
+					schedule: [{ start: { _seconds: 0 }, end: { _seconds: 100000 } }],
+					salary: 12,
+					extraSalary: 15,
+					description: 'Nada de malroyismo'
+				},
+				{
+					name: 'Desayuno milagroso',
+					location: { address: 'Plaza de Sol', lat: 37.915664368425624, lng: -4.809941902130738 },
+					date: 1734561789,
+					description: 'Se ha liado parda en la boda'
+				},
+				{
+					companyId: '1000',
+					companyName: 'AJE Neemboo',
+					companyImage: 'https://media-exp1.licdn.com/dms/image/C5603AQHPeEunkS-1TA/profile-displayphoto-shrink_800_800/0/1558198122304?e=1624492800&v=beta&t=v6bbkad-o517THcsB04G9x3Ypu6BE52lRoSD_CDfx4g'
+				},
+				{
+					id: '100000',
+					active: false
+				}
+			)
+	   	)
 
 		dispatch({
 			type: FETCH_JOBS,

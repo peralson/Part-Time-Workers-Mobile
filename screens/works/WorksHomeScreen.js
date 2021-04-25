@@ -3,7 +3,7 @@ import React, { useState, useCallback, useEffect } from 'react'
 import { useFocusEffect } from '@react-navigation/native'
 
 // React Native
-import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux'
@@ -20,6 +20,7 @@ import Label from '../../components/UI/Label'
 import SideScrollPicker from '../../components/UI/SideScrollPicker'
 import OfferItem from '../../components/offers/OfferItem'
 import EmptyList from '../../components/works/EmptyList'
+import JobItem from '../../components/works/JobItem'
 import IsLoadingMini from '../../components/UI/IsLoadingMini'
 
 const WorksHomeScreen = ({ navigation }) => {
@@ -82,12 +83,22 @@ const WorksHomeScreen = ({ navigation }) => {
 			.then(() => setApplicationsLoading(false))
 	}, [])
 
-	const offerDetailHandler = (offerId, applicationId) => {
+	const applicationDetailHandler = (offerId, applicationId) => {
 		navigation.navigate('OffersStack', {
 			screen: 'OfferDetails',
 			params: {
 				offerId: offerId,
 				applicationId: applicationId
+			}
+		})
+	}
+
+	const jobDetailHandler = (offerId, jobId) => {
+		navigation.navigate('OffersStack', {
+			screen: 'OfferDetails',
+			params: {
+				offerId: offerId,
+				jobId: jobId
 			}
 		})
 	}
@@ -98,7 +109,7 @@ const WorksHomeScreen = ({ navigation }) => {
 				leftComponent={<HeaderTitle title='Trabajos' />}
 				description='Aquí verás los trabajos que tengas pendientes de realizar y tus aplicaciones activas.'
 			/>
-			<ScrollView style={styles.content}>
+			<ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
 				<View style={{ paddingHorizontal: 24 }}>
 				<Label>Próximos trabajos</Label>
 				</View>
@@ -111,7 +122,13 @@ const WorksHomeScreen = ({ navigation }) => {
 							/>
 						) : (
 							<SideScrollPicker>
-								<Text>Si hay curros</Text>
+								{jobs.map(job => (
+									<JobItem
+										key={job.id}
+										{...job}
+										onSelect={() => jobDetailHandler(job.id, job.jobData.id)}
+									/>
+								))}
 							</SideScrollPicker>
 						)}
 					</>
@@ -131,7 +148,7 @@ const WorksHomeScreen = ({ navigation }) => {
 									<OfferItem
 										key={application.id}
 										{...application}
-										onSelect={() => offerDetailHandler(application.id, application.applicationData.id)}
+										onSelect={() => applicationDetailHandler(application.id, application.applicationData.id)}
 									/>
 								))
 							)}
@@ -144,9 +161,10 @@ const WorksHomeScreen = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
-	content: {
-		paddingTop: 16
-	}
+	container: {
+        paddingTop: 16,
+        paddingBottom: 120
+    }
 })
 
 export default WorksHomeScreen

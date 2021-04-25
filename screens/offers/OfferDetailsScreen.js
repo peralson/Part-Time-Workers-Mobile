@@ -48,16 +48,16 @@ import OfferContract from '../../components/offers/OfferContract'
 const OfferDetailScreen = ({ navigation, route }) => {
     const [height, setHeight] = useState(0)
 
-    const { offerId, applicationId, job } = route.params
+    const { offerId, applicationId, jobId } = route.params
     
     const {
         offerData,
         eventData,
         companyData
-    } = (applicationId || job) ?
+    } = (applicationId || jobId) ?
             applicationId ?
                 useSelector(state => state.applications.userApplications.find(offer => offer.id === offerId)) :
-                null
+                useSelector(state => state.jobs.userJobs.find(offer => offer.id === offerId))
             :
         useSelector(state => state.offers.openOffers.find(offer => offer.id === offerId))
 
@@ -105,7 +105,12 @@ const OfferDetailScreen = ({ navigation, route }) => {
         <Screen>
             <HomeWrapper
                 leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
-                rightComponent={applicationId && <TopRightButton title="Anular aplicación" color="red" onSelect={handleCancelApplication} />}
+                rightComponent={applicationId ? (
+                        <TopRightButton title="Anular aplicación" color="red" onSelect={handleCancelApplication} />
+                    ) : jobId && (
+                        <TopRightButton title="Anular trabajo" color="red" onSelect={() => {}} />
+                    )
+                }
             />
             <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1, marginBottom: height, paddingVertical: 16, paddingHorizontal: 24 }}>
                 <OfferHeader category={offerData.category} name={eventData.name} totalSalary={totalSalary} />
@@ -122,7 +127,7 @@ const OfferDetailScreen = ({ navigation, route }) => {
                         cta="Ver"
                         onSelect={() => navigation.navigate('Map', { address: eventData.location.address.split(',')[0], lat: eventData.location.lat, lng: eventData.location.lng, })}
                     />
-                    {job && (
+                    {jobId && (
                         <DetailItem
                             title="WhatsApp"
                             icon={<Ionicons name="logo-whatsapp" size={21} color={Colors.darkPrimary} />}
@@ -154,10 +159,10 @@ const OfferDetailScreen = ({ navigation, route }) => {
                 <Label>Contrato</Label>
                 <OfferContract name="Contrato de camarero" onSelect={() => {}} />
             </ScrollView>
-            {(!applicationId || job) && (
+            {!applicationId && (
                 <View onLayout={e => setHeight(e.nativeEvent.layout.height)} style={styles.bottomAbsolute}>
-                    <ApplyButton onSelect={offerApplicationHandler}>
-                        Aplicar
+                    <ApplyButton locked={jobId} onSelect={offerApplicationHandler}>
+                        {jobId ? 'Comenzar' : 'Aplicar'}
                     </ApplyButton>
                 </View>
             )}

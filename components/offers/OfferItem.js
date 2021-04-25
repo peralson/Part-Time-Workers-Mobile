@@ -28,8 +28,6 @@ const OfferItem = ({ offerData, eventData, onSelect, onApplication }) => {
     const { hours, minutes } = totalHoursCalc(offerData.schedule)
     const total = offerData.salary * (hours + (minutes / 60))
 
-    if (offerData.already_assigned / offerData.qty === 1) return null
-    
     return (
         <TouchableOpacity activeOpacity={0.8} onPress={onSelect}>
             <Card>
