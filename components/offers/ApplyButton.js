@@ -18,7 +18,7 @@ import Colors from '../../constants/Colors';
 import Family from '../../constants/FontFamily';
 import Size from '../../constants/FontSize';
 
-const ApplyButton = ({ offerId, locked, children }) => {
+const ApplyButton = ({ offerId, locked, children, isJob }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -30,11 +30,16 @@ const ApplyButton = ({ offerId, locked, children }) => {
       console.log(error);
     }
   };
+
   return (
     <TouchableOpacity
       style={locked ? styles.lockedContainer : styles.buttonContainer}
       activeOpacity={0.8}
-      onPress={locked ? () => {} : () => offerApplicationHandler(offerId)}
+      onPress={
+        locked
+          ? () => {}
+          : () => (isJob ? {} : offerApplicationHandler(offerId))
+      }
     >
       <Text style={locked ? styles.lockedButton : styles.button}>
         {children}

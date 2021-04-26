@@ -39,7 +39,7 @@ const JobItem = ({ offerData, eventData, jobData, onSelect }) => {
                         <Text style={styles.location}>{offerData.category} | {eventData.location.address.split(',')[0]}</Text>
                     </View>
                 </View>
-                <ApplyButton locked={!jobData.active} onSelect={() => {}}>
+                <ApplyButton locked={!jobData.active} isJob={true} onSelect={() => {}}>
                     Comenzar
                 </ApplyButton>
             </Card>
