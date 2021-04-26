@@ -1,5 +1,5 @@
 // Actions
-export const FETCH_JOBS = 'FETCH_JOBS'
+export const FETCH_JOBS = 'FETCH_JOBS';
 
 // Models for fetching
 import Job from '../../models/Job'
@@ -73,7 +73,7 @@ export const fetchJobs = () => {
 					companyImage: 'https://media-exp1.licdn.com/dms/image/C5603AQHPeEunkS-1TA/profile-displayphoto-shrink_800_800/0/1558198122304?e=1624492800&v=beta&t=v6bbkad-o517THcsB04G9x3Ypu6BE52lRoSD_CDfx4g'
 				},
 				{
-					id: '100000',
+					id: '100001',
 					active: false
 				}
 			)
@@ -84,4 +84,28 @@ export const fetchJobs = () => {
 			userJobs: loadedJobs
 		})
 	}
+}
+
+export const cancelJob = id => {
+  return async (dispatch, getState) => {
+    const token = getState().auth.token
+
+    const response = await fetch(
+        `https://us-central1-partime-60670.cloudfunctions.net/api/job/${id}`,
+        {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application.json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              "action": "deny"
+            })
+        }
+    )
+
+    const resData = await response.json()
+
+    console.log(resData)
+  }
 }
