@@ -47,17 +47,6 @@ const OffersHomeScreen = ({ navigation }) => {
     loadOffers().then(() => setLoading(false));
   }, []);
 
-  const offerDetailHandler = (offerId) =>
-    navigation.navigate('OffersStack', {
-      screen: 'OfferDetails',
-      params: { offerId: offerId },
-    });
-
-  const offerApplicationHandler = async (offerId) => {
-    await dispatch(applicationActions.sendApplication(offerId));
-    navigation.navigate('OffersStack', { screen: 'Application' });
-  };
-
   return (
     <Screen>
       <HomeWrapper
@@ -79,8 +68,8 @@ const OffersHomeScreen = ({ navigation }) => {
               renderItem={({ item }) => (
                 <OfferItem
                   {...item}
-                  onSelect={() => offerDetailHandler(item.id)}
-                  onApplication={() => offerApplicationHandler(item.id)}
+                  onSelect={() => navigation.navigate('OffersStack', { screen: 'OfferDetails', params: { offerId: item.id } })}
+                  onApplication={() => navigation.navigate('ApplicationsStack', { screen: 'ApplicationResume', params: { offerId: item.id } })}
                 />
               )}
             />
@@ -96,7 +85,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
     paddingHorizontal: 24,
     paddingBottom: 96,
-  },
-});
+  }
+})
 
 export default OffersHomeScreen;

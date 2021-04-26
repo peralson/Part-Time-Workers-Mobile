@@ -1,52 +1,29 @@
 // React
-import React from 'react';
+import React from 'react'
 
 // React Native
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
-
-// Redux
-import { useDispatch } from 'react-redux';
-
-// react-navigation v5+
-import { useNavigation } from '@react-navigation/native';
-
-// Actions
-import * as applicationActions from '../../store/actions/applications';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 
 // Constants
-import Colors from '../../constants/Colors';
-import Family from '../../constants/FontFamily';
-import Size from '../../constants/FontSize';
+import Colors from '../../constants/Colors'
+import Family from '../../constants/FontFamily'
+import Size from '../../constants/FontSize'
 
-const ApplyButton = ({ offerId, locked, children, isJob }) => {
-  const navigation = useNavigation();
-  const dispatch = useDispatch();
-
-  const offerApplicationHandler = async (offerId) => {
-    try {
-      await dispatch(applicationActions.sendApplication(offerId));
-      navigation.navigate('OffersStack', { screen: 'Application' });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  return (
+const ApplyButton = ({ locked, children, onSelect }) => (
     <TouchableOpacity
-      style={locked ? styles.lockedContainer : styles.buttonContainer}
-      activeOpacity={0.8}
-      onPress={
-        locked
-          ? () => {}
-          : () => (isJob ? {} : offerApplicationHandler(offerId))
-      }
+		style={locked ? styles.lockedContainer : styles.buttonContainer}
+		activeOpacity={0.8}
+		onPress={
+			locked
+			? () => {}
+			: onSelect
+		}
     >
-      <Text style={locked ? styles.lockedButton : styles.button}>
-        {children}
-      </Text>
+		<Text style={locked ? styles.lockedButton : styles.button}>
+			{children}
+		</Text>
     </TouchableOpacity>
-  );
-};
+)
 
 const styles = StyleSheet.create({
   buttonContainer: {

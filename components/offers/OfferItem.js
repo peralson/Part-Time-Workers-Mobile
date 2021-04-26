@@ -61,7 +61,7 @@ const OfferItem = ({ offerData, eventData, onSelect, onApplication }) => {
                 </View>
                 {onApplication && (
                     <View style={styles.bottomContainer}>
-                        <ApplyButton onSelect={onApplication} offerId={offerData.id}>
+                        <ApplyButton onSelect={onApplication}>
                             Aplicar
                         </ApplyButton>
                         <Text style={styles.more}>Ver más</Text>

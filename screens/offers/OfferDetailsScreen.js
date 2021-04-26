@@ -71,12 +71,7 @@ const OfferDetailScreen = ({ navigation, route }) => {
     if (status === 'granted') {
       createCalendar();
     }
-  };
-
-  const offerApplicationHandler = async () => {
-    await dispatch(applicationActions.sendApplication(offerId));
-    navigation.navigate('OffersStack', { screen: 'Application' });
-  };
+  }
 
   const handleCancelApplication = () => {
     Alert.alert('¿Estas seguro?', '', [
@@ -232,7 +227,7 @@ const OfferDetailScreen = ({ navigation, route }) => {
           onLayout={(e) => setHeight(e.nativeEvent.layout.height)}
           style={styles.bottomAbsolute}
         >
-          <ApplyButton locked={jobId} onSelect={offerApplicationHandler}>
+          <ApplyButton locked={jobId} onSelect={() => navigation.navigate('ApplicationsStack', { screen: 'ApplicationResume', params: { offerId: offerId } })}>
             {jobId ? 'Comenzar' : 'Aplicar'}
           </ApplyButton>
         </View>

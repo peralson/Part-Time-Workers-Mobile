@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 // Screens & Stacks
 import ApplicationResume from '../../screens/applications/ApplicationResumeScreen'
+import ApplicationSuccess from '../../screens/applications/ApplicationSuccessScreen'
 
 const Stack = createStackNavigator()
 
@@ -18,6 +19,11 @@ const ApplicationsStack = () => (
         <Stack.Screen
             name="ApplicationResume" 
             component={ApplicationResume}
+            options={defaultStackOptions}
+        />
+        <Stack.Screen
+            name="ApplicationSuccess" 
+            component={ApplicationSuccess}
             options={defaultStackOptions}
         />
     </Stack.Navigator>
