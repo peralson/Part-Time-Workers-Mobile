@@ -7,6 +7,8 @@ import Profile from '../../models/Profile'
 export const fetchProfile = () => {
     return async (dispatch, getState) => {
         const token = getState().auth.token
+
+        // TODO Fetch profile
         
         const profile = new Profile(
             '1',

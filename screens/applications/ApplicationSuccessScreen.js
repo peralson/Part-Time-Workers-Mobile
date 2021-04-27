@@ -26,7 +26,7 @@ const ApplicationSuccess = ({ navigation }) => {
 			<View style={{...styles.container, ...{ paddingBottom: height }}}>
 				<Image style={styles.image} source={require('../../assets/application.png')} />
 				<Text style={styles.title}>¡Has aplicado con éxito!</Text>
-				<Text style={styles.description}>Si la empresa acepta la petición, esta oferta pasará al área de "proyectos"</Text>
+				<Text style={styles.description}>Si la empresa acepta la petición, esta oferta pasará al área de "Trabajos"</Text>
 				<View onLayout={e => setHeight(e.nativeEvent.layout.height)} style={styles.bottomAbsolute}>
 					<ApplyButton onSelect={() => navigation.navigate('Home', { screen: 'Ofertas' })}>
 						Continuar

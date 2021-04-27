@@ -20,7 +20,7 @@ const defaultStackOptions = {
 const ProfileStack = () => (
     <Stack.Navigator>
         <Stack.Screen
-            name="ProfileDetails" 
+            name="ProfileDetails"
             component={ProfileDetails}
             options={defaultStackOptions}
         />

@@ -17,7 +17,7 @@ import firebase from 'firebase/app'
 // Getting Firebase ready to go!
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig)
-}else {
+} else {
     firebase.app() // if already initialized, use that one
 }
 

@@ -86,21 +86,18 @@ export const fetchJobs = () => {
 	}
 }
 
-export const cancelJob = id => {
+export const cancelJob = jobId => {
   return async (dispatch, getState) => {
     const token = getState().auth.token
 
     const response = await fetch(
-        `https://us-central1-partime-60670.cloudfunctions.net/api/job/${id}`,
+        `https://us-central1-partime-60670.cloudfunctions.net/api/job/${jobId}?action=cancel`,
         {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application.json',
                 'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({
-              "action": "deny"
-            })
+            }
         }
     )
 

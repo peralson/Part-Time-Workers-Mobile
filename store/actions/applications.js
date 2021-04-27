@@ -6,7 +6,7 @@ export const CANCEL_APPLICATIONS = 'CANCEL_APPLICATION';
 // Models for fetching
 import Application from '../../models/Application';
 
-export const fetchApplications = (userId) => {
+export const fetchApplications = () => {
   return async (dispatch, getState) => {
     // const token = getState().auth.token
 
@@ -154,16 +154,13 @@ export const cancelApplication = (applicationId) => {
     const token = getState().auth.token;
 
     const response = await fetch(
-      `https://us-central1-partime-60670.cloudfunctions.net/api/application/${applicationId}`,
+      `https://us-central1-partime-60670.cloudfunctions.net/api/application/${applicationId}?action=cancel`,
       {
         method: 'PUT',
         headers: {
           'Content-Type': 'application.json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          action: 'deny',
-        }),
       }
     );
 

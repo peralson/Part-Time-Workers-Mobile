@@ -6,6 +6,6 @@ class Job {
         this.companyData = companyData
         this.jobData = jobData
     }
-  }
-  
-  export default Job
+}
+
+export default Job
