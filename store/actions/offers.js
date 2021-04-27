@@ -34,7 +34,7 @@ export const fetchOpenOffers = () => {
             )
         })
 
-        const sortedOffers = loadedOffers.sort((a, b) => {
+        loadedOffers.sort((a, b) => {
             if (a.eventData.date < b.eventData.date) return -1
             if (a.eventData.date < b.eventData.date) return 1
             return 0
@@ -42,7 +42,7 @@ export const fetchOpenOffers = () => {
 
         dispatch({
             type: FETCH_OPEN_OFFERS,
-            userOpenOffers: sortedOffers
+            userOpenOffers: loadedOffers
         })
     }
 }
