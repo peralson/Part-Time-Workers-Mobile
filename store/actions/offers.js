@@ -27,9 +27,9 @@ export const fetchOpenOffers = () => {
             loadedOffers.push(
                 new Offer(
                     offer.id,
-                    offer.data.offerData,
-                    offer.data.eventData,
-                    { companyId: "12345313", companyName: "AJE Neemboo", companyPhoto: "https://www.mintformations.co.uk/blog/wp-content/uploads/2020/05/shutterstock_583717939.jpg" }
+                    offer.offerData,
+                    offer.eventData,
+                    offer.companyData
                 )
             )
         })

@@ -27,29 +27,11 @@ export const fetchJobs = () => {
 			resData.body.map(job => {
 				loadedJobs.push(
 					new Job(
-					   '1',
-						{
-							category: 'Camarero',
-							schedule: [{ start: { _seconds: 0 }, end: { _seconds: 100000 } }],
-							salary: 12,
-							extraSalary: 15,
-							description: ''
-						},
-						{
-							name: 'Chiringuito',
-							location: { address: 'Tirso de Molina', lat: 37.915664368425624, lng: -4.809941902130738 },
-							date: 1134561789,
-							description: ''
-						},
-						{
-							companyId: '1000',
-							companyName: 'AJE Neemboo',
-							companyImage: 'https://media-exp1.licdn.com/dms/image/C5603AQHPeEunkS-1TA/profile-displayphoto-shrink_800_800/0/1558198122304?e=1624492800&v=beta&t=v6bbkad-o517THcsB04G9x3Ypu6BE52lRoSD_CDfx4g'
-						},
-						{
-							id: '100000',
-							active: false
-						}
+					   	job.jobData.id_offer,
+						job.offerData,
+						job.eventData,
+						job.companyData,
+						job.jobData
 					)
 				)
 			})
@@ -69,22 +51,22 @@ export const fetchJobs = () => {
 }
 
 export const cancelJob = jobId => {
-  return async (dispatch, getState) => {
-    const token = getState().auth.token
+	return async (dispatch, getState) => {
+		const token = getState().auth.token
 
-    const response = await fetch(
-        `https://us-central1-partime-60670.cloudfunctions.net/api/job/${jobId}?action=cancel`,
-        {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application.json',
-                'Authorization': `Bearer ${token}`
-            }
-        }
-    )
+		const response = await fetch(
+			`https://us-central1-partime-60670.cloudfunctions.net/api/job/${jobId}?action=cancel`,
+			{
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application.json',
+					'Authorization': `Bearer ${token}`
+				}
+			}
+		)
 
-    const resData = await response.json()
+		const resData = await response.json()
 
-    console.log(resData)
-  }
+		console.log(resData)
+	}
 }
