@@ -21,8 +21,8 @@ import Size from '../../constants/FontSize'
 // Components
 import Card from '../UI/Card'
 
-const OfferContract = ({ name }) => (
-    <TouchableOpacity activeOpacity={0.8} style={styles.container}>
+const OfferContract = ({ name, onSelect }) => (
+    <TouchableOpacity onPress={onSelect} activeOpacity={0.8} style={styles.container}>
         <Text style={styles.name}>{name}</Text>
         <Card>
             <View style={styles.contractContainer}>
