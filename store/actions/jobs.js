@@ -1,5 +1,7 @@
 // Actions
-export const FETCH_JOBS = 'FETCH_JOBS';
+export const FETCH_JOBS = 'FETCH_JOBS'
+export const CHECK_JOB = 'CHECK_JOB'
+export const CANCEL_JOB = 'CANCEL_JOB'
 
 // Models for fetching
 import Job from '../../models/Job'
@@ -25,6 +27,7 @@ export const fetchJobs = () => {
 
 		if (resData.body !== "We could not find any job") {
 			resData.body.map(job => {
+				console.log(job.jobData)
 				loadedJobs.push(
 					new Job(
 					   	job.jobData.id_offer,
@@ -47,6 +50,31 @@ export const fetchJobs = () => {
 			type: FETCH_JOBS,
 			userJobs: loadedJobs
 		})
+	}
+}
+
+export const checkJob = eventId => {
+	return async (dispatch, getState) => {
+		const token = getState().auth.token
+
+		const response = await fetch(
+			`https://us-central1-partime-60670.cloudfunctions.net/api/job/check`,
+			{
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application.json',
+					'Authorization': `Bearer ${token}`
+				},
+				body: JSON.stringify({
+					"id_event": eventId,
+					"check": new Date().getTime()
+				})
+			}
+		)
+
+		const resData = await response.json()
+
+		console.log(resData)
 	}
 }
 
