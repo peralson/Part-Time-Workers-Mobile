@@ -13,7 +13,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux'
 
 // Actions
-// import * as authActions from '../../store/actions/auth'
+import * as authActions from '../../store/actions/auth'
 
 // Components
 import ProfileInfo from '../../components/profile/ProfileInfo'
@@ -25,6 +25,8 @@ import LinkItem from '../../components/profile/LinkItem'
 
 const ProfileHomeScreen = ({ navigation }) => {
 	const profile = useSelector(state => state.profile.profile)
+
+	const dispatch = useDispatch()
 
 	return (
 		<Screen>
@@ -104,7 +106,7 @@ const ProfileHomeScreen = ({ navigation }) => {
 					onSelect={() => {
 						Alert.alert("¿Quieres cerrar la sesión?", "", [
 							{ text: "No" },
-							{ text: "Cerrar", style: "destructive", onPress: () => {} }
+							{ text: "Cerrar", style: "destructive", onPress: () => dispatch(authActions.logout()) }
 						])
 					}}
 				/>

@@ -15,10 +15,10 @@ import { useDispatch } from 'react-redux'
 
 // Actions
 import * as authActions from '../../store/actions/auth'
-// import * as companyActions from '../../store/actions/company'
+import * as profileActions from '../../store/actions/profile'
 
 // Components
-import Screen from '../../components/UI/Screen';
+import Screen from '../../components/UI/Screen'
 import FormWrapper from '../../components/form/FormWrapper'
 import InputContainer from '../../components/form/InputContainer'
 import Label from '../../components/form/Label'
@@ -52,6 +52,7 @@ const AuthScreen = props => {
             })
             .then(data => {
                 dispatch(authActions.login(data))
+                dispatch(profileActions.fetchProfile())
             })
             .then(() => {
                 setIsLoading(false)
