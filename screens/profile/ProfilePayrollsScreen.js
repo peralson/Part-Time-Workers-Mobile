@@ -18,6 +18,7 @@ import BackButton from '../../components/UI/BackButton'
 import HeaderTitle from '../../components/UI/HeaderTitle'
 import IsLoading from '../../components/UI/IsLoading'
 import EmptyList from '../../components/works/EmptyList'
+import JobPayroll from '../../components/works/JobPayroll'
 
 const ProfilePayrollsScreen = ({ navigation }) => {
     const token = useSelector(state => state.auth.token)
@@ -40,6 +41,8 @@ const ProfilePayrollsScreen = ({ navigation }) => {
         }, [])
     )
 
+    const openPayroll = file => navigation.navigate('OffersStack', { screen: 'PDF', params: { file: file } })
+
     return (
         <Screen>
             <HomeWrapper
@@ -48,8 +51,16 @@ const ProfilePayrollsScreen = ({ navigation }) => {
             />
             {loading ? <IsLoading /> : (
                 <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
-                    {payrolls.length === 0 ? <EmptyList quote='No tienes ninguna nómina.' image={require('../../assets/sin_proyectos.png')}/> :
-                        payrolls.map(item => <Text>Hola</Text>)}
+                    {payrolls.length === 0 
+                        ? <EmptyList quote='No tienes ninguna nómina.' image={require('../../assets/sin_proyectos.png')}/> 
+                        : payrolls.map(payroll => (
+                            <JobPayroll
+                                key={payroll.id}
+                                payroll={payroll}
+                                onSelect={() => openPayroll(payroll.jobData.payroll.file)}
+                            />
+                        )
+                    )}
                 </ScrollView>
             )}
         </Screen>

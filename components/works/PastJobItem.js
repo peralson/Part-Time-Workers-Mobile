@@ -71,7 +71,7 @@ const PastJobItem = ({ offerData, eventData, onSelect, jobData }) => {
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection:'row'
+        flexDirection: 'row'
     },
     leftContainer: {
         flex: 1,
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
         fontFamily: Family.normal,
         fontSize: Size.tiny,
         color: Colors.darkGrey,
-        marginBottom: 12
+        marginBottom: 8
     },
     title: {
         fontFamily: Family.bold,

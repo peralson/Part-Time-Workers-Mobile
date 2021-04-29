@@ -18,6 +18,7 @@ import BackButton from '../../components/UI/BackButton'
 import HeaderTitle from '../../components/UI/HeaderTitle'
 import IsLoading from '../../components/UI/IsLoading'
 import EmptyList from '../../components/works/EmptyList'
+import JobContract from '../../components/works/JobContract'
 
 const ProfileContractsScreen = ({ navigation }) => {
     const token = useSelector(state => state.auth.token)
@@ -40,6 +41,8 @@ const ProfileContractsScreen = ({ navigation }) => {
         }, [])
     )
 
+    const openContract = (name, file) => navigation.navigate('OffersStack', { screen: 'PDF', params: { name: name, file: file } })
+
     return (
         <Screen>
             <HomeWrapper
@@ -48,8 +51,16 @@ const ProfileContractsScreen = ({ navigation }) => {
             />
             {loading ? <IsLoading /> : (
                 <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
-                    {contracts.length === 0 ? <EmptyList quote='No tienes ningún contrato.' image={require('../../assets/sin_proyectos.png')}/> :
-                        contracts.map(item => <Text>Hola</Text>)}
+                    {contracts.length === 0
+                        ? <EmptyList quote='No tienes ningún contrato.' image={require('../../assets/sin_proyectos.png')}/>
+                        : contracts.map(contract => (
+                            <JobContract
+                                key={contract.id}
+                                contract={contract}
+                                onSelect={() => openContract(contract.jobData.contract.name, contract.jobData.contract.file)}
+                            />
+                        )
+                    )}
                 </ScrollView>
             )}
         </Screen>
