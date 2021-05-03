@@ -45,10 +45,12 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		fontFamily: Family.bold,
-		fontSize: Size.huge,
+		fontSize: Size.big,
+		color: Colors.white,
 		textAlign: 'center',
-		marginBottom: 16,
+		marginBottom: 8,
 		paddingHorizontal: 24,
+		lineHeight: 27
 	},
 	image: {
 		marginTop: 80,
@@ -60,20 +62,20 @@ const styles = StyleSheet.create({
 	description: {
 		fontFamily: Family.normal,
 		textAlign: 'center',
-		fontSize: Size.medium,
+		fontSize: Size.small,
 		color: Colors.darkGrey,
-		lineHeight: 22,
+		lineHeight: 21,
 		paddingHorizontal: 24,
 	},
 	bottomAbsolute: {
 		position: 'absolute',
 		bottom: 0,
 		width: '100%',
-		backgroundColor: Colors.white,
+		backgroundColor: Colors.darkPrimary,
 		paddingBottom: Platform.OS === 'ios' ? 32 : 8,
 		paddingTop: 8,
 		borderTopColor: Colors.grey,
-        borderTopWidth: 0.6,
+        borderTopWidth: 1,
 		paddingHorizontal: 24,
 	}
 });

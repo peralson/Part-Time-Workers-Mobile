@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 
 // React Native
-import { Alert, ScrollView, StyleSheet, View, Platform } from 'react-native';
+import { Alert, ScrollView, StyleSheet, View, Platform, Text, Touchable, TouchableOpacity } from 'react-native';
 
 // Expo
 import { Ionicons } from '@expo/vector-icons';
@@ -38,7 +38,6 @@ import Schedules from '../../components/offers/Schedules';
 import TopRightButton from '../../components/UI/TopRightButton';
 import OfferInfoItem from '../../components/offers/OfferInfoItem';
 import OfferCompany from '../../components/offers/OfferCompany';
-import OfferContract from '../../components/offers/OfferContract';
 
 const OfferDetailScreen = ({ navigation, route }) => {
   const [height, setHeight] = useState(0);
@@ -150,7 +149,7 @@ const OfferDetailScreen = ({ navigation, route }) => {
               <Ionicons
                 name='calendar-outline'
                 size={21}
-                color={Colors.darkPrimary}
+                color={Colors.white}
               />
             }
             cta='Añadir'
@@ -162,7 +161,7 @@ const OfferDetailScreen = ({ navigation, route }) => {
               <Ionicons
                 name='map-outline'
                 size={21}
-                color={Colors.darkPrimary}
+                color={Colors.white}
               />
             }
             cta='Ver'
@@ -181,7 +180,7 @@ const OfferDetailScreen = ({ navigation, route }) => {
                 <Ionicons
                   name='logo-whatsapp'
                   size={21}
-                  color={Colors.darkPrimary}
+                  color={Colors.white}
                 />
               }
               cta='Entrar'
@@ -214,25 +213,21 @@ const OfferDetailScreen = ({ navigation, route }) => {
         />
         <OfferInfoItem left='Desplazamiento' right='Si' />
         <OfferInfoItem left='Nocturnidad' right='No' />
+        <OfferInfoItem left='Contrato' right={(
+          <TouchableOpacity 
+            onPress={() => navigation.navigate('OffersStack', { screen: 'PDF', params: { name: 'Contrato de camarero', file: 'https://bitcoin.org/bitcoin.pdf' } })}
+            style={{ flexDirection: 'row', alignItems: 'center' }}
+          >
+            <Text style={{ color: Colors.primary, marginRight: 4 }}>Ver</Text>
+            <Ionicons name="eye-outline" color={Colors.primary} size={14} />
+          </TouchableOpacity>
+        )} />
         {eventData.description.length !== 0 && (
           <>
             <OfferInfoItem left='Descrición' />
             <Description>{eventData.description}</Description>
           </>
         )}
-        <Label>Contrato</Label>
-        <OfferContract
-          name='Contrato de camarero'
-          onSelect={() =>
-            navigation.navigate('OffersStack', {
-              screen: 'PDF',
-              params: {
-                name: 'Contrato de camarero',
-                file: 'https://bitcoin.org/bitcoin.pdf',
-              },
-            })
-          }
-        />
       </ScrollView>
       {!applicationId && (
         <View
@@ -286,12 +281,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     width: '100%',
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.darkPrimary,
     paddingBottom: Platform.OS === 'ios' ? 32 : 8,
     paddingTop: 8,
     paddingHorizontal: 24,
     borderTopColor: Colors.grey,
-    borderTopWidth: 0.6,
+    borderTopWidth: 1,
   },
   wrapper: {
     paddingHorizontal: 24,

@@ -30,9 +30,7 @@ const TabBar = ({ state, navigation }) => {
                     <Tab
                         name={route.name}
                         isSelected={isSelectedHandler(route.name)}
-                        setNewSelected={() => {
-                            newSelectedHandler(route.name, index)
-                        }}
+                        setNewSelected={() => newSelectedHandler(route.name, index)}
                         key={route.key}
                     />
                 ))}
@@ -49,8 +47,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: Colors.darkPrimary,
-        borderTopColor: Colors.lightPrimary,
-        borderTopWidth: .6
+        borderTopColor: Colors.grey,
+        borderTopWidth: 1
     },
     container: {
         flexDirection: 'row',

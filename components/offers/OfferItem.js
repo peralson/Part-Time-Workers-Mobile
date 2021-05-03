@@ -9,6 +9,9 @@ import {
     TouchableOpacity
 } from 'react-native'
 
+// Expo
+import { Ionicons } from '@expo/vector-icons'
+
 // Libs
 import formattedSalary from '../../libs/formattedSalary'
 import totalHoursCalc from '../../libs/totalHoursCalc'
@@ -22,9 +25,8 @@ import Size from '../../constants/FontSize'
 
 // Components
 import Card from '../UI/Card'
-import ApplyButton from '../offers/ApplyButton'
 
-const OfferItem = ({ offerData, eventData, onSelect, onApplication }) => {
+const OfferItem = ({ offerData, eventData, companyData, onSelect }) => {
     const { hours, minutes } = totalHoursCalc(offerData.schedule)
     const total = offerData.salary * (hours + (minutes / 60))
 
@@ -32,32 +34,51 @@ const OfferItem = ({ offerData, eventData, onSelect, onApplication }) => {
         <TouchableOpacity activeOpacity={0.8} onPress={onSelect}>
             <Card>
                 <View style={styles.topContainer}>
-                    <View style={styles.titleLocation}>
-                        <Text style={styles.title}>{eventData.name}</Text>
-                        <Text style={styles.location}>{offerData.category} | {eventData.location.address.split(',')[0]}</Text>
-                    </View>
-                    <View style={styles.date}>
-                        <Text style={styles.day}>{moment(eventData.date).format('DD')}</Text>
-                        <Text style={styles.month}>{moment(eventData.date).format('MMM').split('.')[0].toUpperCase()}</Text>
+                    <Text style={styles.title}>{eventData.name}</Text>
+                    <View style={styles.dateContainer}>
+                        <Text style={styles.date}>{moment(eventData.date).format('DD MMM').split('.')[0]}</Text>
                     </View>
                 </View>
-                <View style={styles.middleContainer}>
-                    <View style={styles.column}>
-                        <Text style={styles.columnTop}>{formattedSalary(offerData.salary)}</Text>
-                        <Text style={styles.columnBottom}>€/hora</Text>
+                <View style={styles.bottomContainer}>
+                    <View style={styles.left}>
+                        <View style={styles.details}>
+                            <View style={styles.detail}>
+                                <Ionicons name="person-outline" color={Colors.darkGrey} size={10} />
+                                <Text style={styles.detailText}>{offerData.category}</Text>
+                            </View>
+                            <View style={styles.detail}>
+                                <Ionicons name="compass-outline" color={Colors.darkGrey} size={10} />
+                                <Text style={styles.detailText}>{companyData.name}</Text>
+                            </View>
+                            <View style={styles.detail}>
+                                <Ionicons name="location-outline" color={Colors.darkGrey} size={10} />
+                                <Text style={styles.detailText}>{eventData.location.address.split(',')[0]}</Text>
+                            </View>
+                        </View>
+                        <View style={styles.importants}>
+                            <View style={styles.important}>
+                                <Text style={styles.importantText}>
+                                    {formattedSalary(offerData.salary)}€/hora
+                                </Text>
+                            </View>
+                            <View style={styles.important}>
+                                <Text style={styles.importantText}>
+                                    {hours}
+                                    {minutes !== 0 && (
+                                        minutes < 10 ? `:0${minutes}` : `:${minutes}`
+                                    )} horas
+                                </Text>
+                            </View>
+                            <View style={styles.important}>
+                                <Text style={styles.importantText}>...</Text>
+                            </View>
+                        </View>
                     </View>
-                    <View style={styles.column}>
-                        <Text style={styles.columnTop}>
-                            {hours}
-                            {minutes !== 0 && (
-                                minutes < 10 ?
-                                    `:0${minutes}` :
-                                    `:${minutes}`
-                            )}
-                        </Text>
-                        <Text style={styles.columnBottom}>horas</Text>
+                    <View style={styles.right}>
+                        <View style={styles.amountContainer}>
+                            <Text style={styles.amount}>{total.toFixed(0)}€</Text>
+                        </View>
                     </View>
-                    <Text style={styles.amount}>{total.toFixed(0)}€</Text>
                 </View>
             </Card>
         </TouchableOpacity>
@@ -69,78 +90,75 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: 16,
-    },
-    titleLocation: {
-        flex: 1,
-        paddingRight: 16
+        marginBottom: 4
     },
     title: {
         fontFamily: Family.bold,
-        fontSize: Size.medium,
-        color: Colors.black,
-        marginBottom: 8
+        fontSize: Size.small,
+        color: Colors.white,
+        flex: 1,
+        paddingRight: 16
     },
-    location: {
-        fontFamily: Family.normal,
-        fontSize: Size.tiny,
-        color: Colors.darkGrey,
+    dateContainer: {
+        paddingVertical: 4,
+        paddingHorizontal: 8,
+        backgroundColor: Colors.darkPrimary,
+        borderRadius: 4
     },
     date: {
-        padding: 8,
-        alignItems: 'center'
-    },
-    day: {
-        fontFamily: Family.bold,
-        fontSize: Size.big,
-        color: Colors.black,
-        marginBottom: 4
-    },
-    month: {
         fontFamily: Family.normal,
-        fontSize: Size.small,
-        color: Colors.black,
-    },
-    middleContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        marginBottom: 8
-    },
-    column: {
-        alignItems: 'center',
-        flex: 1
-    },
-    columnTop: {
-        fontFamily: Family.bold,
-        fontSize: Size.big,
-        color: Colors.darkPrimary,
-        marginBottom: 4
-    },
-    columnBottom: {
-        fontFamily: Family.normal,
-        fontSize: Size.tiny,
-        color: Colors.darkPrimary
-    },
-    amount: {
-        fontFamily: Family.bold,
-        fontSize: Size.huge,
-        color: Colors.darkPrimary,
-        flex: 1,
-        textAlign: 'center'
+        fontSize: Size.micro,
+        color: Colors.white,
+        lineHeight: 12
     },
     bottomContainer: {
         flexDirection: 'row',
-        alignItems: 'center',
-        marginTop: 16
+        alignItems: 'flex-end'
     },
-    more: {
-        fontFamily: Family.normal,
-        fontSize: Size.tiny,
-        color: Colors.primary,
+    left: {
         flex: 1,
-        textAlign: 'center'
+        marginRight: 16,
     },
+    detail: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    detailText: {
+        fontFamily: Family.normal,
+        fontSize: Size.micro,
+        color: Colors.darkGrey,
+        lineHeight: 14,
+        marginLeft: 4
+    },
+    importants: {
+        marginTop: 8,
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    important: {
+        paddingVertical: 4,
+        paddingHorizontal: 8,
+        marginRight: 4,
+        borderRadius: 4,
+        backgroundColor: Colors.primaryBg
+    },
+    importantText: {
+        color: Colors.primary,
+        fontFamily: Family.normal,
+        fontSize: Size.micro,
+        lineHeight: 12
+    },
+    amountContainer: {
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        borderRadius: 16,
+        backgroundColor: Colors.accentBg
+    },
+    amount: {
+        fontFamily: Family.bold,
+        color: Colors.accent,
+        fontSize: Size.big
+    }
 })
 
 export default OfferItem

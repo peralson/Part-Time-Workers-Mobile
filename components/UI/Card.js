@@ -2,7 +2,10 @@
 import React from "react";
 
 // React Native
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native"
+
+// Constants
+import Colors from '../../constants/Colors'
 
 const Card = ({ noMargin, noPadding, children }) => (
   <View
@@ -22,9 +25,9 @@ const Card = ({ noMargin, noPadding, children }) => (
 
 const styles = StyleSheet.create({
   shadow: {
-    padding: 8,
-    borderRadius: 4,
-    backgroundColor: "white",
+    padding: 16,
+    borderRadius: 10,
+    backgroundColor: Colors.grey,
     marginBottom: 8,
   },
 });

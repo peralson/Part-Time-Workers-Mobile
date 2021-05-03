@@ -51,15 +51,15 @@ const styles = StyleSheet.create({
     },
     proposal: {
         fontFamily: Family.normal,
-        fontSize: Size.tiny,
+        fontSize: Size.micro,
         color: Colors.darkGrey,
-        marginBottom: 4,
-        lineHeight: 16
+        marginBottom: 2,
+        lineHeight: 12
     },
     name: {
         fontFamily: Family.bold,
         fontSize: Size.normal,
-        color: Colors.black,
+        color: Colors.white,
         lineHeight: 19
     },
     imageContainer: {

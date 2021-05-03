@@ -69,7 +69,6 @@ const OffersHomeScreen = ({ navigation }) => {
                 <OfferItem
                   {...item}
                   onSelect={() => navigation.navigate('OffersStack', { screen: 'OfferDetails', params: { offerId: item.id } })}
-                  onApplication={() => navigation.navigate('ApplicationsStack', { screen: 'ApplicationResume', params: { offerId: item.id } })}
                 />
               )}
             />
@@ -82,8 +81,8 @@ const OffersHomeScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   contentContainer: {
-    marginTop: 16,
-    paddingHorizontal: 24,
+    marginTop: 8,
+    paddingHorizontal: 16,
     paddingBottom: 96,
   }
 })

@@ -2,20 +2,8 @@
 import React from 'react'
 
 // React Native
-import { StyleSheet, View } from 'react-native'
+import { View } from 'react-native'
 
-const InputContainer = props => {
-    return (
-        <View style={styles.inputContainer}>
-            {props.children}
-        </View>
-    )
-}
-
-const styles = StyleSheet.create({
-    inputContainer: {
-        marginBottom: 24
-    },
-})
+const InputContainer = ({ children }) => <View style={{ marginBottom: 24 }}>{children}</View>
 
 export default InputContainer

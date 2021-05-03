@@ -69,9 +69,8 @@ const ProfilePayrollsScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 16,
-        paddingBottom: 24,
-        paddingHorizontal: 24
+        paddingVertical: 8,
+        paddingHorizontal: 16,
     }
 })
 

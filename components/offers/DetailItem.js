@@ -26,15 +26,17 @@ const styles = StyleSheet.create({
     },
     title: {
         fontFamily: Family.bold,
-        color: Colors.darkPrimary,
+        color: Colors.white,
         fontSize: Size.small,
+        lineHeight: 21,
         marginTop: 8
     },
     cta: {
         fontFamily: Family.normal,
         color: Colors.primary,
-        fontSize: Size.tiny,
-        marginTop: 8,
+        fontSize: Size.micro,
+        lineHeight: 12,
+        marginTop: 4,
     },
 })
 

@@ -4,19 +4,18 @@ import React from 'react'
 // React Native
 import { StyleSheet } from 'react-native'
 
+// Components
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
-const FormWrapper = props => {
-    return (
-        <KeyboardAwareScrollView
-            showsVerticalScrollIndicator={false} 
-            style={styles.wrapper}
-            extraHeight={240}
-        >
-            {props.children}
-        </KeyboardAwareScrollView>
-    )
-}
+const FormWrapper = ({ children }) => (
+    <KeyboardAwareScrollView
+        showsVerticalScrollIndicator={false} 
+        style={styles.wrapper}
+        extraHeight={240}
+    >
+        {children}
+    </KeyboardAwareScrollView>
+)
 
 const styles = StyleSheet.create({
     wrapper: {

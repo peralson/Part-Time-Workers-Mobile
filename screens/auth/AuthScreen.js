@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 
 // React Native
-import { StyleSheet, Text, TouchableOpacity, View, ActivityIndicator, Alert } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View, ActivityIndicator, Alert, Image } from 'react-native'
 
 // Constants
 import Colors from '../../constants/Colors'
@@ -17,6 +17,9 @@ import { useDispatch } from 'react-redux'
 import * as authActions from '../../store/actions/auth'
 import * as profileActions from '../../store/actions/profile'
 
+// Logo
+import Logo from '../../assets/Logo.png'
+
 // Components
 import Screen from '../../components/UI/Screen'
 import FormWrapper from '../../components/form/FormWrapper'
@@ -28,7 +31,7 @@ const AuthScreen = props => {
     const dispatch = useDispatch()
 
     const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState()
+    const [error, setError] = useState(null)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -78,8 +81,11 @@ const AuthScreen = props => {
         <Screen>
             <FormWrapper>
                 <View style={styles.header}>
-                    <Text style={styles.logo}>Labora</Text>
-                    <Text style={styles.secodary}>For workers</Text>
+                    <Image
+                        source={Logo}
+                        style={styles.image}
+                        resizeMode="contain"
+                    />
                 </View>
                 <InputContainer>
                     <Label>Correo electrónico</Label>
@@ -130,22 +136,14 @@ const styles = StyleSheet.create({
     header: {
         marginTop: 120,
         marginBottom: 80,
-        width: '100%',
         alignItems: 'center'
     },
-    logo: {
-        fontFamily: 'gotham-bold',
-        color: Colors.primary,
-        fontSize: 40
-    },
-    secodary: {
-        fontFamily: 'gotham-book',
-        color: Colors.darkPrimary,
-        fontSize: 16,
-        paddingLeft: 2
+    image: {
+        width: 160,
+        height: 60,
     },
     buttonContainer: {
-        backgroundColor: Colors.primary,
+        backgroundColor: Colors.accent,
         borderRadius: 4,
         alignItems: 'center',
         paddingVertical: 16,

@@ -15,7 +15,7 @@ const Screen = ({ children }) => <View style={styles.screen}>{children}</View>
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        backgroundColor: Colors.white
+        backgroundColor: Colors.darkPrimary
     }
 })
 

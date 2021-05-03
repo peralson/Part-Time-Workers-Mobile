@@ -1,8 +1,5 @@
 import React from 'react'
 
-// React Native
-import { StyleSheet } from 'react-native'
-
 // Libs
 import PDFReader from 'rn-pdf-reader-js'
 
@@ -25,8 +22,5 @@ const PDFScreen = ({ navigation, route }) => {
         </Screen>
     )
 }
-
-const styles = StyleSheet.create({
-});
 
 export default PDFScreen

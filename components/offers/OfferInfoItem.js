@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     companyDetailsItemText: {
         fontFamily: Family.normal,
         fontSize: Size.small,
-        color: Colors.darkPrimary,
+        color: Colors.white,
         lineHeight: 19
     },
 })

@@ -11,45 +11,47 @@ import Size from '../../constants/FontSize'
 
 const ApplyButton = ({ locked, children, onSelect }) => (
     <TouchableOpacity
-		style={locked ? styles.lockedContainer : styles.buttonContainer}
-		activeOpacity={0.8}
-		onPress={
-			locked
-			? () => {}
-			: onSelect
-		}
-    >
-		<Text style={locked ? styles.lockedButton : styles.button}>
-			{children}
-		</Text>
+      style={locked ? styles.lockedContainer : styles.buttonContainer}
+      activeOpacity={0.8}
+      onPress={
+        locked
+        ? () => {}
+        : onSelect
+      }
+      >
+      <Text style={locked ? styles.lockedButton : styles.button}>
+        {children}
+      </Text>
     </TouchableOpacity>
 )
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    paddingVertical: 16,
+    paddingVertical: 10,
     alignItems: 'center',
     flex: 1,
-    backgroundColor: Colors.lightAccent,
-    borderRadius: 16,
+    backgroundColor: Colors.accent,
+    borderRadius: 10,
   },
   button: {
     fontFamily: Family.bold,
-    fontSize: Size.tiny,
-    color: Colors.accent,
+    fontSize: Size.small,
+    color: Colors.white,
+    lineHeight: 21,
   },
 
   lockedContainer: {
-    paddingVertical: 16,
+    paddingVertical: 10,
     alignItems: 'center',
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.04)',
-    borderRadius: 16,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 10,
   },
   lockedButton: {
     fontFamily: Family.bold,
-    fontSize: Size.tiny,
-    color: 'rgba(0, 0, 0, 0.16)',
+    fontSize: Size.small,
+    color: Colors.accentBg,
+    lineHeight: 21,
   },
 });
 

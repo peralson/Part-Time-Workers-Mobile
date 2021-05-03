@@ -28,10 +28,10 @@ const styles = StyleSheet.create({
         marginBottom: 24,
     },
     text: {
-        color: Colors.darkPrimary,
+        color: Colors.darkGrey,
         fontFamily: Family.normal,
         fontSize: Size.small,
-        lineHeight: 27
+        lineHeight: 24
     }
 })
 

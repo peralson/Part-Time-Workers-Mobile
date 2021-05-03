@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         paddingVertical: 8,
         paddingLeft: 8,
         borderLeftWidth: 2,
-        borderLeftColor: Colors.primary,
+        borderLeftColor: Colors.primaryBg,
     },
     boxContainer: {
         flexDirection: 'row',
@@ -64,13 +64,13 @@ const styles = StyleSheet.create({
         paddingVertical: 4
     },
     indicator: {
-        color: Colors.darkGrey,
+        color: Colors.white,
         fontFamily: Family.normal,
-        fontSize: Size.small
+        fontSize: Size.micro
     },
     time: {
-        color: Colors.darkPrimary,
-        fontFamily: 'gotham-bold',
+        color: Colors.primary,
+        fontFamily: Family.bold,
         fontSize: Size.medium
     }
 })

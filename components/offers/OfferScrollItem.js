@@ -9,9 +9,6 @@ import Colors from '../../constants/Colors'
 import Family from '../../constants/FontFamily'
 import Size from '../../constants/FontSize'
 
-// Components
-import Card from '../UI/Card'
-
 const OfferScrollItem = ({ title }) => (
     <View style={styles.selector}>
         <Text style={styles.selectorText}>{title}</Text>
@@ -28,7 +25,7 @@ const styles = StyleSheet.create({
     },
     selectorText: {
         fontFamily: Family.bold,
-        color: Colors.black,
+        color: Colors.white,
         fontSize: Size.medium
     }
 })

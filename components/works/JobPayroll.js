@@ -26,7 +26,9 @@ const JobPayroll = ({ payroll, onSelect }) => (
         <Card>
             <View style={styles.container}>
                 <View style={styles.leftContainer}>
-                    <Text style={styles.date}>{moment(payroll.eventData.date).format('DD/MM/YYYY')}</Text>
+                    <View style={styles.dateContainer}>
+                        <Text style={styles.date}>{moment(payroll.eventData.date).format('DD/MM/YYYY')}</Text>
+                    </View>
                     <Text style={styles.title}>{payroll.eventData.name}</Text>
                     <Text style={styles.location}>{payroll.offerData.category} | {payroll.eventData.location.address.split(',')[0]}</Text>
                 </View>
@@ -50,22 +52,30 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         paddingRight: 16,
     },
+    dateContainer: {
+        paddingVertical: 4,
+        paddingHorizontal: 8,
+        backgroundColor: Colors.darkPrimary,
+        borderRadius: 4,
+        marginBottom: 8
+    },
     date: {
         fontFamily: Family.normal,
-        fontSize: Size.tiny,
-        color: Colors.darkGrey,
-        marginBottom: 8
+        fontSize: Size.micro,
+        color: Colors.white,
+        lineHeight: 12
     },
     title: {
         fontFamily: Family.bold,
         fontSize: Size.medium,
-        color: Colors.black,
+        color: Colors.white,
         marginBottom: 8
     },
     location: {
         fontFamily: Family.normal,
-        fontSize: Size.tiny,
+        fontSize: Size.micro,
         color: Colors.darkGrey,
+        lineHeight: 12
     },
     contractContainer: {
         alignItems: 'center',

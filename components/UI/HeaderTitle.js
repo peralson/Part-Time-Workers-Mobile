@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     title: {
         fontFamily: Family.bold,
         fontSize: Size.big,
-        color: Colors.black,
+        color: Colors.white,
         lineHeight: 32,
     }
 })
