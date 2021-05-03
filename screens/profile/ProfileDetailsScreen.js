@@ -2,7 +2,7 @@
 import React from 'react'
 
 // React Native
-import { StyleSheet, ScrollView } from 'react-native'
+import { StyleSheet, ScrollView, View } from 'react-native'
 
 // Libs
 import moment from 'moment'
@@ -15,6 +15,8 @@ import BackButton from '../../components/UI/BackButton'
 import HeaderTitle from '../../components/UI/HeaderTitle'
 import ProfileItem from '../../components/profile/ProfileItem'
 import ImagePicker from '../../components/UI/ImagePicker'
+import SideScrollPicker from '../../components/UI/SideScrollPicker'
+import MultilineInput from '../../components/form/MultilineInput'
 
 const ProfileDetailsScreen = ({ navigation, route }) => {
 	const { profile } = route.params
@@ -26,14 +28,17 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
 				rightComponent={<HeaderTitle title='Mi información' />}
 			/>
 			<ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
+				<ProfileItem title='Fotografías' />
+				<SideScrollPicker>
+					<ImagePicker title='Personal' image={profile.images.main} />
+					<ImagePicker title='Profesional' image={profile.images.profesional} />
+				</SideScrollPicker>
 				<ProfileItem title='Nombre' content={profile.name} />
-				<ProfileItem title='Biografía' content={profile.details.bio} />
-				<ProfileItem title='Email' content={profile.contact.email} />
 				<ProfileItem title='Número de teléfono' content={profile.contact.phoneNumber} />
 				<ProfileItem title='Dirección' content={profile.contact.address} />
 				<ProfileItem title='Fecha de Nacimiento' content={moment(profile.details.birthday).format('DD-MM-YYYY')} />
-				<ImagePicker title='Imagen personal' image={profile.images.main} />
-				<ImagePicker title='Imagen profesional' image={profile.images.profesional} />
+				<ProfileItem title='Biografía' />
+				<MultilineInput placeholder={profile.details.bio} />
 			</ScrollView>
 		</Screen>
 	)
@@ -41,9 +46,7 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 16,
-        paddingBottom: 24,
-        paddingHorizontal: 24
+        paddingVertical: 16
     }
 })
 

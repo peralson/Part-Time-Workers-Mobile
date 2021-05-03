@@ -67,7 +67,7 @@ const App = () => {
 
     return (
         <Provider store={store}>
-            <StatusBar style="dark" />
+            <StatusBar style="light" />
             <NavigationContainer>
                 <AuthNavigation />
             </NavigationContainer>

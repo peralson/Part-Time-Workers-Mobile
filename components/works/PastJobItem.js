@@ -55,9 +55,10 @@ const PastJobItem = ({ offerData, eventData, onSelect, jobData }) => {
             <Card>
                 <View style={styles.container}>
                     <View style={styles.leftContainer}>
-                        <Text style={styles.date}>{moment(eventData.date).format('DD/MM/YYYY')}</Text>
+                        <View style={styles.dateContainer}>
+                            <Text style={styles.date}>{moment(eventData.date).format('DD MMMM')}</Text>
+                        </View>
                         <Text style={styles.title}>{eventData.name}</Text>
-                        <Text style={styles.location}>{offerData.category} | {eventData.location.address.split(',')[0]}</Text>
                         <Text style={{...styles.status, ...{ color: textColor }}}>{status}</Text>
                     </View>
                     <View style={styles.rightContainer}>
@@ -78,27 +79,27 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         paddingRight: 16,
     },
+    dateContainer: {
+        paddingVertical: 4,
+        paddingHorizontal: 8,
+        backgroundColor: Colors.darkPrimary,
+        borderRadius: 4,
+        marginBottom: 8
+    },
     date: {
         fontFamily: Family.normal,
-        fontSize: Size.tiny,
-        color: Colors.darkGrey,
-        marginBottom: 8
+        fontSize: Size.micro,
+        color: Colors.white,
     },
     title: {
         fontFamily: Family.bold,
         fontSize: Size.medium,
-        color: Colors.black,
-        marginBottom: 8
-    },
-    location: {
-        fontFamily: Family.normal,
-        fontSize: Size.tiny,
-        color: Colors.darkGrey,
+        color: Colors.white,
         marginBottom: 8
     },
     status: {
         fontFamily: Family.normal,
-        fontSize: Size.tiny,
+        fontSize: Size.micro,
     },
     rightContainer: {
         alignItems: 'center',

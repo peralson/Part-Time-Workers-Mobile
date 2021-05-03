@@ -10,8 +10,10 @@ import {
     Alert
 } from 'react-native'
 
+// Expo
+import { Ionicons } from '@expo/vector-icons'
+
 // Libs
-import totalHoursCalc from '../../libs/totalHoursCalc'
 import moment from 'moment'
 import 'moment/locale/es'
 
@@ -30,7 +32,7 @@ import Size from '../../constants/FontSize'
 import Card from '../UI/Card'
 import ApplyButton from '../offers/ApplyButton'
 
-const JobItem = ({ offerData, eventData, jobData, onSelect }) => {
+const JobItem = ({ offerData, eventData, companyData, jobData, onSelect }) => {
     const [checkin, setChecking] = useState(true)
     const [loading, setLoading] = useState(false)
 
@@ -49,10 +51,26 @@ const JobItem = ({ offerData, eventData, jobData, onSelect }) => {
     return (
         <TouchableOpacity activeOpacity={0.8} onPress={onSelect} style={{ marginRight: 8 }}>
             <Card>
-                <View style={styles.topContainer}>
-                    <Text style={styles.day}>{moment(eventData.date).format('DD MMMM')}</Text>
-                    <Text style={styles.title}>{eventData.name}</Text>
-                    <Text style={styles.location}>{offerData.category} | {eventData.location.address.split(',')[0]}</Text>
+                <View style={{ flexDirection: 'row' }}>
+                    <View style={styles.dateContainer}>
+                        <Text style={styles.date}>{moment(eventData.date).format('DD MMMM')}</Text>
+                    </View>
+                    <View style={{ flex: 1 }}></View>
+                </View>
+                <Text style={styles.title}>{eventData.name}</Text>
+                <View style={styles.details}>
+                    <View style={styles.detail}>
+                        <Ionicons name="person-outline" color={Colors.darkGrey} size={10} />
+                        <Text style={styles.detailText}>{offerData.category}</Text>
+                    </View>
+                    <View style={styles.detail}>
+                        <Ionicons name="compass-outline" color={Colors.darkGrey} size={10} />
+                        <Text style={styles.detailText}>{companyData.name}</Text>
+                    </View>
+                    <View style={styles.detail}>
+                        <Ionicons name="location-outline" color={Colors.darkGrey} size={10} />
+                        <Text style={styles.detailText}>{eventData.location.address.split(',')[0]}</Text>
+                    </View>
                 </View>
                 <ApplyButton locked={!jobData.status === "active"} isJob={true} onSelect={handleCheck}>
                     {loading ? 'Esperando...' : checkin ? 'Check in' : 'Check out'}
@@ -63,26 +81,42 @@ const JobItem = ({ offerData, eventData, jobData, onSelect }) => {
 }
 
 const styles = StyleSheet.create({
-    topContainer: {
-        marginBottom: 24
+    dateContainer: {
+        paddingVertical: 4,
+        paddingHorizontal: 8,
+        backgroundColor: Colors.darkPrimary,
+        borderRadius: 4,
+        marginBottom: 8
     },
-    day: {
-        fontFamily: Family.bold,
-        fontSize: Size.tiny,
-        color: Colors.darkPrimary,
-        width: '100%',
-        marginBottom: 12
+    date: {
+        fontFamily: Family.normal,
+        fontSize: Size.micro,
+        color: Colors.white,
     },
     title: {
         fontFamily: Family.bold,
-        fontSize: Size.medium,
-        color: Colors.black,
+        fontSize: Size.small,
+        color: Colors.white,
         marginBottom: 8
     },
     location: {
         fontFamily: Family.normal,
         fontSize: Size.tiny,
         color: Colors.darkGrey,
+    },
+    details: {
+        marginBottom: 16
+    },
+    detail: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    detailText: {
+        fontFamily: Family.normal,
+        fontSize: Size.micro,
+        color: Colors.darkGrey,
+        lineHeight: 14,
+        marginLeft: 4
     },
 })
 

@@ -23,9 +23,11 @@ const OfferHeader = ({ category, name, totalSalary }) => (
                 {category}
             </Text>
         </View>
-        <Text style={styles.salary}>
-            {totalSalary}€
-        </Text>
+        <View style={styles.salaryContainer}>
+            <Text style={styles.salary}>
+                {totalSalary}€
+            </Text>
+        </View>
     </View>
 )
 
@@ -42,19 +44,25 @@ const styles = StyleSheet.create({
     },
     category: {
         fontFamily: Family.bold,
-        fontSize: Size.small,
+        fontSize: Size.tiny,
         marginBottom: 4,
-        color: Colors.darkGrey
+        color: Colors.primary
     },
     title: {
         fontFamily: Family.bold,
         fontSize: Size.big,
-        color: Colors.black,
+        color: Colors.white,
+    },
+    salaryContainer: {
+        paddingHorizontal: 16,
+        paddingVertical: 8,
+        backgroundColor: Colors.accentBg,
+        borderRadius: 16
     },
     salary: { 
-        color: Colors.darkPrimary, 
+        color: Colors.accent,
         fontFamily: Family.bold, 
-        fontSize: Size.huge,
+        fontSize: Size.big,
     }
 })
 

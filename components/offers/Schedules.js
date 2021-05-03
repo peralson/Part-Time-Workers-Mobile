@@ -54,14 +54,14 @@ const styles = StyleSheet.create({
     },
     total: {
         fontFamily: Family.bold,
-        color: Colors.darkPrimary,
+        color: Colors.white,
         fontSize: Size.medium,
         paddingBottom: 4
     },
     hours: {
         fontFamily: Family.normal,
-        color: Colors.darkPrimary,
-        fontSize: Size.tiny
+        color: Colors.white,
+        fontSize: Size.micro
     }
 })
 

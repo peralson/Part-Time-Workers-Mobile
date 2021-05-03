@@ -111,7 +111,7 @@ const WorksHomeScreen = ({ navigation }) => {
 			/>
 			<ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
 				<View style={{ paddingHorizontal: 24 }}>
-				<Label>Próximos trabajos</Label>
+					<Label>Próximos trabajos</Label>
 				</View>
 				{jobsLoading ? <IsLoadingMini text="trabajos" /> : (
 					<>
@@ -135,6 +135,8 @@ const WorksHomeScreen = ({ navigation }) => {
 				)}
 				<View style={{ paddingHorizontal: 24 }}>
 					<Label>Ofertas a las que he aplicado</Label>
+				</View>
+				<View style={{ paddingHorizontal: 16 }}>
 					{applicationsLoading ? <IsLoadingMini text="aplicaciones" /> : (
 						<>
 							{applications.length === 0 ? (

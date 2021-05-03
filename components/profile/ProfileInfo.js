@@ -39,9 +39,9 @@ const ProfileInfo = ({
 const styles = StyleSheet.create({
 	component: {
 		paddingTop: Platform.OS === 'android' ? 16 : 72,
-		backgroundColor: Colors.white,
+		backgroundColor: Colors.darkPrimary,
 		borderBottomColor: Colors.grey,
-		borderBottomWidth: 0.6,
+		borderBottomWidth: 1,
 	},
 	profile: {
 		flexDirection: 'row',
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
 	name: {
 		fontFamily: Family.bold,
 		fontSize: Size.big,
-		color: Colors.black,
+		color: Colors.white,
 	},
 	profileState: {
 		fontFamily: Family.normal,

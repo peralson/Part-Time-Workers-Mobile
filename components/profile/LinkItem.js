@@ -22,7 +22,7 @@ const LinkItem = ({ title, onSelect, icon }) => {
   return (
     <TouchableOpacity style={styles.link} activeOpacity={0.8} onPress={onSelect}>
       <Text style={styles.text}>{title}</Text>
-      <Icon name={icon} color={Colors.darkPrimary} size={14} />
+      <Icon name={icon} color={Colors.primary} size={14} />
     </TouchableOpacity>
   )
 }
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   text: {
     flex: 1,
     fontFamily: Family.normal,
-    color: Colors.darkPrimary,
+    color: Colors.primary,
     fontSize: Size.small,
   }
 })

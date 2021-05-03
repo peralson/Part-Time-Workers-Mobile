@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
         width: '100%',
         fontSize: Size.medium,
         marginBottom: 8,
-        color: Colors.black
+        color: Colors.white
     },
 })
 

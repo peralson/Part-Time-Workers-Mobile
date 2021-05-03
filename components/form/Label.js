@@ -2,24 +2,22 @@
 import React from 'react'
 
 // React Native
-import { StyleSheet, Text, View } from 'react-native'
-import Colors from '../../constants/Colors'
+import { StyleSheet, Text } from 'react-native'
 
-const Label = props => {
-    return (
-        <View>
-            <Text style={styles.label}>{props.children}</Text>
-        </View>
-    )
-}
+// Constants
+import Colors from '../../constants/Colors'
+import Family from '../../constants/FontFamily'
+import Size from '../../constants/FontSize'
+
+const Label = ({ children }) => <Text style={styles.label}>{children}</Text>
 
 const styles = StyleSheet.create({
     label: {
-        fontFamily: 'gotham-bold',
+        fontFamily: Family.bold,
         width: '100%',
-        fontSize: 16,
+        fontSize: Size.small,
         marginBottom: 8,
-        color: Colors.black
+        color: Colors.white
     },
 })
 

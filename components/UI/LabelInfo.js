@@ -14,7 +14,7 @@ const LabelInfo = ({ children }) => <Text style={styles.labelInfo}>{children}</T
 const styles = StyleSheet.create({
     labelInfo: {
         fontFamily: Family.normal,
-        lineHeight: 23,
+        lineHeight: 21,
         fontSize: Size.small,
         color: Colors.darkGrey,
         marginBottom: 8

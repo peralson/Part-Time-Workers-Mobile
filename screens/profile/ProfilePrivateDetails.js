@@ -47,8 +47,7 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
 const styles = StyleSheet.create({
 	container: {
         paddingTop: 16,
-        paddingBottom: 24,
-        paddingHorizontal: 24
+        paddingBottom: 24
     }
 })
 
