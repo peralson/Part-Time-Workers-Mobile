@@ -64,15 +64,18 @@ const OfferDetailScreen = ({ navigation, route }) => {
 
   const { hours, minutes } = totalHoursCalc(offerData.schedule);
   const totalSalary = ((hours + minutes / 60) * offerData.salary).toFixed(0);
-  
+
   const handleCalendar = async (eventData) => {
-    try {
-      const calendars = await Calendar.getCalendarsAsync(
-        Calendar.EntityTypes.EVENT
-      );
-      createCalendar(calendars[0].id, eventData);
-    } catch (error) {
-      console.log(error);
+    const { status } = await Calendar.requestCalendarPermissionsAsync();
+    if (status === 'granted') {
+      try {
+        const calendars = await Calendar.getCalendarsAsync(
+          Calendar.EntityTypes.EVENT
+        );
+        createCalendar(calendars[0].id, eventData);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
