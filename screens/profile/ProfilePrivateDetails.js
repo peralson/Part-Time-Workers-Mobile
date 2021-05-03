@@ -8,12 +8,14 @@ import { StyleSheet, ScrollView } from "react-native"
 import moment from 'moment'
 import 'moment/locale/es'
 
+
 // Components
 import Screen from "../../components/UI/Screen"
 import HomeWrapper from "../../components/UI/HomeWrapper"
 import BackButton from "../../components/UI/BackButton"
 import HeaderTitle from "../../components/UI/HeaderTitle"
 import ProfileItem from "../../components/profile/ProfileItem"
+import LinkItem from '../../components/profile/LinkItem'
 
 const ProfilePrivateDetails = ({ navigation, route }) => {
 	const { profile } = route.params
@@ -25,6 +27,11 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
 				rightComponent={<HeaderTitle title="Información legal" />}
 			/>
 			<ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
+      <LinkItem
+						title="Firma digital"
+						icon="arrow-forward"
+						onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfileSignatureScreen", params: { profile: profile } })}
+					/>
 				<ProfileItem title="Nacionalidad" content={profile.legal.nationality} />
 				{profile.legal.dni.front && <ProfileItem title="Imagen de DNI" content={profile.legal.dni.front} />}
 				<ProfileItem title="Número de DNI" content={profile.legal.dni.number} />
