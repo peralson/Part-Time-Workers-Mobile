@@ -13,13 +13,13 @@ import HeaderTitle from '../../components/UI/HeaderTitle';
 import BackButton from '../../components/UI/BackButton';
 
 
-export const ProfileSignatureScreen = () => {
+export const ProfileListsScreen = () => {
   const navigation = useNavigation();
   return (
     <Screen>
       <HomeWrapper
         leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
-        rightComponent={<HeaderTitle title='Firma digital' />}
+        rightComponent={<HeaderTitle title='Listas' />}
       />
     </Screen>
   );
@@ -41,4 +41,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-export default ProfileSignatureScreen;
+export default ProfileListsScreen;

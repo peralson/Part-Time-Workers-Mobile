@@ -13,6 +13,7 @@ import ProfileDrivingDetails from '../../screens/profile/ProfileDrivingDetails'
 import ProfileJobHistory from '../../screens/profile/ProfileJobHistory'
 import ProfilePastJobDetails from '../../screens/profile/ProfilePastJobDetails'
 import ProfileSignatureScreen from '../../screens/profile/ProfileSignatureScreen'
+import ProfileListsScreen from '../../screens/profile/ProfileListsScreen'
 
 const Stack = createStackNavigator()
 
@@ -60,6 +61,11 @@ const ProfileStack = () => (
         <Stack.Screen
             name="ProfileSignatureScreen" 
             component={ProfileSignatureScreen}
+            options={defaultStackOptions}
+        />
+        <Stack.Screen
+            name="ProfileListsScreen" 
+            component={ProfileListsScreen}
             options={defaultStackOptions}
         />
     </Stack.Navigator>

@@ -58,6 +58,17 @@ const ProfileHomeScreen = ({ navigation }) => {
 						onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfileJobHistory" })}
 					/>
 				</SectionContainer>
+        <SectionContainer>
+					<Label>Listas</Label>
+					<LabelInfo>
+						Visualiza las empresas donde estás listado como trabajador.
+					</LabelInfo>
+					<LinkItem
+						title="Listas"
+						icon="arrow-forward"
+						onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfileListsScreen" })}
+					/>
+				</SectionContainer>
 				<SectionContainer>
 					<Label>Gestión laboral</Label>
 					<LabelInfo>
