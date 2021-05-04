@@ -1,5 +1,6 @@
 // Actions
 export const FETCH_PROFILE = 'FETCH_PROFILE'
+export const FETCH_USER_LISTS = 'FETCH_USER_LISTS'
 
 // Models for fetching
 import Profile from '../../models/Profile'
@@ -26,4 +27,43 @@ export const fetchProfile = () => {
             profile: profile
         })
     }
+}
+
+export const fetchUserLists = () => {
+  return async (dispatch, getState) => {
+      const token = getState().auth.token
+
+      const response = await fetch(
+          'https://us-central1-partime-60670.cloudfunctions.net/api/user/worker/lists',
+          {
+              method: 'GET',
+              headers: {
+                  'Content-Type': 'application.json',
+                  'Authorization': `Bearer ${token}`
+              }
+          }
+      )
+
+      console.log(`RESPUESTA LIST: ${response}`);
+
+      // const resData = await response.json()
+
+     const userLists = []
+
+      // await resData.body.map(offer => {
+      //     userLists.push(
+      //         new Offer(
+      //             offer.id,
+      //             offer.offerData,
+      //             offer.eventData,
+      //             offer.companyData
+      //         )
+      //     )
+      // })
+
+      dispatch({
+          type: FETCH_USER_LISTS,
+          userLists: userLists
+      })
+  }
 }
