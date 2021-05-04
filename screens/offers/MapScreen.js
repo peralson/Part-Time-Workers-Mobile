@@ -19,7 +19,12 @@ const MapScreen = ({ navigation, route }) => (
             title={route.params.address}
         />
         <View style={{ flex: 1, alignItems:'center' }}>
-            <MapView style={{ height: '100%', width: '100%' }} >
+            <MapView
+                style={{ height: '100%', width: '100%' }}
+                minZoomLevel={10}
+                maxZoomLevel={18}
+                initialRegion={{ latitude: route.params.lat, longitude: route.params.lng }}
+            >
                 <Marker 
                     title="Ubicación" 
                     coordinate={{

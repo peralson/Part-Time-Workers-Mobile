@@ -2,10 +2,12 @@
 import React, { useState, useEffect } from 'react'
 
 // React Native
-import { StyleSheet, Text, TouchableOpacity, View, ActivityIndicator, Alert, Image } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View, Alert, Image, Dimensions } from 'react-native'
 
 // Constants
 import Colors from '../../constants/Colors'
+import Size from '../../constants/FontSize'
+import Family from '../../constants/FontFamily'
 
 // Firebase
 import firebase from 'firebase'
@@ -19,10 +21,10 @@ import * as profileActions from '../../store/actions/profile'
 
 // Logo
 import Logo from '../../assets/Logo.png'
+import BG from '../../assets/bg.jpg'
 
 // Components
 import Screen from '../../components/UI/Screen'
-import FormWrapper from '../../components/form/FormWrapper'
 import InputContainer from '../../components/form/InputContainer'
 import Label from '../../components/form/Label'
 import Input from '../../components/form/Input'
@@ -79,14 +81,19 @@ const AuthScreen = props => {
 
     return (
         <Screen>
-            <FormWrapper>
-                <View style={styles.header}>
-                    <Image
-                        source={Logo}
-                        style={styles.image}
-                        resizeMode="contain"
-                    />
-                </View>
+            <View style={styles.header}>
+                <Image
+                    source={BG}
+                    style={styles.bg}
+                    resizeMode="stretch"
+                />
+                <Image
+                    source={Logo}
+                    style={styles.image}
+                    resizeMode="contain"
+                />
+            </View>
+            <View style={styles.container}>
                 <InputContainer>
                     <Label>Correo electrónico</Label>
                     <Input
@@ -102,7 +109,6 @@ const AuthScreen = props => {
                 <InputContainer>
                     <Label>Contraseña</Label>
                     <Input
-                        returnKeyType="next"
                         onChange={text => setPassword(text)}
                         value={password}
                         required 
@@ -112,50 +118,64 @@ const AuthScreen = props => {
                         autoCapitalize="none"
                     />
                 </InputContainer>
-                <TouchableOpacity
-                    style={styles.buttonContainer}
-                    onPress={handleLogIn}
-                    activeOpacity={0.8}
-                >
-                    {isLoading ? (
-                        <ActivityIndicator size={18} color={Colors.white} />
-                    ) : (
-                        <Text style={styles.buttonText}>Acceder</Text>
-                    )}
+                <TouchableOpacity style={styles.buttonContainer} onPress={handleLogIn} activeOpacity={0.8}>
+                    <Text style={styles.buttonText}>{isLoading ? 'Accediendo...' : 'Acceder'}</Text>
                 </TouchableOpacity>
-            </FormWrapper>
+                <TouchableOpacity style={styles.textButtonContainer} onPress={() => {}} activeOpacity={0.8}>
+                    <Text style={styles.textButton}>¿Has olvidado tu contraseña?</Text>
+                </TouchableOpacity>
+            </View>
         </Screen>
     )
 }
 
 const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        backgroundColor: Colors.white,
-    },
     header: {
-        marginTop: 120,
-        marginBottom: 80,
+        height: '100%',
+        width: '100%',
         alignItems: 'center'
     },
     image: {
+        position: 'absolute',
+        marginTop: 120,
         width: 160,
-        height: 60,
+        height: 50,
+        zIndex: 10
+    },
+    container: {
+        flex: 1,
+        position: 'absolute',
+        bottom: 0,
+        left: -16,
+        width: Dimensions.get("screen").width + 32,
+        paddingHorizontal: 32,
+        paddingTop: 32,
+        paddingBottom: 80,
+        backgroundColor: Colors.darkPrimary,
+        borderTopLeftRadius: 48,
+        borderTopRightRadius: 48,
     },
     buttonContainer: {
         backgroundColor: Colors.accent,
         borderRadius: 4,
         alignItems: 'center',
         paddingVertical: 16,
-        marginTop: 24
     },
     buttonText: {
-        fontSize: 16,
-        fontFamily: 'gotham-bold',
-        color: Colors.white
+        fontSize: Size.medium,
+        fontFamily: Family.bold,
+        color: Colors.white,
+        lineHeight: 24
     },
-    div: {
-        height: 8
+    textButtonContainer: {
+        alignItems: 'center',
+        marginTop: 16,
+        padding: 8
+    },
+    textButton: {
+        fontFamily: Family.normal,
+        color: Colors.primary,
+        fontSize: Size.small
     }
 })
 
