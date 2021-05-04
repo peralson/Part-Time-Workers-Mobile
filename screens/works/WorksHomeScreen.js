@@ -84,8 +84,8 @@ const WorksHomeScreen = ({ navigation }) => {
 	}, [])
 
 	const applicationDetailHandler = (offerId, applicationId) => {
-		navigation.navigate('OffersStack', {
-			screen: 'OfferDetails',
+		navigation.navigate('ApplicationsStack', {
+			screen: 'ApplicationDetail',
 			params: {
 				offerId: offerId,
 				applicationId: applicationId
@@ -94,8 +94,8 @@ const WorksHomeScreen = ({ navigation }) => {
 	}
 
 	const jobDetailHandler = (offerId, jobId) => {
-		navigation.navigate('OffersStack', {
-			screen: 'OfferDetails',
+		navigation.navigate('WorksStack', {
+			screen: 'WorkDetail',
 			params: {
 				offerId: offerId,
 				jobId: jobId
