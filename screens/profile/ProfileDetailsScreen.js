@@ -2,7 +2,7 @@
 import React from 'react'
 
 // React Native
-import { StyleSheet, ScrollView, View } from 'react-native'
+import { StyleSheet, ScrollView } from 'react-native'
 
 // Libs
 import moment from 'moment'
@@ -12,7 +12,6 @@ import 'moment/locale/es'
 import Screen from '../../components/UI/Screen'
 import HomeWrapper from '../../components/UI/HomeWrapper'
 import BackButton from '../../components/UI/BackButton'
-import HeaderTitle from '../../components/UI/HeaderTitle'
 import ProfileItem from '../../components/profile/ProfileItem'
 import ImagePicker from '../../components/UI/ImagePicker'
 import SideScrollPicker from '../../components/UI/SideScrollPicker'
@@ -25,7 +24,7 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
 		<Screen>
 			<HomeWrapper
 				leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
-				rightComponent={<HeaderTitle title='Mi información' />}
+				title='Mi información'
 			/>
 			<ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
 				<ProfileItem title='Fotografías' />

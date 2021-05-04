@@ -8,7 +8,6 @@ import { StyleSheet, ScrollView } from "react-native"
 import Screen from "../../components/UI/Screen"
 import HomeWrapper from "../../components/UI/HomeWrapper"
 import BackButton from "../../components/UI/BackButton"
-import HeaderTitle from "../../components/UI/HeaderTitle"
 import ProfileItem from "../../components/profile/ProfileItem"
 
 const ProfileDrivingDetails = ({ navigation, route }) => {
@@ -18,7 +17,7 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
 		<Screen>
 			<HomeWrapper
 				leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
-				rightComponent={<HeaderTitle title="Información de transporte" />}
+				title="Datos de transporte"
 			/>
 			<ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
 				<ProfileItem title="Carnet de conducir" content={profile.transport.hasLicense ? 'Si' : 'No'} />

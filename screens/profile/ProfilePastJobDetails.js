@@ -11,9 +11,6 @@ import BackButton from "../../components/UI/BackButton"
 
 const ProfilePastJobDetails = ({ navigation, route }) => {
 	const { jobData } = route.params
-
-	console.log(jobData);
-
 	return (
 		<Screen>
 			<HomeWrapper leftComponent={<BackButton onGoBack={() => navigation.goBack()} />} />

@@ -50,7 +50,7 @@ const OfferDetailScreen = ({ navigation, route }) => {
 
 	return (
 		<Screen>
-			<HomeWrapper leftComponent={<BackButton onGoBack={() => navigation.goBack()} />} />
+			<HomeWrapper leftComponent={<BackButton onGoBack={() => navigation.goBack()} />} title="Oferta" />
 			<ScrollView
 				showsVerticalScrollIndicator={false}
 				style={{
@@ -117,7 +117,7 @@ const OfferDetailScreen = ({ navigation, route }) => {
 				<OfferInfoItem left='Nocturnidad' right='No' />
 				<OfferInfoItem left='Contrato' right={(
 					<TouchableOpacity 
-						onPress={() => navigation.navigate('OffersStack', { screen: 'PDF', params: { name: 'Contrato de camarero', file: 'https://bitcoin.org/bitcoin.pdf' } })}
+						onPress={() => navigation.navigate('OffersStack', { screen: 'PDF', params: { type: 'Contrato', name: 'Hola', file: 'https://bitcoin.org/bitcoin.pdf' } })}
 						style={{ flexDirection: 'row', alignItems: 'center' }}
 					>
 						<Text style={{ color: Colors.primary, marginRight: 4 }}>Ver</Text>

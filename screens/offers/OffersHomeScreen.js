@@ -16,7 +16,7 @@ import * as applicationActions from '../../store/actions/applications';
 import Screen from '../../components/UI/Screen';
 import HomeWrapper from '../../components/UI/HomeWrapper';
 import HeaderTitle from '../../components/UI/HeaderTitle';
-import IsLoading from '../../components/UI/IsLoading';
+import IsLoadingMini from '../../components/UI/IsLoadingMini';
 import NoOffers from '../../components/offers/NoOffers';
 import OfferItem from '../../components/offers/OfferItem';
 
@@ -54,7 +54,7 @@ const OffersHomeScreen = ({ navigation }) => {
         description='Aquí llegarán las ofertas de trabajo de las empresas que busquen contratarte.'
       />
       {isLoading ? (
-        <IsLoading />
+        <IsLoadingMini text="tus ofertas" />
       ) : (
         <>
           {offers.length === 0 ? (

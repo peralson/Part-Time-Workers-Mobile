@@ -53,6 +53,16 @@ const ProfileHomeScreen = ({ navigation }) => {
 						onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfileDrivingDetails", params: { profile: profile } })}
 					/>
 					<LinkItem
+						title='Firma digital'
+						icon='arrow-forward'
+						onSelect={() =>
+							navigation.navigate('ProfileStack', {
+								screen: 'ProfileSignatureScreen',
+								params: { profile: profile },
+							}
+						)}
+					/>
+					<LinkItem
 						title="Historial"
 						icon="arrow-forward"
 						onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfileJobHistory" })}

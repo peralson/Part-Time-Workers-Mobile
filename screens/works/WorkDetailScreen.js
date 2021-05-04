@@ -73,6 +73,7 @@ const WorkDetailScreen = ({ navigation, route }) => {
         <Screen>
             <HomeWrapper
                 leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
+                title="Trabajo"
                 rightComponent={<TopRightButton title='Cancelar' color='red' onSelect={handleCancelJob} />}
             />
             <ScrollView
@@ -111,7 +112,7 @@ const WorkDetailScreen = ({ navigation, route }) => {
                             />
                         }
                         cta='Ver'
-                        onSelect={() => navigation.navigate('Map', { address: eventData.location.address.split(',')[0], lat: eventData.location.lat, lng: eventData.location.lng })}
+                        onSelect={() => navigation.navigate('OffersStack', {screen: 'Map', params: { address: eventData.location.address.split(',')[0], lat: eventData.location.lat, lng: eventData.location.lng }})}
                     />
                     <DetailItem
                         title='WhatsApp'
@@ -153,7 +154,7 @@ const WorkDetailScreen = ({ navigation, route }) => {
                 <OfferInfoItem left='Nocturnidad' right='No' />
                 <OfferInfoItem left='Contrato' right={(
                     <TouchableOpacity 
-                        onPress={() => navigation.navigate('OffersStack', { screen: 'PDF', params: { name: 'Contrato de camarero', file: 'https://bitcoin.org/bitcoin.pdf' } })}
+                        onPress={() => navigation.navigate('OffersStack', { screen: 'PDF', params: { type: 'Contrato', file: 'https://bitcoin.org/bitcoin.pdf' } })}
                         style={{ flexDirection: 'row', alignItems: 'center' }}
                     >
                         <Text style={{ color: Colors.primary, marginRight: 4 }}>Ver</Text>

@@ -16,7 +16,7 @@ const ProfileSignatureScreen = ({ navigation }) => {
         <Screen>
             <HomeWrapper
                 leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
-                rightComponent={<HeaderTitle title='Firma digital' />}
+                title='Firma digital'
             />
         </Screen>
     )

@@ -69,6 +69,7 @@ const ApplicationDetailScreen = ({ navigation, route }) => {
         <Screen>
             <HomeWrapper
                 leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
+                title="Aplicación"
                 rightComponent={<TopRightButton title='Anular' color='red' onSelect={handleCancelApplication} />}
             />
             <ScrollView showsVerticalScrollIndicator={false} style={{ paddingVertical: 16, paddingHorizontal: 16 }}>
@@ -100,7 +101,7 @@ const ApplicationDetailScreen = ({ navigation, route }) => {
                             />
                         }
                         cta='Ver'
-                        onSelect={() => navigation.navigate('Map', { address: eventData.location.address.split(',')[0], lat: eventData.location.lat, lng: eventData.location.lng })}
+                        onSelect={() => navigation.navigate('OffersStack', {screen: 'Map', params: { address: eventData.location.address.split(',')[0], lat: eventData.location.lat, lng: eventData.location.lng }})}
                     />
                 </DetailsContainer>
                 {offerData.description.length !== 0 && (
@@ -130,7 +131,7 @@ const ApplicationDetailScreen = ({ navigation, route }) => {
                 <OfferInfoItem left='Nocturnidad' right='No' />
                 <OfferInfoItem left='Contrato' right={(
                     <TouchableOpacity 
-                        onPress={() => navigation.navigate('OffersStack', { screen: 'PDF', params: { name: 'Contrato de camarero', file: 'https://bitcoin.org/bitcoin.pdf' } })}
+                        onPress={() => navigation.navigate('OffersStack', { screen: 'PDF', params: { type: 'Contrato', file: 'https://bitcoin.org/bitcoin.pdf' } })}
                         style={{ flexDirection: 'row', alignItems: 'center' }}
                     >
                         <Text style={{ color: Colors.primary, marginRight: 4 }}>Ver</Text>

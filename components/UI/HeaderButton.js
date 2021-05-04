@@ -5,7 +5,7 @@ import React from 'react'
 import { TouchableOpacity } from 'react-native'
 
 const HeaderButton = ({ onSelect, children }) => (
-    <TouchableOpacity activeOpacity={0.6} onPress={onSelect} style={{ paddingVertical: 8 }}>
+    <TouchableOpacity activeOpacity={0.6} onPress={onSelect} style={{ paddingVertical: 4 }}>
         {children}
     </TouchableOpacity>
 )
