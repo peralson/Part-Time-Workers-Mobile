@@ -44,7 +44,7 @@ export const fetchUserLists = () => {
           }
       )
 
-      console.log(`RESPUESTA LIST: ${response}`);
+      console.log(`RESPUESTA LIST: ${response.json()}`);
 
       // const resData = await response.json()
 

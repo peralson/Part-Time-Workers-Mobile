@@ -40,10 +40,12 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         alignItems: 'center',
+        justifyContent: 'space-between',
         marginBottom: 24,
         marginTop: 8,
     },
     left: {
+        marginLeft: 16,
         marginRight: 24,
     },
     right: {
@@ -60,7 +62,7 @@ const styles = StyleSheet.create({
     },
     hours: {
         fontFamily: Family.normal,
-        color: Colors.white,
+        color: Colors.darkGrey,
         fontSize: Size.micro
     }
 })

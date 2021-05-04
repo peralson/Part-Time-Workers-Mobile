@@ -110,7 +110,7 @@ const WorksHomeScreen = ({ navigation }) => {
 				description='Aquí verás los trabajos que tengas pendientes de realizar y tus aplicaciones activas.'
 			/>
 			<ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
-				<View style={{ paddingHorizontal: 24 }}>
+				<View style={{ paddingHorizontal: 16 }}>
 					<Label>Próximos trabajos</Label>
 				</View>
 				{jobsLoading ? <IsLoadingMini text="trabajos" /> : (
@@ -133,10 +133,8 @@ const WorksHomeScreen = ({ navigation }) => {
 						)}
 					</>
 				)}
-				<View style={{ paddingHorizontal: 24 }}>
-					<Label>Ofertas a las que he aplicado</Label>
-				</View>
 				<View style={{ paddingHorizontal: 16 }}>
+					<Label>Ofertas a las que he aplicado</Label>
 					{applicationsLoading ? <IsLoadingMini text="aplicaciones" /> : (
 						<>
 							{applications.length === 0 ? (

@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     quote: {
         fontFamily: Family.bold,
         fontSize: Size.tiny,
-        color: Colors.darkPrimary,
+        color: Colors.white,
         textAlign: 'center',
         marginTop: 16
     },

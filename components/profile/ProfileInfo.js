@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
 	profile: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		paddingHorizontal: 24,
+		paddingHorizontal: 16,
 		paddingBottom: 16,
 	},
 	imageContainer: {

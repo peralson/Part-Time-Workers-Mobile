@@ -129,9 +129,9 @@ const ProfileHomeScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
 	scroll: {
-		paddingHorizontal: 24,
+		paddingHorizontal: 16,
 		paddingBottom: 80,
-		paddingTop: 24,
+		paddingTop: 16,
 	},
 })
 

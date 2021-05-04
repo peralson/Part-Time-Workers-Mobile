@@ -1,5 +1,7 @@
-import { FETCH_PROFILE } from '../actions/profile';
-import { FETCH_USER_LISTS } from '../actions/profile';
+import {
+  FETCH_PROFILE,
+  FETCH_USER_LISTS
+} from '../actions/profile'
 
 const initialState = {
   profile: {},

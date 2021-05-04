@@ -131,10 +131,10 @@ const OfferDetailScreen = ({ navigation, route }) => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{
-          flex: 1,
+          height: '100%',
           marginBottom: height,
           paddingVertical: 16,
-          paddingHorizontal: 24,
+          paddingHorizontal: 16,
         }}
       >
         <OfferHeader
@@ -284,7 +284,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.darkPrimary,
     paddingBottom: Platform.OS === 'ios' ? 32 : 8,
     paddingTop: 8,
-    paddingHorizontal: 24,
+    paddingHorizontal: 16,
     borderTopColor: Colors.grey,
     borderTopWidth: 1,
   },
