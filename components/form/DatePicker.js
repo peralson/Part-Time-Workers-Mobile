@@ -24,12 +24,12 @@ const DatePicker = ({ placeholder, onChange }) => {
   return (
     <View style={styles.container}>
       {showDatePicker ? (
-        <TouchableOpacity style={styles.date} onPress={handleShowDatePicker}>
+        <TouchableOpacity style={styles.date}>
           <DateTimePicker
             testID='dateTimePicker'
             locale='es-ES'
             mode='date'
-            value={new Date(placeholder)}
+            value={dateState}
             onChange={(date) => {
               const m = moment(date);
               onChange(new Date(m));
@@ -38,7 +38,7 @@ const DatePicker = ({ placeholder, onChange }) => {
             }}
           />
         </TouchableOpacity>
-      ) : (
+      ) : ( 
         <TouchableOpacity style={styles.date} onPress={handleShowDatePicker}>
           <Text style={styles.text}>
             {moment(dateState).format('DD-MM-YYYY')}

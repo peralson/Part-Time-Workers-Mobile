@@ -25,10 +25,11 @@ import Screen from '../../components/UI/Screen';
 import HomeWrapper from '../../components/UI/HomeWrapper';
 import BackButton from '../../components/UI/BackButton';
 import HeaderTitle from '../../components/UI/HeaderTitle';
-import ErrorText from '../../components/form/ErrorText'
+import ErrorText from '../../components/form/ErrorText';
 import InputContainer from '../../components/form/InputContainer';
 import Input from '../../components/form/Input';
 import Label from '../../components/form/Label';
+import OptionListInput from '../../components/form/OptionListInput';
 
 // Actions
 import * as profileActions from '../../store/actions/profile';
@@ -75,37 +76,25 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
       >
-        <View style={{marginHorizontal: 16}}>
-        <InputContainer>
-          <Label>Carnet de conducir</Label>
-          <Input
-            returnKeyType='next'
-            placeholder={hasLicense ? 'Si' : 'No'}
-            onChange={(text) => setHasLicense(text)}
-            blur={() => {
-              setHasLicenseError(false);
-              if (!hasLicense) return setHasLicenseError(true);
-            }}
-            value={hasLicense}
-          />
-          {hasLicenseError && <ErrorText>Campo obligatorio</ErrorText>}
-        </InputContainer>
-        {profile.transport.hasLicense && (
+        <View style={{ marginHorizontal: 16 }}>
           <InputContainer>
-            <Label>Tengo coche</Label>
-            <Input
-              returnKeyType='next'
-              placeholder={hasCar ? 'Si' : 'No'}
-              onChange={(text) => setHasCar(text)}
-              blur={() => {
-                setHasCarError(false);
-                if (!hasCar) return setHasCarError(true);
-              }}
-              value={hasCar}
+            <Label>Carnet de conducir</Label>
+            <OptionListInput
+              placeholder={hasLicense}
+              options={['Sí', 'No']}
+              onChange={setHasLicense}
             />
-            {hasCarError && <ErrorText>Campo obligatorio</ErrorText>}
           </InputContainer>
-        )}
+          {profile.transport.hasLicense && (
+            <InputContainer>
+              <Label>Tengo coche</Label>
+              <OptionListInput
+              placeholder={hasCar}
+              options={['Sí', 'No']}
+              onChange={setHasCar}
+            />
+            </InputContainer>
+          )}
         </View>
         <TouchableOpacity
           style={styles.buttonContainer}
@@ -134,7 +123,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 16,
     marginTop: 24,
-    marginHorizontal: 16
+    marginHorizontal: 16,
   },
   buttonText: {
     fontSize: 16,

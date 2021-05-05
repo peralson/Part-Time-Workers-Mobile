@@ -3,6 +3,8 @@ export const FETCH_PROFILE = 'FETCH_PROFILE';
 export const FETCH_USER_LISTS = 'FETCH_USER_LISTS';
 export const UPDATE_PROFILE_GENERAL = 'UPDATE_PROFILE_GENERAL';
 export const UPDATE_PROFILE_LEGAL = 'UPDATE_PROFILE_LEGAL';
+export const UPDATE_PROFILE_TRANSPORT = 'UPDATE_PROFILE_TRANSPORT';
+
 
 // Models for fetching
 import Profile from '../../models/Profile';
@@ -286,7 +288,7 @@ export const updateProfileTransport = (
       },
       details: {
         gender: currentProfile.profile.details.gender,
-        bio: currentProfile.profile.detailts.bio,
+        bio: currentProfile.profile.details.bio,
         birthday: currentProfile.profile.details.birthday,
       },
       legal: {
