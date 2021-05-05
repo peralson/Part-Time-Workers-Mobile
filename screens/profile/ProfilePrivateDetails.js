@@ -123,7 +123,7 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
               value={nationality}
             />
             {nationalityError && <ErrorText>Campo obligatorio</ErrorText>} */}
-            <OptionListInput placeholder={nationality} options={countries} onChange={() => setNationality()}/>
+            <OptionListInput placeholder={nationality} options={countries} onChange={setNationality}/>
           </InputContainer>
           {profile.legal.dni.front && (
             <ProfileItem
