@@ -36,8 +36,9 @@ import MultilineInput from '../../components/form/MultilineInput';
 import InputContainer from '../../components/form/InputContainer';
 import Input from '../../components/form/Input';
 import Label from '../../components/form/Label';
-import ErrorText from '../../components/form/ErrorText'
+import ErrorText from '../../components/form/ErrorText';
 import OptionListInput from '../../components/form/OptionListInput';
+import DatePicker from '../../components/form/DatePicker';
 
 // Actions
 import * as profileActions from '../../store/actions/profile';
@@ -46,6 +47,7 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
   const { profile } = route.params;
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   //Vars
   const [name, setName] = useState(profile.name);
@@ -67,6 +69,10 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
   const [genderError, setGenderError] = useState(null);
 
   const [bio, setBio] = useState(profile.details.bio);
+
+  const handleShowDatePicker = () => {
+    setShowDatePicker(!showDatePicker);
+  };
 
   const handleSubmit = async () => {
     console.log('ola');
@@ -105,93 +111,80 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
           <ImagePicker title='Personal' image={profile.images.main} />
           <ImagePicker title='Profesional' image={profile.images.profesional} />
         </SideScrollPicker>
-        <View style={{marginHorizontal: 16}}>
-        <InputContainer>
-          <Label>Nombre</Label>
-          <Input
-            returnKeyType='next'
-            placeholder={name}
-            onChange={(text) => setName(text)}
-            blur={() => {
-              setNameError(false);
-              if (!name) return setNameError(true);
-            }}
-            value={name}
-          />
-          {nameError && <ErrorText>Campo obligatorio</ErrorText>}
-        </InputContainer>
-        <InputContainer>
-          <Label>Número de teléfono</Label>
-          <Input
-            returnKeyType='next'
-            keyboardType='numeric'
-            placeholder={phoneNumber}
-            onChange={(num) => setPhoneNumber(num)}
-            blur={() => {
-              setPhoneNumberError(false);
-              if (!phoneNumber) return setPhoneNumberError(true);
-            }}
-            value={phoneNumber}
-          />
-          {phoneNumberError && <ErrorText>Campo obligatorio</ErrorText>}
-        </InputContainer>
-        <InputContainer>
-          <Label>Email</Label>
-          <Input
-            returnKeyType='next'
-            placeholder={email}
-            onChange={(text) => setEmail(text)}
-            blur={() => {
-              setEmailError(false);
-              if (!email) return setEmailError(true);
-            }}
-            value={email}
-          />
-          {emailError && <ErrorText>Campo obligatorio</ErrorText>}
-        </InputContainer>
-        <InputContainer>
-          <Label>Dirección</Label>
-          <Input
-            returnKeyType='next'
-            placeholder={address}
-            onChange={(text) => setAddress(text)}
-            blur={() => {
-              setAddressError(false);
-              if (!address) return setAddressError(true);
-            }}
-            value={address}
-          />
-          {addressError && <ErrorText>Campo obligatorio</ErrorText>}
-        </InputContainer>
-        <InputContainer>
-          <Label>Fecha de nacimiento</Label>
-          <Input
-            returnKeyType='next'
-            placeholder={moment(birthday).format('DD-MM-YYYY')}
-            onChange={(text) => setBirthday(text)}
-            blur={() => {
-              setBirthdayError(false);
-              if (!birthday) return setBirthdayError(true);
-            }}
-            value={birthday}
-          />
-          {birthdayError && <ErrorText>Campo obligatorio</ErrorText>}
-        </InputContainer>
-        <InputContainer>
-          <Label>Género</Label>
-          {/* <Input
-            returnKeyType='next'
-            placeholder={gender}
-            onChange={(text) => setGender(text)}
-            blur={() => {
-              setGenderError(false);
-              if (!gender) return setGenderError(true);
-            }}
-            value={gender}
-          /> */}
-          <OptionListInput placeholder={gender} options={['Hombre', 'Mujer']} onChange={setGender}/>
-          {genderError && <ErrorText>Campo obligatorio</ErrorText>}
-        </InputContainer>
+        <View style={{ marginHorizontal: 16 }}>
+          <InputContainer>
+            <Label>Nombre</Label>
+            <Input
+              returnKeyType='next'
+              placeholder={name}
+              onChange={(text) => setName(text)}
+              blur={() => {
+                setNameError(false);
+                if (!name) return setNameError(true);
+              }}
+              value={name}
+            />
+            {nameError && <ErrorText>Campo obligatorio</ErrorText>}
+          </InputContainer>
+          <InputContainer>
+            <Label>Número de teléfono</Label>
+            <Input
+              returnKeyType='next'
+              keyboardType='numeric'
+              placeholder={phoneNumber}
+              onChange={(num) => setPhoneNumber(num)}
+              blur={() => {
+                setPhoneNumberError(false);
+                if (!phoneNumber) return setPhoneNumberError(true);
+              }}
+              value={phoneNumber}
+            />
+            {phoneNumberError && <ErrorText>Campo obligatorio</ErrorText>}
+          </InputContainer>
+          <InputContainer>
+            <Label>Email</Label>
+            <Input
+              returnKeyType='next'
+              placeholder={email}
+              onChange={(text) => setEmail(text)}
+              blur={() => {
+                setEmailError(false);
+                if (!email) return setEmailError(true);
+              }}
+              value={email}
+            />
+            {emailError && <ErrorText>Campo obligatorio</ErrorText>}
+          </InputContainer>
+          <InputContainer>
+            <Label>Dirección</Label>
+            <Input
+              returnKeyType='next'
+              placeholder={address}
+              onChange={(text) => setAddress(text)}
+              blur={() => {
+                setAddressError(false);
+                if (!address) return setAddressError(true);
+              }}
+              value={address}
+            />
+            {addressError && <ErrorText>Campo obligatorio</ErrorText>}
+          </InputContainer>
+          <InputContainer>
+            <Label>Fecha de nacimiento</Label>
+            <DatePicker
+              placeholder={birthday}
+              onChange={setBirthday}
+            />
+          </InputContainer>
+          <InputContainer>
+            <Label>Género</Label>
+            <OptionListInput
+              placeholder={gender}
+              options={['Hombre', 'Mujer']}
+              onChange={setGender}
+            />
+            {genderError && <ErrorText>Campo obligatorio</ErrorText>}
+          </InputContainer>
         </View>
         <ProfileItem title='Biografía' />
         <MultilineInput placeholder={bio} onChange={() => setBio()} />
@@ -221,7 +214,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 16,
     marginTop: 24,
-    marginHorizontal: 16
+    marginHorizontal: 16,
   },
   buttonText: {
     fontSize: 16,

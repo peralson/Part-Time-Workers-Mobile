@@ -69,7 +69,7 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
     <Screen>
       <HomeWrapper
         leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
-        rightComponent={<HeaderTitle title='Información de transporte' />}
+        rightComponent={<HeaderTitle title='Transporte' />}
       />
       <ScrollView
         contentContainerStyle={styles.container}

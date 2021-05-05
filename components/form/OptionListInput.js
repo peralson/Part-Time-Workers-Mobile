@@ -41,9 +41,6 @@ const styles = StyleSheet.create({
     borderColor: Colors.grey,
     justifyContent: 'center',
     alignItems: 'flex-start',
-    fontFamily: Family.normal,
-    fontSize: Size.medium,
-    color: Colors.white,
   },
   form: {
     width: '100%',
@@ -53,5 +50,6 @@ const styles = StyleSheet.create({
     color: Colors.white,
   },
 });
+
 
 export default OptionListInput;
