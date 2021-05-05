@@ -12,7 +12,7 @@ import Colors from "../../constants/Colors"
 import Family from "../../constants/FontFamily"
 import Size from "../../constants/FontSize"
 
-const LinkItem = ({ title, onSelect, icon }) => {
+const LinkItem = ({ title, onSelect, icon, bottom }) => {
   let Icon = Ionicons
 
   if (icon === "log-out") {
@@ -20,7 +20,7 @@ const LinkItem = ({ title, onSelect, icon }) => {
   }
 
   return (
-    <TouchableOpacity style={styles.link} activeOpacity={0.8} onPress={onSelect}>
+    <TouchableOpacity style={bottom ? styles.link : styles.linkBorder} activeOpacity={0.8} onPress={onSelect}>
       <Text style={styles.text}>{title}</Text>
       <Icon name={icon} color={Colors.primary} size={14} />
     </TouchableOpacity>
@@ -31,7 +31,14 @@ const styles = StyleSheet.create({
   link: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 12,
+    paddingVertical: 14,
+  },
+  linkBorder: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 14,
+    borderBottomColor: Colors.grey,
+    borderBottomWidth: 1
   },
   text: {
     flex: 1,

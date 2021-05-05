@@ -7,9 +7,6 @@ import { View, StyleSheet } from 'react-native'
 // Components
 import Tab from './Tab'
 
-// Constants
-import Colors from '../../constants/Colors'
-
 const TabBar = ({ state, navigation }) => {
     // Set Ofertas as default loading screen
     const [selected, setSelected] = useState('Ofertas')
@@ -46,9 +43,6 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: Colors.darkPrimary,
-        borderTopColor: Colors.grey,
-        borderTopWidth: 1
     },
     container: {
         flexDirection: 'row',

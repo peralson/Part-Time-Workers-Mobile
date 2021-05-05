@@ -27,7 +27,6 @@ export const fetchJobs = () => {
 
 		if (resData.body !== "We could not find any job") {
 			resData.body.map(job => {
-				console.log(job.jobData)
 				loadedJobs.push(
 					new Job(
 					   	job.jobData.id_offer,

@@ -8,9 +8,6 @@ import { ScrollView, StyleSheet } from 'react-native'
 // Redux
 import { useSelector, useDispatch } from 'react-redux'
 
-// Navigation
-import { useNavigation } from '@react-navigation/native'
-
 // Actions
 import * as profileActions from '../../store/actions/profile'
 
@@ -21,12 +18,12 @@ import BackButton from '../../components/UI/BackButton'
 import EmptyList from '../../components/works/EmptyList'
 import IsLoadingMini from '../../components/UI/IsLoadingMini'
 import noList from '../../assets/sin_posiciones.png'
+import ListItem from '../../components/profile/ListItem'
 
-export const ProfileListsScreen = () => {
+export const ProfileListsScreen = ({ navigation }) => {
 	const [userListsLoading, setUserListsLoading] = useState(true)
 	const userLists = useSelector(state => state.profile.userLists)
 
-	const navigation = useNavigation();
 	const dispatch = useDispatch()
 
   	const loadUserLists = async () => {
@@ -58,7 +55,9 @@ export const ProfileListsScreen = () => {
 			{userListsLoading ? <IsLoadingMini text="Listas" /> : 
 				userLists.length === 0 ? <EmptyList quote='Actualmente no apareces en listas' image={noList} /> : (
 					<ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
-
+						{userLists.map((list, index) => 
+							<ListItem key={index} list={list} onSelect={() => navigation.navigate('ProfilePastJobDetails', { jobData: '' })} />
+						)}
 					</ScrollView>
 				)
 			}

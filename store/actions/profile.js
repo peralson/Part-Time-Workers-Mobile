@@ -30,40 +30,54 @@ export const fetchProfile = () => {
 }
 
 export const fetchUserLists = () => {
-  return async (dispatch, getState) => {
-      const token = getState().auth.token
+    return async (dispatch, getState) => {
+        const token = getState().auth.token
 
-      const response = await fetch(
-          'https://us-central1-partime-60670.cloudfunctions.net/api/user/worker/lists',
-          {
-              method: 'GET',
-              headers: {
-                  'Content-Type': 'application.json',
-                  'Authorization': `Bearer ${token}`
-              }
-          }
-      )
+        const response = await fetch(
+            'https://us-central1-partime-60670.cloudfunctions.net/api/user/worker/lists',
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application.json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }
+        )
 
-      console.log(`RESPUESTA LIST: ${response.json()}`);
+        const resData = await response.json()
 
-      // const resData = await response.json()
+        console.log(`RESPUESTA LIST: ${resData}`)
 
-     const userLists = []
+        const userLists = []
 
-      // await resData.body.map(offer => {
-      //     userLists.push(
-      //         new Offer(
-      //             offer.id,
-      //             offer.offerData,
-      //             offer.eventData,
-      //             offer.companyData
-      //         )
-      //     )
-      // })
+        // await resData.body.map(offer => {
+        //     userLists.push(
+        //         new Offer(
+        //             offer.id,
+        //             offer.offerData,
+        //             offer.eventData,
+        //             offer.companyData
+        //         )
+        //     )
+        // })
 
-      dispatch({
-          type: FETCH_USER_LISTS,
-          userLists: userLists
-      })
-  }
+        userLists.push({
+            id: '1',
+            name: 'Camareros',
+            companyName: 'AJE Neemboo',
+            companyImage: 'https://clapfy.es/img/pangea.ico',
+        })
+
+        userLists.push({
+            id: '2',
+            name: 'Limpiadores',
+            companyName: 'Labora',
+            companyImage: 'https://www.labora.app/favicon.ico',
+        })
+
+        dispatch({
+            type: FETCH_USER_LISTS,
+            userLists: userLists
+        })
+    }
 }

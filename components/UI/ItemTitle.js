@@ -9,16 +9,14 @@ import Colors from '../../constants/Colors'
 import Family from '../../constants/FontFamily'
 import Size from '../../constants/FontSize'
 
-const LabelInfo = ({ children }) => <Text style={styles.labelInfo}>{children}</Text>
+const ItemTitle = ({ children, style }) => <Text style={{...styles.title, ...style}}>{children}</Text>
 
 const styles = StyleSheet.create({
-    labelInfo: {
-        fontFamily: Family.normal,
-        lineHeight: 21,
+    title: {
+        fontFamily: Family.bold,
         fontSize: Size.small,
-        color: Colors.darkGrey,
-        marginTop: 4
+        color: Colors.white
     },
 })
 
-export default LabelInfo
+export default ItemTitle

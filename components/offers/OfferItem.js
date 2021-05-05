@@ -25,6 +25,10 @@ import Size from '../../constants/FontSize'
 
 // Components
 import Card from '../UI/Card'
+import DarkTag from '../UI/DarkTag'
+import ItemTitle from '../UI/ItemTitle'
+import ItemDetails from '../UI/ItemDetails'
+import PrimaryTag from '../UI/PrimaryTag'
 
 const OfferItem = ({ offerData, eventData, companyData, onSelect }) => {
     const { hours, minutes } = totalHoursCalc(offerData.schedule)
@@ -34,44 +38,31 @@ const OfferItem = ({ offerData, eventData, companyData, onSelect }) => {
         <TouchableOpacity activeOpacity={0.8} onPress={onSelect}>
             <Card>
                 <View style={styles.topContainer}>
-                    <Text style={styles.title}>{eventData.name}</Text>
-                    <View style={styles.dateContainer}>
-                        <Text style={styles.date}>{moment(eventData.date).format('DD MMM').split('.')[0]}</Text>
-                    </View>
+                    <ItemTitle>{eventData.name}</ItemTitle>
+                    <DarkTag>
+                        {moment(eventData.date).format('DD MMM').split('.')[0]}
+                    </DarkTag>
                 </View>
                 <View style={styles.bottomContainer}>
                     <View style={styles.left}>
-                        <View style={styles.details}>
-                            <View style={styles.detail}>
-                                <Ionicons name="person-outline" color={Colors.darkGrey} size={10} />
-                                <Text style={styles.detailText}>{offerData.category}</Text>
-                            </View>
-                            <View style={styles.detail}>
-                                <Ionicons name="compass-outline" color={Colors.darkGrey} size={10} />
-                                <Text style={styles.detailText}>{companyData.name}</Text>
-                            </View>
-                            <View style={styles.detail}>
-                                <Ionicons name="location-outline" color={Colors.darkGrey} size={10} />
-                                <Text style={styles.detailText}>{eventData.location.address.split(',')[0]}</Text>
-                            </View>
-                        </View>
+                        <ItemDetails
+                            category={offerData.category}
+                            companyName={companyData.name}
+                            address={eventData.location.address.split(',')[0]}
+                        />
                         <View style={styles.importants}>
-                            <View style={styles.important}>
-                                <Text style={styles.importantText}>
-                                    {formattedSalary(offerData.salary)}€/hora
-                                </Text>
-                            </View>
-                            <View style={styles.important}>
-                                <Text style={styles.importantText}>
-                                    {hours}
-                                    {minutes !== 0 && (
-                                        minutes < 10 ? `:0${minutes}` : `:${minutes}`
-                                    )} horas
-                                </Text>
-                            </View>
-                            <View style={styles.important}>
-                                <Text style={styles.importantText}>...</Text>
-                            </View>
+                            <PrimaryTag>
+                                {formattedSalary(offerData.salary)}€/hora
+                            </PrimaryTag>
+                            <PrimaryTag>
+                                {hours}
+                                {minutes !== 0 && (
+                                    minutes < 10 ? `:0${minutes}` : `:${minutes}`
+                                )} horas
+                            </PrimaryTag>
+                            <PrimaryTag>
+                                ...
+                            </PrimaryTag>
                         </View>
                     </View>
                     <View style={styles.right}>
@@ -97,19 +88,7 @@ const styles = StyleSheet.create({
         fontSize: Size.small,
         color: Colors.white,
         flex: 1,
-        paddingRight: 16
-    },
-    dateContainer: {
-        paddingVertical: 4,
-        paddingHorizontal: 8,
-        backgroundColor: Colors.darkPrimary,
-        borderRadius: 4
-    },
-    date: {
-        fontFamily: Family.normal,
-        fontSize: Size.micro,
-        color: Colors.white,
-        lineHeight: 12
+        paddingRight: 21
     },
     bottomContainer: {
         flexDirection: 'row',
@@ -127,7 +106,7 @@ const styles = StyleSheet.create({
         fontFamily: Family.normal,
         fontSize: Size.micro,
         color: Colors.darkGrey,
-        lineHeight: 14,
+        lineHeight: 18,
         marginLeft: 4
     },
     importants: {
@@ -146,7 +125,7 @@ const styles = StyleSheet.create({
         color: Colors.primary,
         fontFamily: Family.normal,
         fontSize: Size.micro,
-        lineHeight: 12
+        lineHeight: 14
     },
     amountContainer: {
         paddingVertical: 8,

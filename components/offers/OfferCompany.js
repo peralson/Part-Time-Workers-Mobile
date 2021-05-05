@@ -23,24 +23,29 @@ const OfferCompany = ({
     image,
     onSelect
 }) => (
-    <Card>
-        <TouchableOpacity activeOpacity={0.8} onPress={onSelect} style={styles.content}>
-            <View style={styles.textContainer}>
-                <Text style={styles.proposal}>Oferta propuesta por</Text>
-                <Text style={styles.name}>{name}</Text>
+    <TouchableOpacity activeOpacity={0.8} onPress={onSelect} style={styles.container}>
+        <Card>
+            <View style={styles.content}>
+                <View style={styles.textContainer}>
+                    <Text style={styles.proposal}>Oferta propuesta por</Text>
+                    <Text style={styles.name}>{name}</Text>
+                </View>
+                <View style={styles.imageContainer}>
+                    <Image source={{ uri: image, width: 40, height: 40 }} resizeMode="contain" />
+                </View>
             </View>
-            <View style={styles.imageContainer}>
-                <Image source={{ uri: image, width: 48, height: 48 }} resizeMode="contain" />
-            </View>
-        </TouchableOpacity>
-    </Card>
+        </Card>
+    </TouchableOpacity>
 )
 
 const styles = StyleSheet.create({
+    container: {
+        marginTop: 8
+    },
     content: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
     textContainer: {
         marginRight: 16
@@ -56,13 +61,12 @@ const styles = StyleSheet.create({
         fontFamily: Family.bold,
         fontSize: Size.normal,
         color: Colors.white,
-        lineHeight: 21
+        lineHeight: 21,
     },
     imageContainer: {
-        height: 48,
-        width: 48,
         borderRadius: 4,
         overflow: 'hidden',
+        padding: 4
     },
 })
 

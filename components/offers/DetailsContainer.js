@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         marginTop: 24,
-        marginBottom: 32
+        marginBottom: 40
     }
 })
 

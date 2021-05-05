@@ -20,6 +20,9 @@ import Size from '../../constants/FontSize'
 
 // Components
 import Card from '../UI/Card'
+import DarkTag from '../UI/DarkTag'
+import ItemTitle from '../UI/ItemTitle'
+import ItemDetails from '../UI/ItemDetails'
 
 const JobPayroll = ({ payroll, onSelect }) => (
     <TouchableOpacity onPress={onSelect} activeOpacity={0.8}>
@@ -27,10 +30,13 @@ const JobPayroll = ({ payroll, onSelect }) => (
             <View style={styles.container}>
                 <View style={styles.leftContainer}>
                     <View style={styles.dateContainer}>
-                        <Text style={styles.date}>{moment(payroll.eventData.date).format('DD/MM/YYYY')}</Text>
+                        <DarkTag>{moment(payroll.eventData.date).format('DD/MM/YYYY')}</DarkTag>
                     </View>
-                    <Text style={styles.title}>{payroll.eventData.name}</Text>
-                    <Text style={styles.location}>{payroll.offerData.category} | {payroll.eventData.location.address.split(',')[0]}</Text>
+                    <ItemTitle style={{ marginBottom: 8 }}>{payroll.eventData.name}</ItemTitle>
+                    <ItemDetails
+                        category={payroll.offerData.category}
+                        address={payroll.eventData.location.address.split(',')[0]}
+                    />
                 </View>
                 <View style={styles.contractContainer}>
                     <Text style={styles.btn}>Ver PDF</Text>
@@ -53,17 +59,7 @@ const styles = StyleSheet.create({
         paddingRight: 16,
     },
     dateContainer: {
-        paddingVertical: 4,
-        paddingHorizontal: 8,
-        backgroundColor: Colors.darkPrimary,
-        borderRadius: 4,
         marginBottom: 8
-    },
-    date: {
-        fontFamily: Family.normal,
-        fontSize: Size.micro,
-        color: Colors.white,
-        lineHeight: 12
     },
     title: {
         fontFamily: Family.bold,

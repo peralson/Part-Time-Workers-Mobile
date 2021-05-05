@@ -23,6 +23,7 @@ import Size from '../../constants/FontSize'
 
 // Components
 import Card from '../UI/Card'
+import DarkTag from '../UI/DarkTag'
 
 const PastJobItem = ({ offerData, eventData, onSelect, jobData }) => {
     let status
@@ -56,7 +57,7 @@ const PastJobItem = ({ offerData, eventData, onSelect, jobData }) => {
                 <View style={styles.container}>
                     <View style={styles.leftContainer}>
                         <View style={styles.dateContainer}>
-                            <Text style={styles.date}>{moment(eventData.date).format('DD MMMM')}</Text>
+                            <DarkTag>{moment(eventData.date).format('DD MMMM')}</DarkTag>
                         </View>
                         <Text style={styles.title}>{eventData.name}</Text>
                         <Text style={{...styles.status, ...{ color: textColor }}}>{status}</Text>
@@ -80,16 +81,7 @@ const styles = StyleSheet.create({
         paddingRight: 16,
     },
     dateContainer: {
-        paddingVertical: 4,
-        paddingHorizontal: 8,
-        backgroundColor: Colors.darkPrimary,
-        borderRadius: 4,
         marginBottom: 8
-    },
-    date: {
-        fontFamily: Family.normal,
-        fontSize: Size.micro,
-        color: Colors.white,
     },
     title: {
         fontFamily: Family.bold,

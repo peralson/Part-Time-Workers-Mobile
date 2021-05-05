@@ -15,13 +15,17 @@ import { useSelector, useDispatch } from 'react-redux'
 // Actions
 import * as authActions from '../../store/actions/auth'
 
+// Icons
+import ayuda from '../../assets/icons/chat.png'
+import perfil from '../../assets/icons/contact-book.png'
+import gestion from '../../assets/icons/notebook.png'
+import config from '../../assets/icons/settings.png'
+
 // Components
 import ProfileInfo from '../../components/profile/ProfileInfo'
 import Screen from '../../components/UI/Screen'
-import SectionContainer from '../../components/UI/SectionContainer'
-import Label from '../../components/UI/Label'
-import LabelInfo from '../../components/UI/LabelInfo'
 import LinkItem from '../../components/profile/LinkItem'
+import ProfileSection from '../../components/profile/ProfileSection'
 
 const ProfileHomeScreen = ({ navigation }) => {
 	const profile = useSelector(state => state.profile.profile)
@@ -30,13 +34,13 @@ const ProfileHomeScreen = ({ navigation }) => {
 
 	return (
 		<Screen>
-			<ProfileInfo title={profile.name} image={profile.images.main} percentage={40} />
+			<ProfileInfo title={profile.name} image={profile.images.main} percentage={100} />
 			<ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
-				<SectionContainer>
-					<Label>Mi perfil</Label>
-					<LabelInfo>
-						Visualiza y modifica toda tu información.
-					</LabelInfo>
+				<ProfileSection
+					title="Mi perfil"
+					description="Visualiza y modifica toda tu información."
+					image={perfil}
+				>
 					<LinkItem
 						title="General"
 						icon="arrow-forward"
@@ -58,16 +62,17 @@ const ProfileHomeScreen = ({ navigation }) => {
 						onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfileListsScreen" })}
 					/>
 					<LinkItem
+						bottom
 						title="Historial"
 						icon="arrow-forward"
 						onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfileJobHistory" })}
 					/>
-				</SectionContainer>
-				<SectionContainer>
-					<Label>Gestión laboral</Label>
-					<LabelInfo>
-						Visualiza toda la información laboral referente a tus contrataciones.
-					</LabelInfo>
+				</ProfileSection>
+				<ProfileSection
+					title="Gestion laboral"
+					description="Visualiza toda la información laboral referente a tus contrataciones."
+					image={gestion}
+				>
 					<LinkItem
 						title='Firma digital'
 						icon='arrow-forward'
@@ -84,16 +89,17 @@ const ProfileHomeScreen = ({ navigation }) => {
 						onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfileContracts" })}
 					/>
 					<LinkItem
+						bottom
 						title="Nóminas"
 						icon="arrow-forward"
 						onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfilePayrolls" })}
 					/>
-				</SectionContainer>
-				<SectionContainer>
-					<Label>Ayuda</Label>
-					<LabelInfo>
-						Contacta con nosotros directamente y te resolveremos cualquier duda.
-					</LabelInfo>
+				</ProfileSection>
+				<ProfileSection
+					title="Ayuda"
+					description="Contacta con nosotros directamente y te resolveremos cualquier duda."
+					image={ayuda}
+				>
 					<LinkItem
 						title="Whatsapp"
 						icon="call-outline"
@@ -104,6 +110,7 @@ const ProfileHomeScreen = ({ navigation }) => {
 						}}
 					/>
 					<LinkItem
+						bottom
 						title="Correo electrónico"
 						icon="mail-outline"
 						onSelect={() => {
@@ -112,20 +119,23 @@ const ProfileHomeScreen = ({ navigation }) => {
 							).catch(() => Alert("Debes tener un correo instalado"))
 						}}
 					/>
-				</SectionContainer>
-				<SectionContainer>
-				<Label>Configuración</Label>
-				<LinkItem
-					title="Cerrar sesión"
-					icon="log-out"
-					onSelect={() => {
-						Alert.alert("¿Quieres cerrar la sesión?", "", [
-							{ text: "No" },
-							{ text: "Cerrar", style: "destructive", onPress: () => dispatch(authActions.logout()) }
-						])
-					}}
-				/>
-				</SectionContainer>
+				</ProfileSection>
+				<ProfileSection
+					image={config}
+					title="Configuración"
+				>
+					<LinkItem
+						bottom
+						title="Cerrar sesión"
+						icon="log-out"
+						onSelect={() => {
+							Alert.alert("¿Quieres cerrar la sesión?", "", [
+								{ text: "No" },
+								{ text: "Cerrar", style: "destructive", onPress: () => dispatch(authActions.logout()) }
+							])
+						}}
+					/>
+				</ProfileSection>
 			</ScrollView>
 		</Screen>
 	);

@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         width: '100%',
-        marginVertical: 8
+        marginVertical: 12
     },
     companyDetailsItemText: {
         fontFamily: Family.normal,

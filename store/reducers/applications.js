@@ -10,11 +10,7 @@ export default (state = initialState, action) => {
       return {
         userApplications: action.userApplications
       }
-    // case DELETE_APPLICATION:
-    //   return {
-    //     ...state,
-    //     myList: state.applications.filter((element) => element.id !== action.payload),
-    //   }
+      
     default:
       return state
   }

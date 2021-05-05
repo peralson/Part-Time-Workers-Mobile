@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
 		fontSize: Size.tiny,
 		color: 'red',
 		marginTop: 12,
+		lineHeight: 14
 	},
 	itemContainer: {
 		paddingHorizontal: 8,

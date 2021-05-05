@@ -23,8 +23,7 @@ const ProfilePastJobDetails = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
 	container: {
-        padding: 24,
-        paddingTop: 16,
+        padding: 16,
     }
 })
 

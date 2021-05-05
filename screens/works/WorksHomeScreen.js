@@ -29,24 +29,8 @@ const WorksHomeScreen = ({ navigation }) => {
 
 	const [jobsLoading, setJobsLoading] = useState(true)
 	const jobs = useSelector(state => state.jobs.userJobs)
-	
-	// const offers = useSelector(state => state.offers.openOffers)
 
 	const dispatch = useDispatch()
-
-	// const getOffers = applications => {
-	//  	let offerApplications = []
-
-	// 	applications.map(application => {
-	// 		if (application.state === 'pending') {
-	// 			const found = offers.find(offer => offer.id === application.offerId)
-	// 			found.applicationId = application.id
-	// 			offerApplications.push(found)
-	// 		}
-	// 	})
-
-	// 	return offerApplications
-	// }
 
 
 	const loadApplications = async () => {
