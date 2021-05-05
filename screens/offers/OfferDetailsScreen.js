@@ -92,18 +92,18 @@ const OfferDetailScreen = ({ navigation, route }) => {
 				</DetailsContainer>
 				{offerData.description.length !== 0 && (
 					<>
-						<Label>Requerimientos</Label>
+						<Label style={{ marginBottom: 8 }}>Requerimientos</Label>
 						<Description>{offerData.description}</Description>
 					</>
 				)}
-				<Label>Horario</Label>
+				<Label style={{ marginBottom: 8 }}>Horario</Label>
 				<Schedules
 					schedules={offerData.schedule}
 					hours={hours}
 					minutes={minutes}
 				/>
 
-				<Label>Más información</Label>
+				<Label style={{ marginBottom: 8 }}>Más información</Label>
 				<OfferCompany name={companyData.name} image={companyData.photo} />
 				<OfferInfoItem
 					left='Salario'
