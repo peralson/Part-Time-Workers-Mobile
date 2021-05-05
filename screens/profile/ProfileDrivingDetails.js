@@ -1,5 +1,5 @@
 // React
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 
 // React Native
 import {
@@ -11,11 +11,10 @@ import {
   Text,
 } from 'react-native';
 
-// React Redux
-import { useSelector } from 'react-redux';
-
 // Constants
-import Colors from '../../constants/Colors';
+import Colors from '../../constants/Colors'
+import Family from '../../constants/FontFamily'
+import Size from '../../constants/FontSize'
 
 // Redux
 import { useDispatch } from 'react-redux';
@@ -70,44 +69,35 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
     <Screen>
       <HomeWrapper
         leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
-        rightComponent={<HeaderTitle title='Transporte' />}
+        title='Transporte'
+        rightComponent={(
+          <TouchableOpacity onPress={handleSubmit}>
+            {isLoading ? <ActivityIndicator size="small" color={Colors.primary} /> : <Text style={styles.cta}>Guardar</Text>}
+          </TouchableOpacity>
+        )}
       />
       <ScrollView
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
       >
-        <View style={{ marginHorizontal: 16 }}>
-          <InputContainer>
-            <Label>Carnet de conducir</Label>
-            <OptionListInput
-              placeholder={hasLicense}
-              options={['Sí', 'No']}
-              values={[true, false]}
-              onChange={setHasLicense}
-            />
-          </InputContainer>
-          <InputContainer>
-            <Label>Tengo coche</Label>
-            <OptionListInput
-              placeholder={hasCar}
-              options={['Sí', 'No']}
-              values={[true, false]}
-              onChange={setHasCar}
-            />
-          </InputContainer>
-          
-        </View>
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={handleSubmit}
-          activeOpacity={0.8}
-        >
-          {isLoading ? (
-            <Text style={styles.buttonText}>Guardando...</Text>
-          ) : (
-            <Text style={styles.buttonText}>Guardar cambios</Text>
-          )}
-        </TouchableOpacity>
+        <InputContainer>
+          <Label>Carnet de conducir</Label>
+          <OptionListInput
+            placeholder={hasLicense}
+            options={['Sí', 'No']}
+            values={[true, false]}
+            onChange={setHasLicense}
+          />
+        </InputContainer>
+        <InputContainer>
+          <Label>Tengo coche</Label>
+          <OptionListInput
+            placeholder={hasCar}
+            options={['Sí', 'No']}
+            values={[true, false]}
+            onChange={setHasCar}
+          />
+        </InputContainer>
       </ScrollView>
     </Screen>
   );
@@ -116,21 +106,14 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     paddingTop: 16,
+    paddingHorizontal: 16,
     paddingBottom: 24,
   },
-  buttonContainer: {
-    backgroundColor: Colors.accent,
-    borderRadius: 4,
-    alignItems: 'center',
-    paddingVertical: 16,
-    marginTop: 24,
-    marginHorizontal: 16,
-  },
-  buttonText: {
-    fontSize: 16,
-    fontFamily: 'gotham-bold',
-    color: Colors.white,
+  cta: {
+    fontSize: Size.tiny,
+    fontFamily: Family.normal,
+    color: Colors.primary,
   },
 });
 
-export default ProfileDrivingDetails;
+export default ProfileDrivingDetails

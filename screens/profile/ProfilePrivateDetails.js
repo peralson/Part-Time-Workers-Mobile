@@ -1,5 +1,5 @@
 // React
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 
 // React Native
 import {
@@ -12,11 +12,13 @@ import {
 } from 'react-native';
 
 // Libs
-import moment from 'moment';
-import 'moment/locale/es';
 import countries from '../../libs/countries';
+
 // Constants
-import Colors from '../../constants/Colors';
+import Colors from '../../constants/Colors'
+import Family from '../../constants/FontFamily'
+import Size from '../../constants/FontSize'
+
 
 // Redux
 import { useDispatch } from 'react-redux';
@@ -29,7 +31,6 @@ import Screen from '../../components/UI/Screen';
 import HomeWrapper from '../../components/UI/HomeWrapper';
 import BackButton from '../../components/UI/BackButton';
 import ProfileItem from '../../components/profile/ProfileItem';
-import LinkItem from '../../components/profile/LinkItem';
 import InputContainer from '../../components/form/InputContainer';
 import Input from '../../components/form/Input';
 import Label from '../../components/form/Label';
@@ -52,9 +53,7 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
   const [dniBack, setDniBack] = useState(profile.legal.dni.back);
   const [dniBackError, setDniBackError] = useState(null);
 
-  const [dniExpiryDate, setDniExpiryDate] = useState(
-    profile.legal.dni.expiryDate
-  );
+  const [dniExpiryDate, setDniExpiryDate] = useState(profile.legal.dni.expiryDate)
   const [dniExpiryDateError, setDniExpiryDateError] = useState(null);
 
   const [dniNumber, setDniNumber] = useState(profile.legal.dni.number);
@@ -93,23 +92,16 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
       <HomeWrapper
         leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
         title='Datos legales'
+        rightComponent={(
+          <TouchableOpacity onPress={handleSubmit}>
+            {isLoading ? <ActivityIndicator size="small" color={Colors.primary} /> : <Text style={styles.cta}>Guardar</Text>}
+          </TouchableOpacity>
+        )}
       />
       <ScrollView
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.linkContainer}>
-          <LinkItem
-            title='Firma digital'
-            icon='arrow-forward'
-            onSelect={() =>
-              navigation.navigate('ProfileStack', {
-                screen: 'ProfileSignatureScreen',
-                params: { profile: profile },
-              })
-            }
-          />
-        </View>
         <View style={{ marginHorizontal: 16 }}>
           <InputContainer>
             <Label>Nacionalidad</Label>
@@ -171,17 +163,6 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
             {bankAccountError && <ErrorText>Campo obligatorio</ErrorText>}
           </InputContainer>
         </View>
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={handleSubmit}
-          activeOpacity={0.8}
-        >
-          {isLoading ? (
-            <Text style={styles.buttonText}>Guardando...</Text>
-          ) : (
-            <Text style={styles.buttonText}>Guardar cambios</Text>
-          )}
-        </TouchableOpacity>
       </ScrollView>
     </Screen>
   );
@@ -192,21 +173,10 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     paddingBottom: 24,
   },
-  linkContainer: {
-    paddingHorizontal: 16,
-  },
-  buttonContainer: {
-    backgroundColor: Colors.accent,
-    borderRadius: 4,
-    alignItems: 'center',
-    paddingVertical: 16,
-    marginTop: 24,
-    marginHorizontal: 16,
-  },
-  buttonText: {
-    fontSize: 16,
-    fontFamily: 'gotham-bold',
-    color: Colors.white,
+  cta: {
+    fontSize: Size.tiny,
+    fontFamily: Family.normal,
+    color: Colors.primary,
   },
 });
 

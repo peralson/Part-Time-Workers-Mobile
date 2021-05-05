@@ -1,5 +1,5 @@
 // React
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react'
 
 // React Native
 import {
@@ -7,41 +7,35 @@ import {
   ScrollView,
   View,
   TouchableOpacity,
-  ActivityIndicator,
   Text,
-} from 'react-native';
-
-// React Redux
-import { useSelector } from 'react-redux';
+  ActivityIndicator
+} from 'react-native'
 
 // Constants
-import Colors from '../../constants/Colors';
+import Colors from '../../constants/Colors'
+import Family from '../../constants/FontFamily'
+import Size from '../../constants/FontSize'
 
 // Redux
-import { useDispatch } from 'react-redux';
-
-// Libs
-import moment from 'moment';
-import 'moment/locale/es';
-
-// Components
-import Screen from '../../components/UI/Screen';
-import HomeWrapper from '../../components/UI/HomeWrapper';
-import BackButton from '../../components/UI/BackButton';
-import HeaderTitle from '../../components/UI/HeaderTitle';
-import ProfileItem from '../../components/profile/ProfileItem';
-import ImagePicker from '../../components/UI/ImagePicker';
-import SideScrollPicker from '../../components/UI/SideScrollPicker';
-import MultilineInput from '../../components/form/MultilineInput';
-import InputContainer from '../../components/form/InputContainer';
-import Input from '../../components/form/Input';
-import Label from '../../components/form/Label';
-import ErrorText from '../../components/form/ErrorText';
-import OptionListInput from '../../components/form/OptionListInput';
-import DatePicker from '../../components/form/DatePicker';
+import { useDispatch } from 'react-redux'
 
 // Actions
-import * as profileActions from '../../store/actions/profile';
+import * as profileActions from '../../store/actions/profile'
+
+// Components
+import Screen from '../../components/UI/Screen'
+import HomeWrapper from '../../components/UI/HomeWrapper'
+import BackButton from '../../components/UI/BackButton'
+import ProfileItem from '../../components/profile/ProfileItem'
+import ImagePicker from '../../components/UI/ImagePicker'
+import SideScrollPicker from '../../components/UI/SideScrollPicker'
+import MultilineInput from '../../components/form/MultilineInput'
+import InputContainer from '../../components/form/InputContainer'
+import Input from '../../components/form/Input'
+import Label from '../../components/form/Label'
+import ErrorText from '../../components/form/ErrorText'
+import OptionListInput from '../../components/form/OptionListInput'
+import DatePicker from '../../components/form/DatePicker'
 
 const ProfileDetailsScreen = ({ navigation, route }) => {
   const { profile } = route.params;
@@ -100,13 +94,18 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
     <Screen>
       <HomeWrapper
         leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
-        rightComponent={<HeaderTitle title='Mi información' />}
+        title="Mi información"
+        rightComponent={(
+          <TouchableOpacity onPress={handleSubmit}>
+            {isLoading ? <ActivityIndicator size="small" color={Colors.primary} /> : <Text style={styles.cta}>Guardar</Text>}
+          </TouchableOpacity>
+        )}
       />
       <ScrollView
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
       >
-        <ProfileItem title='Fotografías' />
+        <Label style={{ paddingHorizontal: 16 }}>Fotografías</Label>
         <SideScrollPicker>
           <ImagePicker title='Personal' image={profile.images.main} />
           <ImagePicker title='Profesional' image={profile.images.profesional} />
@@ -189,17 +188,6 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
         </View>
         <ProfileItem title='Biografía' />
         <MultilineInput placeholder={bio} onChange={() => setBio()} />
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={handleSubmit}
-          activeOpacity={0.8}
-        >
-          {isLoading ? (
-            <Text style={styles.buttonText}>Guardando...</Text>
-          ) : (
-            <Text style={styles.buttonText}>Guardar cambios</Text>
-          )}
-        </TouchableOpacity>
       </ScrollView>
     </Screen>
   );
@@ -209,18 +197,10 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: 16,
   },
-  buttonContainer: {
-    backgroundColor: Colors.accent,
-    borderRadius: 4,
-    alignItems: 'center',
-    paddingVertical: 16,
-    marginTop: 24,
-    marginHorizontal: 16,
-  },
-  buttonText: {
-    fontSize: 16,
-    fontFamily: 'gotham-bold',
-    color: Colors.white,
+  cta: {
+    fontSize: Size.tiny,
+    fontFamily: Family.normal,
+    color: Colors.primary,
   },
 });
 

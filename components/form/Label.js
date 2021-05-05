@@ -9,7 +9,7 @@ import Colors from '../../constants/Colors'
 import Family from '../../constants/FontFamily'
 import Size from '../../constants/FontSize'
 
-const Label = ({ children }) => <Text style={styles.label}>{children}</Text>
+const Label = ({ children, style }) => <Text style={{...styles.label, ...style}}>{children}</Text>
 
 const styles = StyleSheet.create({
     label: {
@@ -17,7 +17,8 @@ const styles = StyleSheet.create({
         width: '100%',
         fontSize: Size.small,
         marginBottom: 8,
-        color: Colors.white
+        color: Colors.white,
+        lineHeight: 21
     },
 })
 
