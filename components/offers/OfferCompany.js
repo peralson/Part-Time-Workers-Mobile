@@ -30,10 +30,7 @@ const OfferCompany = ({
                 <Text style={styles.name}>{name}</Text>
             </View>
             <View style={styles.imageContainer}>
-                <Image
-                    styles={styles.image}
-                    source={{ uri: image }}
-                />
+                <Image source={{ uri: image, width: 48, height: 48 }} resizeMode="contain" />
             </View>
         </TouchableOpacity>
     </Card>
@@ -46,7 +43,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     textContainer: {
-        flex: 1,
         marginRight: 16
     },
     proposal: {
@@ -60,16 +56,13 @@ const styles = StyleSheet.create({
         fontFamily: Family.bold,
         fontSize: Size.normal,
         color: Colors.white,
-        lineHeight: 19
+        lineHeight: 21
     },
     imageContainer: {
         height: 48,
         width: 48,
-        borderRadius: 4
-    },
-    image: {
-        width: '100%',
-        height: '100%'
+        borderRadius: 4,
+        overflow: 'hidden',
     },
 })
 

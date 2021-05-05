@@ -16,9 +16,8 @@ import Screen from '../../components/UI/Screen'
 import HomeWrapper from '../../components/UI/HomeWrapper'
 import EmptyList from '../../components/works/EmptyList'
 import BackButton from '../../components/UI/BackButton'
-import HeaderTitle from '../../components/UI/HeaderTitle'
-import IsLoading from '../../components/UI/IsLoading'
 import PastJobItem from '../../components/works/PastJobItem'
+import IsLoadingMini from '../../components/UI/IsLoadingMini'
 
 const ProfileJobHistory = ({ navigation }) => {
     const token = useSelector(state => state.auth.token)
@@ -45,9 +44,9 @@ const ProfileJobHistory = ({ navigation }) => {
         <Screen>
             <HomeWrapper
                 leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
-                rightComponent={<HeaderTitle title="Historial" />}
+                title="Historial"
             />
-            {loading ? <IsLoading /> : (
+            {loading ? <IsLoadingMini text="historial" /> : (
                 <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
                     {jobs.length === 0 ? <EmptyList quote='No has realizado ningún trabajo.' image={require('../../assets/sin_proyectos.png')}/> :
                         jobs.map(job => (

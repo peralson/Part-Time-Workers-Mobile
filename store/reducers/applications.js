@@ -8,7 +8,6 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_APPLICATIONS:
       return {
-        ...state,
         userApplications: action.userApplications
       }
     // case DELETE_APPLICATION:

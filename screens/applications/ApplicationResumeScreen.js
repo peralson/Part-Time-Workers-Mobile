@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.darkPrimary,
         paddingBottom: Platform.OS === "ios" ? 32 : 8,
         paddingTop: 8,
-        paddingHorizontal: 24,
+        paddingHorizontal: 16,
         borderTopColor: Colors.grey,
         borderTopWidth: 1,
     }

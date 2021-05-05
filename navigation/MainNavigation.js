@@ -9,6 +9,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import NavigationBar from './NavBar/NavigationBar'
 import ProfileStack from './Stacks/ProfileStack'
 import OffersStack from './Stacks/OffersStack'
+import WorksStack from './Stacks/WorksStack'
 import ApplicationsStack from './Stacks/ApplicationsStack'
 
 // Other Screens
@@ -41,6 +42,11 @@ const AppNavigation = () => (
         <Stack.Screen
             name="ApplicationsStack"
             component={ApplicationsStack}
+            options={defaultStackOptions}
+        />
+        <Stack.Screen
+            name="WorksStack"
+            component={WorksStack}
             options={defaultStackOptions}
         />
     </Stack.Navigator>

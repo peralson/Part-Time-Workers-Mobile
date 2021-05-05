@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
         paddingVertical: 4
     },
     indicator: {
-        color: Colors.white,
+        color: Colors.darkGrey,
         fontFamily: Family.normal,
         fontSize: Size.micro
     },

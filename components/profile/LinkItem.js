@@ -31,13 +31,14 @@ const styles = StyleSheet.create({
   link: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 16,
+    paddingVertical: 12,
   },
   text: {
     flex: 1,
     fontFamily: Family.normal,
     color: Colors.primary,
     fontSize: Size.small,
+    lineHeight: 21
   }
 })
 

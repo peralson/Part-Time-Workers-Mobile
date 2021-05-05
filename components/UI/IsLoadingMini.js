@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontFamily: Family.normal,
-        color: Colors.darkPrimary,
+        color: Colors.white,
         fontSize: Size.tiny,
         marginTop: 16
     }

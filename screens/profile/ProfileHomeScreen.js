@@ -35,7 +35,7 @@ const ProfileHomeScreen = ({ navigation }) => {
 				<SectionContainer>
 					<Label>Mi perfil</Label>
 					<LabelInfo>
-						Visualiza y modifica todo tu información.
+						Visualiza y modifica toda tu información.
 					</LabelInfo>
 					<LinkItem
 						title="General"
@@ -53,20 +53,14 @@ const ProfileHomeScreen = ({ navigation }) => {
 						onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfileDrivingDetails", params: { profile: profile } })}
 					/>
 					<LinkItem
-						title="Historial"
-						icon="arrow-forward"
-						onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfileJobHistory" })}
-					/>
-				</SectionContainer>
-        <SectionContainer>
-					<Label>Listas</Label>
-					<LabelInfo>
-						Visualiza las empresas donde estás listado como trabajador.
-					</LabelInfo>
-					<LinkItem
 						title="Listas"
 						icon="arrow-forward"
 						onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfileListsScreen" })}
+					/>
+					<LinkItem
+						title="Historial"
+						icon="arrow-forward"
+						onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfileJobHistory" })}
 					/>
 				</SectionContainer>
 				<SectionContainer>
@@ -74,6 +68,16 @@ const ProfileHomeScreen = ({ navigation }) => {
 					<LabelInfo>
 						Visualiza toda la información laboral referente a tus contrataciones.
 					</LabelInfo>
+					<LinkItem
+						title='Firma digital'
+						icon='arrow-forward'
+						onSelect={() =>
+							navigation.navigate('ProfileStack', {
+								screen: 'ProfileSignatureScreen',
+								params: { profile: profile },
+							}
+						)}
+					/>
 					<LinkItem
 						title="Contratos"
 						icon="arrow-forward"
@@ -129,9 +133,9 @@ const ProfileHomeScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
 	scroll: {
-		paddingHorizontal: 24,
+		paddingHorizontal: 16,
 		paddingBottom: 80,
-		paddingTop: 24,
+		paddingTop: 16,
 	},
 })
 

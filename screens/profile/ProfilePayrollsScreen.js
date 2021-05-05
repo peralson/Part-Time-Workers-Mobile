@@ -3,7 +3,7 @@ import React, { useState, useCallback } from 'react'
 import { useFocusEffect } from '@react-navigation/native'
 
 // React Native
-import { StyleSheet, Text, ScrollView } from 'react-native'
+import { StyleSheet, ScrollView } from 'react-native'
 
 // Hooks
 import getPayrolls from '../../hooks/getPayrolls'
@@ -15,7 +15,6 @@ import { useSelector } from 'react-redux'
 import Screen from '../../components/UI/Screen'
 import HomeWrapper from '../../components/UI/HomeWrapper'
 import BackButton from '../../components/UI/BackButton'
-import HeaderTitle from '../../components/UI/HeaderTitle'
 import IsLoading from '../../components/UI/IsLoading'
 import EmptyList from '../../components/works/EmptyList'
 import JobPayroll from '../../components/works/JobPayroll'
@@ -41,13 +40,13 @@ const ProfilePayrollsScreen = ({ navigation }) => {
         }, [])
     )
 
-    const openPayroll = file => navigation.navigate('OffersStack', { screen: 'PDF', params: { file: file } })
+    const openPayroll = file => navigation.navigate('OffersStack', { screen: 'PDF', params: { type: 'Nómina', file: file } })
 
     return (
         <Screen>
             <HomeWrapper
                 leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
-                rightComponent={<HeaderTitle title="Nóminas" />}    
+                title="Nóminas"
             />
             {loading ? <IsLoading /> : (
                 <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>

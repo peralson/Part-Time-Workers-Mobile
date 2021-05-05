@@ -28,7 +28,6 @@ import * as profileActions from '../../store/actions/profile';
 import Screen from '../../components/UI/Screen';
 import HomeWrapper from '../../components/UI/HomeWrapper';
 import BackButton from '../../components/UI/BackButton';
-import HeaderTitle from '../../components/UI/HeaderTitle';
 import ProfileItem from '../../components/profile/ProfileItem';
 import LinkItem from '../../components/profile/LinkItem';
 import InputContainer from '../../components/form/InputContainer';
@@ -91,7 +90,7 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
     <Screen>
       <HomeWrapper
         leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
-        rightComponent={<HeaderTitle title='Información legal' />}
+        title='Datos legales'
       />
       <ScrollView
         contentContainerStyle={styles.container}
@@ -205,7 +204,7 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 16,
+    paddingTop: 8,
     paddingBottom: 24,
   },
   linkContainer: {

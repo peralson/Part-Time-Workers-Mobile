@@ -41,13 +41,13 @@ const ProfileContractsScreen = ({ navigation }) => {
         }, [])
     )
 
-    const openContract = (name, file) => navigation.navigate('OffersStack', { screen: 'PDF', params: { name: name, file: file } })
+    const openContract = (name, file) => navigation.navigate('OffersStack', { screen: 'PDF', params: { type: 'Contrato', name: name, file: file } })
 
     return (
         <Screen>
             <HomeWrapper
                 leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
-                rightComponent={<HeaderTitle title="Contratos" />}
+                title="Contratos"
             />
             {loading ? <IsLoading /> : (
                 <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
