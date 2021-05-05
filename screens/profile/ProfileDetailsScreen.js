@@ -194,7 +194,7 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
           activeOpacity={0.8}
         >
           {isLoading ? (
-            <ActivityIndicator size={18} color={Colors.white} />
+            <Text style={styles.buttonText}>Guardando...</Text>
           ) : (
             <Text style={styles.buttonText}>Guardar cambios</Text>
           )}

@@ -35,6 +35,7 @@ import Input from '../../components/form/Input';
 import Label from '../../components/form/Label';
 import ErrorText from '../../components/form/ErrorText'
 import OptionListInput from '../../components/form/OptionListInput';
+import DatePicker from '../../components/form/DatePicker';
 
 const ProfilePrivateDetails = ({ navigation, route }) => {
   const { profile } = route.params;
@@ -112,17 +113,6 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
         <View style={{ marginHorizontal: 16 }}>
           <InputContainer>
             <Label>Nacionalidad</Label>
-            {/* <Input
-              returnKeyType='next'
-              placeholder={nationality}
-              onChange={(text) => setNationality(text)}
-              blur={() => {
-                setNationalityError(false);
-                if (!nationality) return setNationalityError(true);
-              }}
-              value={nationality}
-            />
-            {nationalityError && <ErrorText>Campo obligatorio</ErrorText>} */}
             <OptionListInput placeholder={nationality} options={countries} onChange={setNationality}/>
           </InputContainer>
           {profile.legal.dni.front && (
@@ -147,17 +137,10 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
           </InputContainer>
           <InputContainer>
             <Label>Fecha de caducidad del DNI</Label>
-            <Input
-              returnKeyType='next'
-              placeholder={moment(dniExpiryDate).format('DD-MM-YYYY')}
-              onChange={(text) => setDniExpiryDate(text)}
-              blur={() => {
-                setDniExpiryDateError(false);
-                if (!dniExpiryDate) return setDniExpiryDateError(true);
-              }}
-              value={dniExpiryDate}
+            <DatePicker
+              placeholder={dniExpiryDate}
+              onChange={setDniExpiryDate}
             />
-            {dniExpiryDateError && <ErrorText>Campo obligatorio</ErrorText>}
           </InputContainer>
           <InputContainer>
             <Label>Nº Seguridad Social</Label>
@@ -194,7 +177,7 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
           activeOpacity={0.8}
         >
           {isLoading ? (
-            <ActivityIndicator size={18} color={Colors.white} />
+            <Text style={styles.buttonText}>Guardando...</Text>
           ) : (
             <Text style={styles.buttonText}>Guardar cambios</Text>
           )}
