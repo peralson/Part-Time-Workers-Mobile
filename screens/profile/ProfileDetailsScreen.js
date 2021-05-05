@@ -181,6 +181,7 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
             <OptionListInput
               placeholder={gender}
               options={['Hombre', 'Mujer']}
+              values={['male', 'female']}
               onChange={setGender}
             />
             {genderError && <ErrorText>Campo obligatorio</ErrorText>}

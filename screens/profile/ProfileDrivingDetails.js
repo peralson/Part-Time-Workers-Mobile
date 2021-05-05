@@ -82,19 +82,20 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
             <OptionListInput
               placeholder={hasLicense}
               options={['Sí', 'No']}
+              values={[true, false]}
               onChange={setHasLicense}
             />
           </InputContainer>
-          {profile.transport.hasLicense && (
-            <InputContainer>
-              <Label>Tengo coche</Label>
-              <OptionListInput
+          <InputContainer>
+            <Label>Tengo coche</Label>
+            <OptionListInput
               placeholder={hasCar}
               options={['Sí', 'No']}
+              values={[true, false]}
               onChange={setHasCar}
             />
-            </InputContainer>
-          )}
+          </InputContainer>
+          
         </View>
         <TouchableOpacity
           style={styles.buttonContainer}

@@ -10,18 +10,19 @@ import Colors from '../../constants/Colors';
 import Family from '../../constants/FontFamily';
 import Size from '../../constants/FontSize';
 
-const OptionListInput = ({ placeholder, options, onChange }) => {
+const OptionListInput = ({ placeholder, options, onChange, values }) => {
+  console.log(values)
   return (
     <View style={styles.container}>
       <Picker
         selectedValue={placeholder}
-        onValueChange={(itemValue) => onChange(itemValue)}
+        onValueChange={(itemValue, itemIndex) => onChange(itemValue)}
         style={styles.form}
       >
         {options.map((option) => (
           <Picker.Item
             label={option}
-            value={option}
+            value={values ? values[options.indexOf(option)] : option}
             key={option}
           />
         ))}
