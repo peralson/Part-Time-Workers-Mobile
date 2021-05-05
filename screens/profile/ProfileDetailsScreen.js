@@ -37,6 +37,7 @@ import InputContainer from '../../components/form/InputContainer';
 import Input from '../../components/form/Input';
 import Label from '../../components/form/Label';
 import ErrorText from '../../components/form/ErrorText'
+import OptionListInput from '../../components/form/OptionListInput';
 
 // Actions
 import * as profileActions from '../../store/actions/profile';
@@ -178,7 +179,7 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
         </InputContainer>
         <InputContainer>
           <Label>Género</Label>
-          <Input
+          {/* <Input
             returnKeyType='next'
             placeholder={gender}
             onChange={(text) => setGender(text)}
@@ -187,7 +188,8 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
               if (!gender) return setGenderError(true);
             }}
             value={gender}
-          />
+          /> */}
+          <OptionListInput options={['Hombre', 'Mujer']} onChange={() => setGender()}/>
           {genderError && <ErrorText>Campo obligatorio</ErrorText>}
         </InputContainer>
         </View>

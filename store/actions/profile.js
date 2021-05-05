@@ -34,7 +34,7 @@ export const fetchProfile = () => {
         address: 'Avenida de Barcelona 19, Córdoba, España',
       },
       {
-        nationality: 'Español',
+        nationality: 'Spain',
         ssNumber: '834759384753489',
         dni: { number: '35289473R', front: null, back: null, expiryDate: 0 },
       },
@@ -133,7 +133,7 @@ export const updateProfileGeneral = (
           expiryDate: currentProfile.profile.legal.dni.expiryDate,
         },
       },
-      bank: { bankAccount: currentProfile.profile.legal.bankAccount },
+      bank: { bankAccount: currentProfile.profile.bank.bankAccount },
       transport: {
         hasLicense: currentProfile.profile.transport.hasLicense,
         hasCar: currentProfile.profile.transport.hasCar,
@@ -300,7 +300,7 @@ export const updateProfileTransport = (
         },
       },
       bank: {
-        bankAccount: currentProfile.profile.legal.bankAccount,
+        bankAccount: currentProfile.profile.bank.bankAccount,
       },
       transport: {
         hasLicense: hasLicense,

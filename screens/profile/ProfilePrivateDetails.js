@@ -14,7 +14,7 @@ import {
 // Libs
 import moment from 'moment';
 import 'moment/locale/es';
-
+import countries from '../../libs/countries';
 // Constants
 import Colors from '../../constants/Colors';
 
@@ -34,6 +34,7 @@ import InputContainer from '../../components/form/InputContainer';
 import Input from '../../components/form/Input';
 import Label from '../../components/form/Label';
 import ErrorText from '../../components/form/ErrorText'
+import OptionListInput from '../../components/form/OptionListInput';
 
 const ProfilePrivateDetails = ({ navigation, route }) => {
   const { profile } = route.params;
@@ -111,7 +112,7 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
         <View style={{ marginHorizontal: 16 }}>
           <InputContainer>
             <Label>Nacionalidad</Label>
-            <Input
+            {/* <Input
               returnKeyType='next'
               placeholder={nationality}
               onChange={(text) => setNationality(text)}
@@ -121,7 +122,8 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
               }}
               value={nationality}
             />
-            {nationalityError && <ErrorText>Campo obligatorio</ErrorText>}
+            {nationalityError && <ErrorText>Campo obligatorio</ErrorText>} */}
+            <OptionListInput placeholder={nationality} options={countries} onChange={() => setNationality()}/>
           </InputContainer>
           {profile.legal.dni.front && (
             <ProfileItem
