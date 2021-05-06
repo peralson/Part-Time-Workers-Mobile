@@ -20,20 +20,14 @@ import Size from '../../constants/FontSize';
 // Redux
 import { useDispatch } from 'react-redux';
 
+// Actions
+import * as profileActions from '../../store/actions/profile';
+
 // Components
 import Screen from '../../components/UI/Screen';
 import HomeWrapper from '../../components/UI/HomeWrapper';
 import BackButton from '../../components/UI/BackButton';
-import HeaderTitle from '../../components/UI/HeaderTitle';
-import ErrorText from '../../components/form/ErrorText';
-import InputContainer from '../../components/form/InputContainer';
-import Input from '../../components/form/Input';
 import Label from '../../components/form/Label';
-import OptionListInput from '../../components/form/OptionListInput';
-
-// Actions
-import * as profileActions from '../../store/actions/profile';
-import AppLoading from 'expo-app-loading';
 
 const ProfileDrivingDetails = ({ navigation, route }) => {
   const { profile } = route.params;
@@ -82,32 +76,29 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
           </TouchableOpacity>
         }
       />
-      <ScrollView
-        contentContainerStyle={styles.container}
-        showsVerticalScrollIndicator={false}
-      >
+      <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
         <View style={styles.switchContainer}>
-          <Label>Carnet de conducir</Label>
+          <Label style={{ marginBottom: 0 }}>Carnet de conducir</Label>
           <Switch
-            trackColor={{ false: Colors.grey, true: Colors.darkGrey }}
+            trackColor={{ false: Colors.grey, true: Colors.accent }}
             thumbColor={Colors.lightPrimary}
             ios_backgroundColor={Colors.grey}
             onValueChange={setHasLicense}
             value={hasLicense}
           />
         </View>
-
+        {hasLicense && (
           <View style={styles.switchContainer}>
-          <Label>Tengo coche</Label>
-          <Switch
-            trackColor={{ false: Colors.grey, true: Colors.darkGrey }}
-            thumbColor={Colors.lightPrimary}
-            ios_backgroundColor={Colors.grey}
-            onValueChange={setHasCar}
-            value={hasCar}
-          />
+            <Label style={{ marginBottom: 0 }}>Tengo coche</Label>
+            <Switch
+              trackColor={{ false: Colors.grey, true: Colors.accent }}
+              thumbColor={Colors.lightPrimary}
+              ios_backgroundColor={Colors.grey}
+              onValueChange={setHasCar}
+              value={hasCar}
+            />
           </View>
-
+        )}
       </ScrollView>
     </Screen>
   );
@@ -115,9 +106,8 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 16,
+    paddingVertical: 24,
     paddingHorizontal: 16,
-    paddingBottom: 24,
   },
   cta: {
     fontSize: Size.tiny,
@@ -125,12 +115,10 @@ const styles = StyleSheet.create({
     color: Colors.primary,
   },
   switchContainer: {
-    width: '100%',
-    paddingRight: 48,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginVertical: 20
+    marginBottom: 24
   }
 });
 

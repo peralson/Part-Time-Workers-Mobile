@@ -13,8 +13,8 @@ const Label = ({ children, style }) => <Text style={{...styles.label, ...style}}
 
 const styles = StyleSheet.create({
     label: {
+        flex: 1,
         fontFamily: Family.bold,
-        width: '100%',
         fontSize: Size.small,
         marginBottom: 8,
         color: Colors.white,
