@@ -128,18 +128,20 @@ const WorkDetailScreen = ({ navigation, route }) => {
                         cta='Ver'
                         onSelect={() => navigation.navigate('OffersStack', {screen: 'Map', params: { address: eventData.location.address.split(',')[0], lat: eventData.location.lat, lng: eventData.location.lng }})}
                     />
-                    <DetailItem
-                        title='WhatsApp'
-                        icon={
-                            <Ionicons
-                                name='logo-whatsapp'
-                                size={21}
-                                color={Colors.white}
-                            />
-                        }
-                        cta='Entrar'
-                        onSelect={() => {}}
-                    />
+                    {/*
+                        <DetailItem
+                            title='WhatsApp'
+                            icon={
+                                <Ionicons
+                                    name='logo-whatsapp'
+                                    size={21}
+                                    color={Colors.white}
+                                />
+                            }
+                            cta='Entrar'
+                            onSelect={() => {}}
+                        />
+                    */}
                 </DetailsContainer>
                 {offerData.description.length !== 0 && (
                     <>

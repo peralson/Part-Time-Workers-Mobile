@@ -128,7 +128,7 @@ const OfferDetailScreen = ({ navigation, route }) => {
 				)} />
 				{eventData.description.length !== 0 && (
 					<>
-						<OfferInfoItem left='Descrición' />
+						<OfferInfoItem left='Descripción' />
 						<Description>{eventData.description}</Description>
 					</>
 				)}

@@ -65,14 +65,14 @@ export const fetchUserLists = () => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`,
         },
       }
-    );
+    )
 
     const resData = await response.json()
 
-    console.log(`RESPUESTA LIST: ${resData}`);
+    console.log(`RESPUESTA LIST: ${await resData}`);
 
     const userLists = [];
 
@@ -89,14 +89,14 @@ export const fetchUserLists = () => {
 
     userLists.push({
       id: '1',
-      name: 'Camareros',
+      category: 'Camareros',
       companyName: 'Clapfy',
       companyImage: 'https://clapfy.es/img/pangea.ico'
     })
 
     userLists.push({
       id: '2',
-      name: 'Limpiadores',
+      category: 'Limpiadores',
       companyName: 'Labora',
       companyImage: 'https://www.labora.app/favicon.ico'
     })

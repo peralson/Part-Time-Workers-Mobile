@@ -29,7 +29,7 @@ const ListItem = ({ list, onSelect }) => (
                 <View style={styles.middleContainer}>
                     <ItemTitle style={{ marginBottom: 8 }}>{list.companyName}</ItemTitle>
                     <View style={styles.tag}>
-                        <Text style={styles.nameText}>{list.name}</Text>
+                        <Text style={styles.nameText}>{list.category}</Text>
                     </View>
                 </View>
             </View>
