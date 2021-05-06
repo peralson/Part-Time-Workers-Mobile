@@ -8,6 +8,6 @@ export default {
     accentBg: 'rgba(97, 188, 158, 0.20)',
     lightAccent: '#ffedf5',
     white: '#FFFFFF',
-    grey: 'rgba(255, 255, 255, .1)',
+    grey: '#302E49',
     darkGrey: 'rgba(255, 255, 255, .7)'
 }

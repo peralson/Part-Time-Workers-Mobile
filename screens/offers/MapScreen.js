@@ -23,13 +23,16 @@ const MapScreen = ({ navigation, route }) => (
                 style={{ height: '100%', width: '100%' }}
                 minZoomLevel={10}
                 maxZoomLevel={18}
-                initialRegion={{ latitude: route.params.lat, longitude: route.params.lng }}
+                initialRegion={{
+                    latitude: route.params.lat,
+                    longitude: route.params.lng
+                }}
             >
                 <Marker 
                     title="Ubicación" 
                     coordinate={{
                         latitude: route.params.lat,
-                        longitude: route.params.lng
+                        longitude: route.params.lng,
                     }}
                 />
             </MapView>

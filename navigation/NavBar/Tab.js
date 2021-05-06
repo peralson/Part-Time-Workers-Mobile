@@ -37,7 +37,7 @@ const Tab = ({ isSelected, setNewSelected, name }) => {
 	return (
 		<TouchableOpacity
 			onPress={setNewSelected}
-			activeOpacity={0.4}
+			activeOpacity={0.8}
 			style={isSelected ? styles.wrapperSelected : styles.wrapper}
 		>
 			<Image

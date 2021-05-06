@@ -4,6 +4,9 @@ import React, { useState } from 'react'
 // React Navigation
 import { View, StyleSheet } from 'react-native'
 
+// Constants
+import Colors from '../../constants/Colors'
+
 // Components
 import Tab from './Tab'
 
@@ -43,6 +46,7 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: Colors.darkPrimary
     },
     container: {
         flexDirection: 'row',
