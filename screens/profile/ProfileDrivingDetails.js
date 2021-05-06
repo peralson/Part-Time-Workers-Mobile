@@ -9,12 +9,13 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Text,
+  Switch,
 } from 'react-native';
 
 // Constants
-import Colors from '../../constants/Colors'
-import Family from '../../constants/FontFamily'
-import Size from '../../constants/FontSize'
+import Colors from '../../constants/Colors';
+import Family from '../../constants/FontFamily';
+import Size from '../../constants/FontSize';
 
 // Redux
 import { useDispatch } from 'react-redux';
@@ -32,6 +33,7 @@ import OptionListInput from '../../components/form/OptionListInput';
 
 // Actions
 import * as profileActions from '../../store/actions/profile';
+import AppLoading from 'expo-app-loading';
 
 const ProfileDrivingDetails = ({ navigation, route }) => {
   const { profile } = route.params;
@@ -70,34 +72,42 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
       <HomeWrapper
         leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
         title='Transporte'
-        rightComponent={(
+        rightComponent={
           <TouchableOpacity onPress={handleSubmit}>
-            {isLoading ? <ActivityIndicator size="small" color={Colors.primary} /> : <Text style={styles.cta}>Guardar</Text>}
+            {isLoading ? (
+              <ActivityIndicator size='small' color={Colors.primary} />
+            ) : (
+              <Text style={styles.cta}>Guardar</Text>
+            )}
           </TouchableOpacity>
-        )}
+        }
       />
       <ScrollView
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
       >
-        <InputContainer>
+        <View style={styles.switchContainer}>
           <Label>Carnet de conducir</Label>
-          <OptionListInput
-            placeholder={hasLicense}
-            options={['Sí', 'No']}
-            values={[true, false]}
-            onChange={setHasLicense}
+          <Switch
+            trackColor={{ false: Colors.grey, true: Colors.darkGrey }}
+            thumbColor={Colors.lightPrimary}
+            ios_backgroundColor={Colors.grey}
+            onValueChange={setHasLicense}
+            value={hasLicense}
           />
-        </InputContainer>
-        <InputContainer>
+        </View>
+
+          <View style={styles.switchContainer}>
           <Label>Tengo coche</Label>
-          <OptionListInput
-            placeholder={hasCar}
-            options={['Sí', 'No']}
-            values={[true, false]}
-            onChange={setHasCar}
+          <Switch
+            trackColor={{ false: Colors.grey, true: Colors.darkGrey }}
+            thumbColor={Colors.lightPrimary}
+            ios_backgroundColor={Colors.grey}
+            onValueChange={setHasCar}
+            value={hasCar}
           />
-        </InputContainer>
+          </View>
+
       </ScrollView>
     </Screen>
   );
@@ -114,6 +124,14 @@ const styles = StyleSheet.create({
     fontFamily: Family.normal,
     color: Colors.primary,
   },
+  switchContainer: {
+    width: '100%',
+    paddingRight: 48,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginVertical: 20
+  }
 });
 
-export default ProfileDrivingDetails
+export default ProfileDrivingDetails;
