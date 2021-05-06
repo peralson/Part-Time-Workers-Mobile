@@ -15,7 +15,7 @@ export const fetchApplications = () => {
             {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application.json',
+                    'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
               	}
             }
@@ -29,7 +29,7 @@ export const fetchApplications = () => {
 			resData.body.map(application => {
 				loadedApplications.push(
 					new Application(
-						application.applicationData.id_offer,
+						application.id,
 						application.offerData,
 						application.eventData,
 						application.companyData,
@@ -61,7 +61,7 @@ export const sendApplication = offerId => {
 			{
 				method: 'POST',
 				headers: {
-					'Content-Type': 'application.json',
+					'Content-Type': 'application/json',
 					'Authorization': `Bearer ${token}`
 				}
 			}
@@ -82,7 +82,7 @@ export const cancelApplication = applicationId => {
 			{
 				method: 'PUT',
 				headers: {
-					'Content-Type': 'application.json',
+					'Content-Type': 'application/json',
 					'Authorization': `Bearer ${token}`
 				}
 			}

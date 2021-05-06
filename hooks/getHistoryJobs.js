@@ -14,6 +14,8 @@ const getHistoryJobs = async token => {
 
     const resData = await response.json()
 
+    console.log(resData)
+
     const pastJobs = []
 
     if (resData.body === "We could not find any job") {

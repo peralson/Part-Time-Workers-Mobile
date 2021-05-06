@@ -15,7 +15,7 @@ export const fetchJobs = () => {
 		 	{
 		 		method: 'GET',
 		 		headers: {
-		 			'Content-Type': 'application.json',
+		 			'Content-Type': 'application/json',
 		 			'Authorization': `Bearer ${token}`
 		 		}
 		 	}
@@ -29,7 +29,7 @@ export const fetchJobs = () => {
 			resData.body.map(job => {
 				loadedJobs.push(
 					new Job(
-					   	job.jobData.id_offer,
+					   	job.id,
 						job.offerData,
 						job.eventData,
 						job.companyData,
@@ -55,25 +55,38 @@ export const fetchJobs = () => {
 export const checkJob = eventId => {
 	return async (dispatch, getState) => {
 		const token = getState().auth.token
-
+		
 		const response = await fetch(
 			`https://us-central1-partime-60670.cloudfunctions.net/api/job/check`,
 			{
 				method: 'PUT',
 				headers: {
-					'Content-Type': 'application.json',
+					'Content-Type': 'application/json',
 					'Authorization': `Bearer ${token}`
 				},
 				body: JSON.stringify({
-					"id_event": eventId,
-					"check": new Date().getTime()
+					'id_event': eventId,
+					'check': new Date().getTime()
 				})
 			}
 		)
 
-		const resData = await response.json()
+		if (!response.ok) {
+			const resData = await response.json()
+			console.log('Error', resData);
+			throw new Error(resData.body)
+		}
 
-		console.log(resData)
+		const resData = await response.json()
+		const newTask = resData.body.newStatus
+
+		console.log(newTask)
+		
+		dispatch({
+			type: CHECK_JOB,
+			eventId: eventId,
+			newTask: newTask
+		})
 	}
 }
 
@@ -86,7 +99,7 @@ export const cancelJob = jobId => {
 			{
 				method: 'PUT',
 				headers: {
-					'Content-Type': 'application.json',
+					'Content-Type': 'application/json',
 					'Authorization': `Bearer ${token}`
 				}
 			}
@@ -95,5 +108,10 @@ export const cancelJob = jobId => {
 		const resData = await response.json()
 
 		console.log(resData)
+
+		dispatch({
+			type: CANCEL_JOB,
+			jobId: jobId
+		})
 	}
 }

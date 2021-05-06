@@ -38,13 +38,13 @@ import OfferInfoItem from '../../components/offers/OfferInfoItem'
 import OfferCompany from '../../components/offers/OfferCompany'
 
 const ApplicationDetailScreen = ({ navigation, route }) => {
-    const { offerId, applicationId  } = route.params
+    const { applicationId } = route.params
 
     const {
         offerData,
         eventData,
         companyData
-    } = useSelector(state => state.applications.userApplications.find(offer => offer.id === offerId))
+    } = useSelector(state => state.applications.userApplications.find(application => application.id === applicationId))
 
     const dispatch = useDispatch()
 
@@ -72,7 +72,7 @@ const ApplicationDetailScreen = ({ navigation, route }) => {
                 title="Aplicación"
                 rightComponent={<TopRightButton title='Anular' color='red' onSelect={handleCancelApplication} />}
             />
-            <ScrollView showsVerticalScrollIndicator={false} style={{ paddingVertical: 16, paddingHorizontal: 16 }}>
+            <ScrollView showsVerticalScrollIndicator={false} style={{ padding: 16, paddingBottom: 32 }}>
                 <OfferHeader
                     category={offerData.category}
                     name={eventData.name}

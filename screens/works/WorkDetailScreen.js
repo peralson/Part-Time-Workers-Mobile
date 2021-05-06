@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import * as jobActions from '../../store/actions/jobs'
 
 // Libs
+import handleStatus from '../../libs/handleStatus'
 import { handleCalendar } from '../../libs/addToCalendar'
 import formattedSalary from '../../libs/formattedSalary'
 import totalHoursCalc from '../../libs/totalHoursCalc'
@@ -39,6 +40,7 @@ import OfferInfoItem from '../../components/offers/OfferInfoItem'
 import OfferCompany from '../../components/offers/OfferCompany'
 
 const WorkDetailScreen = ({ navigation, route }) => {
+    const [loading, setLoading] = useState(false)
     const [height, setHeight] = useState(0)
 
     const { offerId, jobId } = route.params
@@ -67,6 +69,18 @@ const WorkDetailScreen = ({ navigation, route }) => {
                 }
             }
         ])
+    }
+
+    const handleCheck = () => {
+        setLoading(true)
+        dispatch(jobsActions.checkJob(jobData.id_event))
+            .then(() => {
+                setLoading(false)
+            })
+            .catch(e => {
+                Alert(e.message)
+                setLoading(false)
+            })
     }
 
     return (
@@ -169,8 +183,8 @@ const WorkDetailScreen = ({ navigation, route }) => {
                 )}
             </ScrollView>
             <View onLayout={(e) => setHeight(e.nativeEvent.layout.height)} style={styles.bottomAbsolute}>
-                <ApplyButton locked={!jobData.status === "active"} onSelect={() => {}}>
-                    Comenzar
+                <ApplyButton locked={jobData.status === "none"} onSelect={handleCheck}>
+                    {loading ? 'Esperando...' : handleStatus(jobData.status)}
                 </ApplyButton>
             </View>
         </Screen>

@@ -120,19 +120,17 @@ const WorksHomeScreen = ({ navigation }) => {
 					{applicationsLoading ? <IsLoadingMini text="aplicaciones" /> : (
 						<>
 							{applications.length === 0 ? (
-								<View style={{ backgroundColor: 'red' }}>
-									<EmptyList
-										quote='No tienes aplicaciones...'
-										image={require('../../assets/sin_posiciones.png')}
-										onApply={() => navigation.navigate('Home', { screen: 'Ofertas' })}
-									/>
-								</View>
+								<EmptyList
+									quote='No tienes aplicaciones...'
+									image={require('../../assets/sin_posiciones.png')}
+									onApply={() => navigation.navigate('Home', { screen: 'Ofertas' })}
+								/>
 							) : (
 								applications.map(application => (
 									<OfferItem
 										key={application.id}
 										{...application}
-										onSelect={() => applicationDetailHandler(application.id, application.applicationData.id)}
+										onSelect={() => applicationDetailHandler(application.id, application.id)}
 									/>
 								))
 							)}

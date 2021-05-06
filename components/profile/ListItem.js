@@ -32,9 +32,6 @@ const ListItem = ({ list, onSelect }) => (
                         <Text style={styles.nameText}>{list.name}</Text>
                     </View>
                 </View>
-                <View style={styles.rightContainer}>
-                    <Text style={styles.rightText}>Ver empresa</Text>
-                </View>
             </View>
         </Card>
     </TouchableOpacity>

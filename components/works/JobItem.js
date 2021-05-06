@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 
 // Libs
+import handleStatus from '../../libs/handleStatus'
 import moment from 'moment'
 import 'moment/locale/es'
 
@@ -26,23 +27,24 @@ import ItemDetails from '../UI/ItemDetails'
 import ApplyButton from '../offers/ApplyButton'
 
 const JobItem = ({ offerData, eventData, companyData, jobData, onSelect }) => {
-    const [checkin, setChecking] = useState(true)
     const [loading, setLoading] = useState(false)
 
     const dispatch = useDispatch()
 
     const handleCheck = () => {
         setLoading(true)
-        dispatch(jobsActions.checkJob(eventData.id))
+        dispatch(jobsActions.checkJob(jobData.id_event))
             .then(() => {
-                setChecking(state => !state)
                 setLoading(false)
             })
-            .catch(e => Alert(e.message))
+            .catch(e => {
+                Alert(e.message)
+                setLoading(false)
+            })
     }
 
     return (
-        <TouchableOpacity activeOpacity={0.8} onPress={onSelect} style={{ marginRight: 8 }}>
+        <TouchableOpacity activeOpacity={0.8} onPress={onSelect} style={{ marginRight: 8, width: 185 }}>
             <Card>
                 <View style={{ flexDirection: 'row', marginBottom: 8 }}>
                     <DarkTag>
@@ -57,8 +59,8 @@ const JobItem = ({ offerData, eventData, companyData, jobData, onSelect }) => {
                     companyName={companyData.name}
                     address={eventData.location.address.split(',')[0]}
                 />
-                <ApplyButton locked={!jobData.status === "active"} isJob={true} onSelect={handleCheck}>
-                    {loading ? 'Esperando...' : checkin ? 'Check in' : 'Check out'}
+                <ApplyButton locked={jobData.status === "none"} onSelect={handleCheck}>
+                    {loading ? 'Esperando...' : handleStatus(jobData.status)}
                 </ApplyButton>
             </Card>
         </TouchableOpacity>

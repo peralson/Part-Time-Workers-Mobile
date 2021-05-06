@@ -10,6 +10,9 @@ import { useDispatch, useSelector } from 'react-redux'
 // Actions
 import * as applicationActions from '../../store/actions/applications'
 
+// Libs
+import { Formik } from 'formik'
+
 // Constants
 import Colors from '../../constants/Colors'
 
@@ -20,6 +23,7 @@ import BackButton from '../../components/UI/BackButton'
 import ApplyButton from '../../components/offers/ApplyButton'
 
 const ApplicationResumeScreen = ({ navigation, route }) => {
+    const [isSigned, setSigned] = useState(false)
     const [isLoading, setLoading] = useState(false)
     const [height, setHeight] = useState(0)
 
@@ -38,15 +42,16 @@ const ApplicationResumeScreen = ({ navigation, route }) => {
     return (
         <Screen>
             <HomeWrapper leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}/>
-            <ScrollView showsVerticalScrollIndicator={false}
-                style={{
-                    flex: 1,
-                    paddingTop: 16,
-                    marginBottom: height,
-                    paddingHorizontal: 24,
-                }}
-            >
-                <Text>{offerData.category}</Text>
+            <ScrollView showsVerticalScrollIndicator={false} style={{ paddingTop: 16, marginBottom: height, paddingHorizontal: 24 }}>
+                <Formik
+                    initialValues={{ sign: isSigned }}
+                >
+                    {(props) => {
+                        return (
+                            <Text>Hola</Text>
+                        )
+                    }}
+                </Formik>
             </ScrollView>
             <View onLayout={(e) => setHeight(e.nativeEvent.layout.height)} style={styles.bottomAbsolute}>
                 <ApplyButton onSelect={offerApplicationHandler}>

@@ -56,7 +56,7 @@ export const ProfileListsScreen = ({ navigation }) => {
 				userLists.length === 0 ? <EmptyList quote='Actualmente no apareces en listas' image={noList} /> : (
 					<ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
 						{userLists.map((list, index) => 
-							<ListItem key={index} list={list} onSelect={() => navigation.navigate('ProfilePastJobDetails', { jobData: '' })} />
+							<ListItem key={index} list={list} />
 						)}
 					</ScrollView>
 				)

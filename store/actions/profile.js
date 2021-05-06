@@ -64,15 +64,15 @@ export const fetchUserLists = () => {
       {
         method: 'GET',
         headers: {
-          'Content-Type': 'application.json',
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
       }
     );
 
-    console.log(`RESPUESTA LIST: ${response}`);
+    const resData = await response.json()
 
-    // const resData = await response.json()
+    console.log(`RESPUESTA LIST: ${resData}`);
 
     const userLists = [];
 
@@ -86,6 +86,20 @@ export const fetchUserLists = () => {
     //         )
     //     )
     // })
+
+    userLists.push({
+      id: '1',
+      name: 'Camareros',
+      companyName: 'Clapfy',
+      companyImage: 'https://clapfy.es/img/pangea.ico'
+    })
+
+    userLists.push({
+      id: '2',
+      name: 'Limpiadores',
+      companyName: 'Labora',
+      companyImage: 'https://www.labora.app/favicon.ico'
+    })
 
     dispatch({
       type: FETCH_USER_LISTS,

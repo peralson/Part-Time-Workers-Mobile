@@ -9,7 +9,7 @@ import Colors from '../../constants/Colors'
 import Family from '../../constants/FontFamily'
 import Size from '../../constants/FontSize'
 
-const ItemTitle = ({ children, style }) => <Text style={{...styles.title, ...style}}>{children}</Text>
+const ItemTitle = ({ children, style }) => <Text numberOfLines={1} style={{...styles.title, ...style}}>{children}</Text>
 
 const styles = StyleSheet.create({
     title: {

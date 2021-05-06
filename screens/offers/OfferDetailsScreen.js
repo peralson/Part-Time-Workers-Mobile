@@ -39,6 +39,8 @@ const OfferDetailScreen = ({ navigation, route }) => {
 
     const { offerId } = route.params
 
+	console.log(offerId);
+
     const {
       offerData,
       eventData,
