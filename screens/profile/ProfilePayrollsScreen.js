@@ -40,7 +40,12 @@ const ProfilePayrollsScreen = ({ navigation }) => {
         }, [])
     )
 
-    const openPayroll = file => navigation.navigate('OffersStack', { screen: 'PDF', params: { type: 'Nómina', file: file } })
+    const openPayroll = id => {
+        navigation.navigate(
+            'OffersStack',
+            { screen: 'PDF', params: { id: id, type: 2, isPayroll: true } }
+        )
+    }
 
     return (
         <Screen>
@@ -56,7 +61,7 @@ const ProfilePayrollsScreen = ({ navigation }) => {
                             <JobPayroll
                                 key={payroll.id}
                                 payroll={payroll}
-                                onSelect={() => openPayroll(payroll.jobData.payroll.file)}
+                                onSelect={() => openPayroll(payroll.id)}
                             />
                         )
                     )}

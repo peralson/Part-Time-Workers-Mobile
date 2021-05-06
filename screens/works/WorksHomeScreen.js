@@ -77,11 +77,10 @@ const WorksHomeScreen = ({ navigation }) => {
 		})
 	}
 
-	const jobDetailHandler = (offerId, jobId) => {
+	const jobDetailHandler = jobId => {
 		navigation.navigate('WorksStack', {
 			screen: 'WorkDetail',
 			params: {
-				offerId: offerId,
 				jobId: jobId
 			}
 		})
@@ -108,7 +107,7 @@ const WorksHomeScreen = ({ navigation }) => {
 									<JobItem
 										key={job.id}
 										{...job}
-										onSelect={() => jobDetailHandler(job.id, job.jobData.id)}
+										onSelect={() => jobDetailHandler(job.id)}
 									/>
 								))}
 							</SideScrollPicker>

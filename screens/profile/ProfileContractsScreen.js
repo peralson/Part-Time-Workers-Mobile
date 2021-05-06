@@ -41,7 +41,12 @@ const ProfileContractsScreen = ({ navigation }) => {
         }, [])
     )
 
-    const openContract = (name, file) => navigation.navigate('OffersStack', { screen: 'PDF', params: { type: 'Contrato', name: name, file: file } })
+    const openContract = id => {
+        navigation.navigate(
+            'OffersStack',
+            { screen: 'PDF', params: { id: id, type: 1 } }
+        )
+    }
 
     return (
         <Screen>
@@ -57,7 +62,7 @@ const ProfileContractsScreen = ({ navigation }) => {
                             <JobContract
                                 key={contract.id}
                                 contract={contract}
-                                onSelect={() => openContract(contract.jobData.contract.name, contract.jobData.contract.file)}
+                                onSelect={() => openContract(contract.id)}
                             />
                         )
                     )}

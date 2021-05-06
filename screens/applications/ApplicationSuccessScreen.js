@@ -1,5 +1,5 @@
 // React
-import React, { useState } from 'react'
+import React from 'react'
 
 // React Native
 import {
@@ -17,31 +17,29 @@ import Size from '../../constants/FontSize'
 // Components
 import Screen from '../../components/UI/Screen'
 import ApplyButton from '../../components/offers/ApplyButton'
+import BottomAbsConatiner from '../../components/UI/BottomAbsConatiner'
 
-const ApplicationSuccess = ({ navigation }) => {
-    const [height, setHeight] = useState(0)
-    
-    return (
-        <Screen>
-			<View style={{...styles.container, ...{ paddingBottom: height }}}>
-				<Image style={styles.image} source={require('../../assets/application.png')} />
-				<Text style={styles.title}>¡Has aplicado con éxito!</Text>
-				<Text style={styles.description}>Si la empresa acepta la petición, esta oferta pasará al área de "Trabajos"</Text>
-				<View onLayout={e => setHeight(e.nativeEvent.layout.height)} style={styles.bottomAbsolute}>
-					<ApplyButton onSelect={() => navigation.navigate('Home', { screen: 'Ofertas' })}>
-						Continuar
-					</ApplyButton>
-				</View>
-			</View>
-        </Screen>
-    );
-};
+const ApplicationSuccess = ({ navigation }) => (
+	<Screen>
+		<View style={styles.container}>
+			<Image style={styles.image} source={require('../../assets/application.png')} />
+			<Text style={styles.title}>¡Has aplicado con éxito!</Text>
+			<Text style={styles.description}>Si la empresa acepta la petición, esta oferta pasará al área de "Trabajos"</Text>
+			<BottomAbsConatiner onLayout={e => setHeight(e.nativeEvent.layout.height)}>
+				<ApplyButton onSelect={() => navigation.navigate('Home', { screen: 'Ofertas' })}>
+					Continuar
+				</ApplyButton>
+			</BottomAbsConatiner>
+		</View>
+	</Screen>
+)
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
+		paddingBottom: 100
 	},
 	title: {
 		fontFamily: Family.bold,
@@ -67,17 +65,6 @@ const styles = StyleSheet.create({
 		lineHeight: 21,
 		paddingHorizontal: 24,
 	},
-	bottomAbsolute: {
-		position: 'absolute',
-		bottom: 0,
-		width: '100%',
-		backgroundColor: Colors.darkPrimary,
-		paddingBottom: Platform.OS === 'ios' ? 32 : 8,
-		paddingTop: 8,
-		borderTopColor: Colors.grey,
-        borderTopWidth: 1,
-		paddingHorizontal: 24,
-	}
 });
 
 export default ApplicationSuccess

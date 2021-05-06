@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 
 // React Native
-import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ScrollView, Text } from 'react-native'
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,19 +13,16 @@ import * as applicationActions from '../../store/actions/applications'
 // Libs
 import { Formik } from 'formik'
 
-// Constants
-import Colors from '../../constants/Colors'
-
 // Components
 import Screen from '../../components/UI/Screen'
 import HomeWrapper from '../../components/UI/HomeWrapper'
 import BackButton from '../../components/UI/BackButton'
 import ApplyButton from '../../components/offers/ApplyButton'
+import BottomAbsConatiner from '../../components/UI/BottomAbsConatiner'
 
 const ApplicationResumeScreen = ({ navigation, route }) => {
     const [isSigned, setSigned] = useState(false)
     const [isLoading, setLoading] = useState(false)
-    const [height, setHeight] = useState(0)
 
     const { offerId } = route.params
     const offerData = useSelector(state => state.offers.openOffers.find((offer) => offer.id === offerId))
@@ -42,7 +39,7 @@ const ApplicationResumeScreen = ({ navigation, route }) => {
     return (
         <Screen>
             <HomeWrapper leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}/>
-            <ScrollView showsVerticalScrollIndicator={false} style={{ paddingTop: 16, marginBottom: height, paddingHorizontal: 24 }}>
+            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingTop: 16, marginBottom: 100, paddingHorizontal: 24 }}>
                 <Formik
                     initialValues={{ sign: isSigned }}
                 >
@@ -53,27 +50,13 @@ const ApplicationResumeScreen = ({ navigation, route }) => {
                     }}
                 </Formik>
             </ScrollView>
-            <View onLayout={(e) => setHeight(e.nativeEvent.layout.height)} style={styles.bottomAbsolute}>
+            <BottomAbsConatiner>
                 <ApplyButton onSelect={offerApplicationHandler}>
                     {isLoading ? 'Aplicando...' : 'Aplicar'}
                 </ApplyButton>
-            </View>
+            </BottomAbsConatiner>
         </Screen>
     )
 }
-
-const styles = StyleSheet.create({
-    bottomAbsolute: {
-        position: 'absolute',
-        bottom: 0,
-        width: '100%',
-        backgroundColor: Colors.darkPrimary,
-        paddingBottom: Platform.OS === "ios" ? 32 : 8,
-        paddingTop: 8,
-        paddingHorizontal: 16,
-        borderTopColor: Colors.grey,
-        borderTopWidth: 1,
-    }
-})
 
 export default ApplicationResumeScreen

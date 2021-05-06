@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 
 // React Native
-import { Alert, ScrollView, StyleSheet, View, Platform, Text, TouchableOpacity } from 'react-native';
+import { ScrollView } from 'react-native'
 
 // Expo
 import { Ionicons } from '@expo/vector-icons'
@@ -33,10 +33,10 @@ import Label from '../../components/UI/Label'
 import Schedules from '../../components/offers/Schedules'
 import OfferInfoItem from '../../components/offers/OfferInfoItem'
 import OfferCompany from '../../components/offers/OfferCompany'
+import TinyContractButton from '../../components/UI/TinyTextButton'
+import BottomAbsConatiner from '../../components/UI/BottomAbsConatiner'
 
 const OfferDetailScreen = ({ navigation, route }) => {
-    const [height, setHeight] = useState(0)
-
     const { offerId } = route.params
 
 	console.log(offerId);
@@ -50,13 +50,20 @@ const OfferDetailScreen = ({ navigation, route }) => {
     const { hours, minutes } = totalHoursCalc(offerData.schedule)
     const totalSalary = ((hours + minutes / 60) * offerData.salary).toFixed(0)
 
+	const handleSendApplication = () => {
+		navigation.navigate(
+			'ApplicationsStack',
+			{ screen: 'ApplicationResume', params: { offerId: offerId } }
+		)
+	}
+
 	return (
 		<Screen>
 			<HomeWrapper leftComponent={<BackButton onGoBack={() => navigation.goBack()} />} title="Oferta" />
 			<ScrollView
 				showsVerticalScrollIndicator={false}
-				style={{
-					marginBottom: height,
+				contentContainerStyle={{
+					marginBottom: 100,
 					paddingVertical: 16,
 					paddingHorizontal: 16,
 				}}
@@ -117,15 +124,12 @@ const OfferDetailScreen = ({ navigation, route }) => {
 				/>
 				<OfferInfoItem left='Desplazamiento' right='Si' />
 				<OfferInfoItem left='Nocturnidad' right='No' />
-				<OfferInfoItem left='Contrato' right={(
-					<TouchableOpacity 
-						onPress={() => navigation.navigate('OffersStack', { screen: 'PDF', params: { type: 'Contrato', name: 'Hola', file: 'https://bitcoin.org/bitcoin.pdf' } })}
-						style={{ flexDirection: 'row', alignItems: 'center' }}
-					>
-						<Text style={{ color: Colors.primary, marginRight: 4 }}>Ver</Text>
-						<Ionicons name="eye-outline" color={Colors.primary} size={14} />
-					</TouchableOpacity>
-				)} />
+				<OfferInfoItem left='Contrato' right={
+						<TinyContractButton
+							onSelect={() => navigation.navigate('OffersStack', { screen: 'PDF', params: { id: offerId, type: 0 } })} 
+						/>
+					}
+				/>
 				{eventData.description.length !== 0 && (
 					<>
 						<OfferInfoItem left='Descripción' />
@@ -133,30 +137,13 @@ const OfferDetailScreen = ({ navigation, route }) => {
 					</>
 				)}
 			</ScrollView>
-			<View onLayout={(e) => setHeight(e.nativeEvent.layout.height)} style={styles.bottomAbsolute} >
-				<ApplyButton onSelect={() => navigation.navigate('ApplicationsStack', { screen: 'ApplicationResume', params: { offerId: offerId } })}>
+			<BottomAbsConatiner>
+				<ApplyButton onSelect={handleSendApplication}>
 					Aplicar
 				</ApplyButton>
-			</View>
+			</BottomAbsConatiner>
 		</Screen>
 	)
 }
-
-const styles = StyleSheet.create({
-	bottomAbsolute: {
-		position: 'absolute',
-		bottom: 0,
-		width: '100%',
-		backgroundColor: Colors.darkPrimary,
-		paddingBottom: Platform.OS === 'ios' ? 32 : 8,
-		paddingTop: 8,
-		paddingHorizontal: 16,
-		borderTopColor: Colors.grey,
-		borderTopWidth: 1,
-	},
-	wrapper: {
-		paddingHorizontal: 24,
-	}
-})
 
 export default OfferDetailScreen

@@ -2,7 +2,7 @@
 import React from 'react'
 
 // React Native
-import { Alert, ScrollView, Text, TouchableOpacity } from 'react-native'
+import { Alert, ScrollView } from 'react-native'
 
 // Expo
 import { Ionicons } from '@expo/vector-icons'
@@ -36,6 +36,7 @@ import Schedules from '../../components/offers/Schedules'
 import TopRightButton from '../../components/UI/TopRightButton'
 import OfferInfoItem from '../../components/offers/OfferInfoItem'
 import OfferCompany from '../../components/offers/OfferCompany'
+import TinyContractButton from '../../components/UI/TinyTextButton'
 
 const ApplicationDetailScreen = ({ navigation, route }) => {
     const { applicationId } = route.params
@@ -43,7 +44,8 @@ const ApplicationDetailScreen = ({ navigation, route }) => {
     const {
         offerData,
         eventData,
-        companyData
+        companyData,
+        applicationData
     } = useSelector(state => state.applications.userApplications.find(application => application.id === applicationId))
 
     const dispatch = useDispatch()
@@ -72,7 +74,7 @@ const ApplicationDetailScreen = ({ navigation, route }) => {
                 title="Aplicación"
                 rightComponent={<TopRightButton title='Anular' color='red' onSelect={handleCancelApplication} />}
             />
-            <ScrollView showsVerticalScrollIndicator={false} style={{ padding: 16, paddingBottom: 32 }}>
+            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ padding: 16, paddingBottom: 32 }}>
                 <OfferHeader
                     category={offerData.category}
                     name={eventData.name}
@@ -129,15 +131,12 @@ const ApplicationDetailScreen = ({ navigation, route }) => {
                 />
                 <OfferInfoItem left='Desplazamiento' right='Si' />
                 <OfferInfoItem left='Nocturnidad' right='No' />
-                <OfferInfoItem left='Contrato' right={(
-                    <TouchableOpacity 
-                        onPress={() => navigation.navigate('OffersStack', { screen: 'PDF', params: { type: 'Contrato', file: 'https://bitcoin.org/bitcoin.pdf' } })}
-                        style={{ flexDirection: 'row', alignItems: 'center' }}
-                    >
-                        <Text style={{ color: Colors.primary, marginRight: 4 }}>Ver</Text>
-                        <Ionicons name="eye-outline" color={Colors.primary} size={14} />
-                    </TouchableOpacity>
-                )} />
+                <OfferInfoItem left='Contrato' right={
+						<TinyContractButton
+							onSelect={() => navigation.navigate('OffersStack', { screen: 'PDF', params: { id: applicationData.id_offer, type: 0 } })} 
+						/>
+					}
+				/>
                 {eventData.description.length !== 0 && (
                     <>
                         <OfferInfoItem left='Descrición' />

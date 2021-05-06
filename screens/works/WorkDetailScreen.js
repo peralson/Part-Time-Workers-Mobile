@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 
 // React Native
-import { Alert, ScrollView, StyleSheet, View, Platform, Text, TouchableOpacity } from 'react-native'
+import { Alert, ScrollView } from 'react-native'
 
 // Expo
 import { Ionicons } from '@expo/vector-icons'
@@ -38,19 +38,20 @@ import Schedules from '../../components/offers/Schedules'
 import TopRightButton from '../../components/UI/TopRightButton'
 import OfferInfoItem from '../../components/offers/OfferInfoItem'
 import OfferCompany from '../../components/offers/OfferCompany'
+import TinyContractButton from '../../components/UI/TinyTextButton'
+import BottomAbsConatiner from '../../components/UI/BottomAbsConatiner'
 
 const WorkDetailScreen = ({ navigation, route }) => {
     const [loading, setLoading] = useState(false)
-    const [height, setHeight] = useState(0)
 
-    const { offerId, jobId } = route.params
+    const { jobId } = route.params
 
     const {
         offerData,
         eventData,
         companyData,
         jobData
-    } = useSelector(state => state.jobs.userJobs.find(offer => offer.id === offerId))
+    } = useSelector(state => state.jobs.userJobs.find(job => job.id === jobId))
 
     const dispatch = useDispatch()
 
@@ -92,9 +93,9 @@ const WorkDetailScreen = ({ navigation, route }) => {
             />
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                style={{
-                    marginBottom: height,
-                    paddingVertical: 16,
+                contentContainerStyle={{
+                    paddingBottom: 100,
+                    paddingTop: 16,
                     paddingHorizontal: 16,
                 }}
             >
@@ -168,15 +169,12 @@ const WorkDetailScreen = ({ navigation, route }) => {
                 />
                 <OfferInfoItem left='Desplazamiento' right='Si' />
                 <OfferInfoItem left='Nocturnidad' right='No' />
-                <OfferInfoItem left='Contrato' right={(
-                    <TouchableOpacity 
-                        onPress={() => navigation.navigate('OffersStack', { screen: 'PDF', params: { type: 'Contrato', file: 'https://bitcoin.org/bitcoin.pdf' } })}
-                        style={{ flexDirection: 'row', alignItems: 'center' }}
-                    >
-                        <Text style={{ color: Colors.primary, marginRight: 4 }}>Ver</Text>
-                        <Ionicons name="eye-outline" color={Colors.primary} size={14} />
-                    </TouchableOpacity>
-                )} />
+                <OfferInfoItem left='Contrato' right={
+						<TinyContractButton
+							onSelect={() => navigation.navigate('OffersStack', { screen: 'PDF', params: { id: jobData.id_offer, type: 1 } })} 
+						/>
+					}
+				/>
                 {eventData.description.length !== 0 && (
                     <>
                         <OfferInfoItem left='Descrición' />
@@ -184,30 +182,13 @@ const WorkDetailScreen = ({ navigation, route }) => {
                     </>
                 )}
             </ScrollView>
-            <View onLayout={(e) => setHeight(e.nativeEvent.layout.height)} style={styles.bottomAbsolute}>
+            <BottomAbsConatiner>
                 <ApplyButton locked={jobData.status === "none"} onSelect={handleCheck}>
                     {loading ? 'Esperando...' : handleStatus(jobData.status)}
                 </ApplyButton>
-            </View>
+            </BottomAbsConatiner>
         </Screen>
     )
 }
-
-const styles = StyleSheet.create({
-    bottomAbsolute: {
-        position: 'absolute',
-        bottom: 0,
-        width: '100%',
-        backgroundColor: Colors.darkPrimary,
-        paddingBottom: Platform.OS === 'ios' ? 32 : 8,
-        paddingTop: 8,
-        paddingHorizontal: 16,
-        borderTopColor: Colors.grey,
-        borderTopWidth: 1,
-    },
-    wrapper: {
-        paddingHorizontal: 24,
-    },
-})
 
 export default WorkDetailScreen

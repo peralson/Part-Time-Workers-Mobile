@@ -1,23 +1,54 @@
-import React from 'react'
+// React
+import React, { useState, useEffect } from 'react'
 
 // Libs
 import PDFReader from 'rn-pdf-reader-js'
+import { getContractPdf, getPayrollPdf, getSignedContractPdf } from '../../hooks/requestPDF'
 
 // Components
 import Screen from '../../components/UI/Screen'
 import HomeWrapper from '../../components/UI/HomeWrapper'
 import BackButton from '../../components/UI/BackButton'
+import IsLoadingMini from '../../components/UI/IsLoadingMini'
 
 const PDFScreen = ({ navigation, route }) => {
-    const { file, type } = route.params
+    const [loading, setLoading] = useState(true)
+    const [file, setFile] = useState(true)
+
+    const { id, type, isPayroll } = route.params
+
+    let request
+
+    switch (type) {
+        case 0:
+            request = getContractPdf
+            break
+    
+        case 1:
+            request = getSignedContractPdf
+            break
+
+        case 2:
+            request = getPayrollPdf
+            break
+    }
+
+    useEffect(() => {
+		setLoading(true)
+		request(id)
+			.then(res => {
+                setFile(res)
+                setLoading(false)
+            })
+	}, [])
 
     return (
         <Screen>
             <HomeWrapper
                 leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
-                title={type}
+                title={isPayroll ? 'Nómina' : 'Contrato'}
             />
-            <PDFReader source={{ uri: file }} />
+            {loading ? <IsLoadingMini text={isPayroll ? 'nómina' : 'contrato'} /> : <PDFReader source={{ uri: file }} />} 
         </Screen>
     )
 }
