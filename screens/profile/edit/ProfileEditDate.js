@@ -50,7 +50,6 @@ const ProfileEditDate = ({ navigation, route }) => {
     navigation.goBack();
   };
 
-
   return (
     <Screen>
       <HomeWrapper
@@ -68,12 +67,12 @@ const ProfileEditDate = ({ navigation, route }) => {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-        style={styles.buttonContainer}
-        onPress={onSubmitHandler}
-        activeOpacity={0.8}
-      >
-        <Text style={styles.buttonText}>Volver</Text>
-      </TouchableOpacity>
+          style={styles.buttonContainer}
+          onPress={onSubmitHandler}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.buttonText}>Volver</Text>
+        </TouchableOpacity>
       </FormWrapper>
       {show && Platform.OS === 'ios' && (
         <ToggleBottomMenu onSelect={onShowDatePicker}>
@@ -125,7 +124,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.grey,
     borderWidth: 1,
     color: Colors.black,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   buttonContainer: {
     marginTop: 16,

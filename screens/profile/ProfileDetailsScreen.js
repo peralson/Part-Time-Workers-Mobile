@@ -57,13 +57,12 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
   const [emailError, setEmailError] = useState(null);
 
   const [address, setAddress] = useState(profile.contact.address);
-  const [addressError, setAddressError] = useState(null);
+  const [lat, setLat] = useState(profile.contact.lat);
+  const [lng, setLng] = useState(profile.contact.lng);
 
   const [birthday, setBirthday] = useState(profile.details.birthday);
-  const [birthdayError, setBirthdayError] = useState(null);
 
   const [gender, setGender] = useState(profile.details.gender);
-  const [genderError, setGenderError] = useState(null);
 
   const [bio, setBio] = useState(profile.details.bio);
 
@@ -163,7 +162,7 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
           </InputContainer>
           <InputContainer>
             <Label>Dirección</Label>
-            <Input
+            {/* <Input
               returnKeyType='next'
               placeholder={address}
               onChange={(text) => setAddress(text)}
@@ -173,7 +172,24 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
               }}
               value={address}
             />
-            {addressError && <ErrorText>Campo obligatorio</ErrorText>}
+            {addressError && <ErrorText>Campo obligatorio</ErrorText>} */}
+            <TouchableOpacity
+            style={styles.inputPage}
+              onPress={() =>
+                navigation.navigate('ProfileStack', {
+                  screen: 'ProfileEditDirection',
+                  params: {
+                    title: 'Selecciona dirección',
+                    onChangeAddress: setAddress,
+                    onChangeLat: setLat,
+                    onChangeLng: setLng,
+                    placeholder: address
+                  },
+                })
+              }
+            >
+              <Text style={styles.textInput}>{address}</Text>
+            </TouchableOpacity>
           </InputContainer>
           <InputContainer>
             <Label>Fecha de nacimiento</Label>
