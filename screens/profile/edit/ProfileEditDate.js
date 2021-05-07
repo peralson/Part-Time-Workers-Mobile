@@ -26,7 +26,6 @@ import Family from '../../../constants/FontFamily';
 // Components
 import Screen from '../../../components/UI/Screen';
 import ToggleBottomMenu from '../../../components/UI/ToggleBottomMenu';
-import Label from '../../../components/form/Label';
 import FormWrapper from '../../../components/form/FormWrapper';
 import HomeWrapper from '../../../components/UI/HomeWrapper';
 import BackButton from '../../../components/UI/BackButton';
