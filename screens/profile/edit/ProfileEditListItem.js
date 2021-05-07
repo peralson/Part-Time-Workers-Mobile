@@ -11,6 +11,7 @@ import {
   Text,
 } from 'react-native';
 
+
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -62,7 +63,7 @@ export const ProfileEditListItem = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 16, 
     paddingVertical: 8,
   },
   optionContainer: {

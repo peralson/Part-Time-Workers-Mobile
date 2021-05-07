@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 // Libs
+import moment from 'moment'
 import countries from '../../libs/countries';
 
 // Constants
@@ -151,10 +152,25 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
           </InputContainer>
           <InputContainer>
             <Label>Fecha de caducidad del DNI</Label>
-            <DatePicker
+            {/* <DatePicker
               placeholder={dniExpiryDate}
               onChange={setDniExpiryDate}
-            />
+            /> */}
+            <TouchableOpacity
+            style={styles.inputPage}
+              onPress={() =>
+                navigation.navigate('ProfileStack', {
+                  screen: 'ProfileEditDate',
+                  params: {
+                    title: 'Selecciona fecha de caducidad',
+                    onChange: setDniExpiryDate,
+                    placeholder: dniExpiryDate
+                  },
+                })
+              }
+            >
+              <Text style={styles.textInput}>{moment(dniExpiryDate).format('DD-MM-YYYY')}</Text>
+            </TouchableOpacity>
           </InputContainer>
           <InputContainer>
             <Label>Nº Seguridad Social</Label>

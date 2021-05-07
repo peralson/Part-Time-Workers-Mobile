@@ -16,6 +16,9 @@ import Colors from '../../constants/Colors';
 import Family from '../../constants/FontFamily';
 import Size from '../../constants/FontSize';
 
+// Libs
+import moment from 'moment'
+
 // Redux
 import { useDispatch } from 'react-redux';
 
@@ -174,7 +177,21 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
           </InputContainer>
           <InputContainer>
             <Label>Fecha de nacimiento</Label>
-            <DatePicker placeholder={birthday} onChange={setBirthday} />
+            <TouchableOpacity
+            style={styles.inputPage}
+              onPress={() =>
+                navigation.navigate('ProfileStack', {
+                  screen: 'ProfileEditDate',
+                  params: {
+                    title: 'Selecciona fecha de nacimiento',
+                    onChange: setBirthday,
+                    placeholder: birthday
+                  },
+                })
+              }
+            >
+              <Text style={styles.textInput}>{moment(birthday).format('DD-MM-YYYY')}</Text>
+            </TouchableOpacity>
           </InputContainer>
           <InputContainer>
             <Label>Género</Label>
