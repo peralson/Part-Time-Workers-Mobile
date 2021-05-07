@@ -1,5 +1,5 @@
 // React
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
 // React Native
 import {
@@ -8,34 +8,34 @@ import {
   View,
   TouchableOpacity,
   Text,
-  ActivityIndicator
-} from 'react-native'
+  ActivityIndicator,
+} from 'react-native';
 
 // Constants
-import Colors from '../../constants/Colors'
-import Family from '../../constants/FontFamily'
-import Size from '../../constants/FontSize'
+import Colors from '../../constants/Colors';
+import Family from '../../constants/FontFamily';
+import Size from '../../constants/FontSize';
 
 // Redux
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
 
 // Actions
-import * as profileActions from '../../store/actions/profile'
+import * as profileActions from '../../store/actions/profile';
 
 // Components
-import Screen from '../../components/UI/Screen'
-import HomeWrapper from '../../components/UI/HomeWrapper'
-import BackButton from '../../components/UI/BackButton'
-import ProfileItem from '../../components/profile/ProfileItem'
-import ImagePicker from '../../components/UI/ImagePicker'
-import SideScrollPicker from '../../components/UI/SideScrollPicker'
-import MultilineInput from '../../components/form/MultilineInput'
-import InputContainer from '../../components/form/InputContainer'
-import Input from '../../components/form/Input'
-import Label from '../../components/form/Label'
-import ErrorText from '../../components/form/ErrorText'
-import OptionListInput from '../../components/form/OptionListInput'
-import DatePicker from '../../components/form/DatePicker'
+import Screen from '../../components/UI/Screen';
+import HomeWrapper from '../../components/UI/HomeWrapper';
+import BackButton from '../../components/UI/BackButton';
+import ProfileItem from '../../components/profile/ProfileItem';
+import ImagePicker from '../../components/UI/ImagePicker';
+import SideScrollPicker from '../../components/UI/SideScrollPicker';
+import MultilineInput from '../../components/form/MultilineInput';
+import InputContainer from '../../components/form/InputContainer';
+import Input from '../../components/form/Input';
+import Label from '../../components/form/Label';
+import ErrorText from '../../components/form/ErrorText';
+import OptionListInput from '../../components/form/OptionListInput';
+import DatePicker from '../../components/form/DatePicker';
 
 const ProfileDetailsScreen = ({ navigation, route }) => {
   const { profile } = route.params;
@@ -94,12 +94,16 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
     <Screen>
       <HomeWrapper
         leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
-        title="Mi información"
-        rightComponent={(
+        title='Mi información'
+        rightComponent={
           <TouchableOpacity onPress={handleSubmit}>
-            {isLoading ? <ActivityIndicator size="small" color={Colors.primary} /> : <Text style={styles.cta}>Guardar</Text>}
+            {isLoading ? (
+              <ActivityIndicator size='small' color={Colors.primary} />
+            ) : (
+              <Text style={styles.cta}>Guardar</Text>
+            )}
           </TouchableOpacity>
-        )}
+        }
       />
       <ScrollView
         contentContainerStyle={styles.container}
@@ -170,20 +174,27 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
           </InputContainer>
           <InputContainer>
             <Label>Fecha de nacimiento</Label>
-            <DatePicker
-              placeholder={birthday}
-              onChange={setBirthday}
-            />
+            <DatePicker placeholder={birthday} onChange={setBirthday} />
           </InputContainer>
           <InputContainer>
             <Label>Género</Label>
-            <OptionListInput
-              placeholder={gender}
-              options={['Hombre', 'Mujer']}
-              values={['male', 'female']}
-              onChange={setGender}
-            />
-            {genderError && <ErrorText>Campo obligatorio</ErrorText>}
+            <TouchableOpacity
+            style={styles.inputPage}
+              onPress={() =>
+                navigation.navigate('ProfileStack', {
+                  screen: 'ProfileEditListItem',
+                  params: {
+                    placeholder: gender,
+                    title: 'Selecciona género',
+                    onChange: setGender,
+                    options: ['Hombre', 'Mujer'],
+                    values: ['male', 'female']
+                  },
+                })
+              }
+            >
+              <Text style={styles.textInput}>{gender === 'male' ? 'Hombre' : 'Mujer'}</Text>
+            </TouchableOpacity>
           </InputContainer>
         </View>
         <ProfileItem title='Biografía' />
@@ -202,6 +213,22 @@ const styles = StyleSheet.create({
     fontFamily: Family.normal,
     color: Colors.primary,
   },
+  inputPage: {
+    width: '100%',
+    height: 60,
+    padding: 16,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: Colors.grey,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
+  textInput: {
+    fontFamily: Family.normal,
+    fontSize: Size.medium,
+    color: Colors.white,
+  }
 });
 
 export default ProfileDetailsScreen;
