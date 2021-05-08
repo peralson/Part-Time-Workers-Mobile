@@ -23,8 +23,7 @@ export const handleCalendar = async eventData => {
                     {
                         text: 'OK',
                         onPress: () => {
-                            const laboraCalendar = calendars.find(each => each.title === 'Labora')
-                            console.log(laboraCalendar)
+                            const laboraCalendar = calendars.find(each => each.name === 'Labora')
                             if (laboraCalendar === undefined) {
                                 createCalendar()
                                     .then(id => {
