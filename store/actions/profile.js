@@ -1,19 +1,32 @@
 // Actions
-export const FETCH_PROFILE = 'FETCH_PROFILE';
-export const FETCH_USER_LISTS = 'FETCH_USER_LISTS';
-export const UPDATE_PROFILE_GENERAL = 'UPDATE_PROFILE_GENERAL';
-export const UPDATE_PROFILE_LEGAL = 'UPDATE_PROFILE_LEGAL';
-export const UPDATE_PROFILE_TRANSPORT = 'UPDATE_PROFILE_TRANSPORT';
+export const FETCH_PROFILE = 'FETCH_PROFILE'
+export const FETCH_USER_LISTS = 'FETCH_USER_LISTS'
+export const UPDATE_PROFILE_GENERAL = 'UPDATE_PROFILE_GENERAL'
+export const UPDATE_PROFILE_LEGAL = 'UPDATE_PROFILE_LEGAL'
+export const UPDATE_PROFILE_TRANSPORT = 'UPDATE_PROFILE_TRANSPORT'
 
 
 // Models for fetching
-import Profile from '../../models/Profile';
+import Profile from '../../models/Profile'
 
 export const fetchProfile = () => {
   return async (dispatch, getState) => {
-    const token = getState().auth.token;
+    const { token, userId } = getState().auth
 
-    // TODO Fetch profile
+    const response = await fetch(
+      `https://us-central1-partime-60670.cloudfunctions.net/api/user/worker/${userId}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      }
+    )
+
+    if (!response.ok) throw new Error('Algo ha ocurrido con tu perfil. Contacta con nosotros.')
+
+    const resData = await response.json()
 
     const profile = new Profile(
       '1',
@@ -57,7 +70,7 @@ export const fetchProfile = () => {
 
 export const fetchUserLists = () => {
   return async (dispatch, getState) => {
-    const token = getState().auth.token;
+    const token = getState().auth.token
 
     const response = await fetch(
       'https://us-central1-partime-60670.cloudfunctions.net/api/user/worker/lists',
@@ -70,43 +83,28 @@ export const fetchUserLists = () => {
       }
     )
 
+    if (!response.ok) throw new Error()
+
     const resData = await response.json()
+    const userLists = []
 
-    console.log(`RESPUESTA LIST: ${await resData}`);
+    if (resData.body === "We could not find any list") dispatch({ type: FETCH_USER_LISTS, userLists: [] })
 
-    const userLists = [];
-
-    // await resData.body.map(offer => {
-    //     userLists.push(
-    //         new Offer(
-    //             offer.id,
-    //             offer.offerData,
-    //             offer.eventData,
-    //             offer.companyData
-    //         )
-    //     )
-    // })
-
-    userLists.push({
-      id: '1',
-      category: 'Camareros',
-      companyName: 'Clapfy',
-      companyImage: 'https://clapfy.es/img/pangea.ico'
-    })
-
-    userLists.push({
-      id: '2',
-      category: 'Limpiadores',
-      companyName: 'Labora',
-      companyImage: 'https://www.labora.app/favicon.ico'
+    resData.body.map(list => {
+      userLists.push({
+        id: list.id,
+        companyName: list.companyName,
+        companyImage: list.companyImage,
+        category: list.category
+      })
     })
 
     dispatch({
       type: FETCH_USER_LISTS,
       userLists: userLists,
-    });
-  };
-};
+    })
+  }
+}
 
 export const updateProfileGeneral = (
   id,

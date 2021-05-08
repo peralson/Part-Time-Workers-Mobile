@@ -3,7 +3,7 @@ import React, { useState, useCallback } from 'react'
 import { useFocusEffect } from '@react-navigation/native'
 
 // React Native
-import { StyleSheet, Text, ScrollView } from 'react-native'
+import { StyleSheet, ScrollView } from 'react-native'
 
 // Hooks
 import getContracts from '../../hooks/getContracts'
@@ -15,19 +15,22 @@ import { useSelector } from 'react-redux'
 import Screen from '../../components/UI/Screen'
 import HomeWrapper from '../../components/UI/HomeWrapper'
 import BackButton from '../../components/UI/BackButton'
-import HeaderTitle from '../../components/UI/HeaderTitle'
-import IsLoading from '../../components/UI/IsLoading'
+import IsLoadingMini from '../../components/UI/IsLoadingMini'
 import EmptyList from '../../components/works/EmptyList'
 import JobContract from '../../components/works/JobContract'
+import ErrorContainer from '../../components/UI/ErrorContainer'
 
 const ProfileContractsScreen = ({ navigation }) => {
     const token = useSelector(state => state.auth.token)
 
     const [contracts, setContracts] = useState([])
     const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(false)
 
     useFocusEffect(
         useCallback(() => {
+            setLoading(true)
+            setError(false)
             const loadContracts = () => getContracts(token)
             loadContracts()
                 .then(res => {
@@ -35,7 +38,8 @@ const ProfileContractsScreen = ({ navigation }) => {
                     setLoading(false)
                 })
                 .catch(e => {
-                    console.log(e.message)
+                    console.log('Error:', e.message)
+                    setError(true)
                     setLoading(false)
                 })
         }, [])
@@ -54,17 +58,19 @@ const ProfileContractsScreen = ({ navigation }) => {
                 leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
                 title="Contratos"
             />
-            {loading ? <IsLoading /> : (
+            {loading ? <IsLoadingMini text="contratos" /> : (
                 <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
-                    {contracts.length === 0
-                        ? <EmptyList quote='No tienes ningún contrato.' image={require('../../assets/sin_proyectos.png')}/>
-                        : contracts.map(contract => (
-                            <JobContract
-                                key={contract.id}
-                                contract={contract}
-                                onSelect={() => openContract(contract.id)}
-                            />
-                        )
+                    {error
+                        ? <ErrorContainer />
+                        : contracts.length === 0
+                            ? <EmptyList quote='No tienes ningún contrato.' image={require('../../assets/sin_proyectos.png')}/>
+                            : contracts.map(contract => (
+                                <JobContract
+                                    key={contract.id}
+                                    contract={contract}
+                                    onSelect={() => openContract(contract.id)}
+                                />
+                            )
                     )}
                 </ScrollView>
             )}

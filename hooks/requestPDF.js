@@ -1,20 +1,50 @@
-export const getContractPdf = offerId => {
-    // TODO add Firebase Storage request
-    // const response = await fetch('', {})
+export const getContractPdf = async (offerId, token) => {
+    const response = await fetch(
+        `https://us-central1-partime-60670.cloudfunctions.net/api/contract/${offerId}?type=offer`,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        }
+    )
 
-    return new Promise((res, rej) => res('https://bitcoin.org/files/bitcoin-paper/bitcoin_es.pdf'))
+    const resData = await response.json()
+
+    return resData.body
 }
 
-export const getSignedContractPdf = jobId => {
-    // TODO add Firebase Storage request
-    // const response = await fetch('', {})
+export const getSignedContractPdf = async (jobId, token) => {
+    const response = await fetch(
+        `https://us-central1-partime-60670.cloudfunctions.net/api/contract/${jobId}?type=job`,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        }
+    )
 
-    return new Promise((res, rej) => res('https://bitcoin.org/files/bitcoin-paper/bitcoin_es.pdf'))
+    const resData = await response.json()
+
+    return resData.body
 }
 
-export const getPayrollPdf = jobId => {
-    // TODO add Firebase Storage request
-    // const response = await fetch('', {})
+export const getPayrollPdf = async (jobId, token) => {
+    const response = await fetch(
+        `https://us-central1-partime-60670.cloudfunctions.net/api/payroll/${jobId}`,
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        }
+    )
 
-    return new Promise((res, rej) => res('https://bitcoin.org/files/bitcoin-paper/bitcoin_es.pdf'))
+    const resData = await response.json()
+
+    return resData.body
 }

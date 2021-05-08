@@ -1,5 +1,5 @@
 // React
-import React, { useState } from 'react'
+import React from 'react'
 
 // React Native
 import { ScrollView } from 'react-native'
@@ -39,8 +39,6 @@ import BottomAbsConatiner from '../../components/UI/BottomAbsConatiner'
 const OfferDetailScreen = ({ navigation, route }) => {
     const { offerId } = route.params
 
-	console.log(offerId);
-
     const {
       offerData,
       eventData,
@@ -63,7 +61,7 @@ const OfferDetailScreen = ({ navigation, route }) => {
 			<ScrollView
 				showsVerticalScrollIndicator={false}
 				contentContainerStyle={{
-					marginBottom: 100,
+					paddingBottom: 100,
 					paddingVertical: 16,
 					paddingHorizontal: 16,
 				}}

@@ -18,15 +18,19 @@ import EmptyList from '../../components/works/EmptyList'
 import BackButton from '../../components/UI/BackButton'
 import PastJobItem from '../../components/works/PastJobItem'
 import IsLoadingMini from '../../components/UI/IsLoadingMini'
+import ErrorContainer from '../../components/UI/ErrorContainer'
 
 const ProfileJobHistory = ({ navigation }) => {
     const token = useSelector(state => state.auth.token)
 
     const [jobs, setJobs] = useState([])
     const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(false)
 
     useFocusEffect(
         useCallback(() => {
+            setLoading(true)
+            setError(false)
             const loadHistoryJobs = () => getHistoryJobs(token)
             loadHistoryJobs()
                 .then(res => {
@@ -35,6 +39,7 @@ const ProfileJobHistory = ({ navigation }) => {
                 })
                 .catch(e => {
                     console.log(e.message)
+                    setError(true)
                     setLoading(false)
                 })
         }, [])
@@ -48,16 +53,19 @@ const ProfileJobHistory = ({ navigation }) => {
             />
             {loading ? <IsLoadingMini text="historial" /> : (
                 <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
-                    {jobs.length === 0 ? <EmptyList quote='No has realizado ningún trabajo.' image={require('../../assets/sin_proyectos.png')}/> :
-                        jobs.map(job => (
-                            <PastJobItem
-                                key={job.id}
-                                offerData={job.offerData}
-                                eventData={job.eventData}
-                                jobData={job.jobData}
-                                onSelect={() => navigation.navigate('ProfilePastJobDetails', { jobData: job })}
-                            />
-                        )
+                    {error
+                        ? <ErrorContainer />
+                        : jobs.length === 0
+                            ? <EmptyList quote='No has realizado ningún trabajo.' image={require('../../assets/sin_proyectos.png')}/>
+                            : jobs.map(job => (
+                                <PastJobItem
+                                    key={job.id}
+                                    offerData={job.offerData}
+                                    eventData={job.eventData}
+                                    jobData={job.jobData}
+                                    onSelect={() => navigation.navigate('ProfilePastJobDetails', { jobData: job })}
+                                />
+                            )
                     )}
                 </ScrollView>
             )}

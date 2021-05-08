@@ -5,20 +5,26 @@ import React, { useState, useEffect } from 'react'
 import PDFReader from 'rn-pdf-reader-js'
 import { getContractPdf, getPayrollPdf, getSignedContractPdf } from '../../hooks/requestPDF'
 
+// Redux
+import { useSelector } from 'react-redux'
+
 // Components
 import Screen from '../../components/UI/Screen'
 import HomeWrapper from '../../components/UI/HomeWrapper'
 import BackButton from '../../components/UI/BackButton'
 import IsLoadingMini from '../../components/UI/IsLoadingMini'
+import ErrorContainer from '../../components/UI/ErrorContainer'
 
 const PDFScreen = ({ navigation, route }) => {
     const [loading, setLoading] = useState(true)
-    const [file, setFile] = useState(true)
+    const [file, setFile] = useState(null)
+    const [error, setError] = useState(false)
 
     const { id, type, isPayroll } = route.params
 
-    let request
+    const token = useSelector(state => state.auth.token)
 
+    let request
     switch (type) {
         case 0:
             request = getContractPdf
@@ -34,12 +40,15 @@ const PDFScreen = ({ navigation, route }) => {
     }
 
     useEffect(() => {
+        setError(false)
 		setLoading(true)
-		request(id)
-			.then(res => {
-                setFile(res)
-                setLoading(false)
+		request(id, token)
+			.then(res => setFile(res))
+            .catch(e => {
+                setError(true)
+                console.error(e.message)
             })
+            .finally(() => setLoading(false))
 	}, [])
 
     return (
@@ -48,7 +57,12 @@ const PDFScreen = ({ navigation, route }) => {
                 leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
                 title={isPayroll ? 'Nómina' : 'Contrato'}
             />
-            {loading ? <IsLoadingMini text={isPayroll ? 'nómina' : 'contrato'} /> : <PDFReader source={{ uri: file }} />} 
+            {loading
+                ? <IsLoadingMini text={isPayroll ? 'nómina' : 'contrato'} />
+                : error
+                    ? <ErrorContainer />
+                    : <PDFReader source={{ uri: file }} />
+            } 
         </Screen>
     )
 }

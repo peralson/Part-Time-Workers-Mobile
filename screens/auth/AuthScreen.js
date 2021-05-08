@@ -29,7 +29,7 @@ import InputContainer from '../../components/form/InputContainer'
 import Label from '../../components/form/Label'
 import Input from '../../components/form/Input'
 
-const AuthScreen = props => {
+const AuthScreen = ({ navigation }) => {
     const dispatch = useDispatch()
 
     const [isLoading, setIsLoading] = useState(false)
@@ -55,14 +55,10 @@ const AuthScreen = props => {
                     firebase.auth().signOut()
                 }
             })
-            .then(data => {
-                dispatch(authActions.login(data))
-                dispatch(profileActions.fetchProfile())
-            })
-            .then(() => {
-                setIsLoading(false)
-                props.navigation.navigate('App')
-            })
+            .then(data => dispatch(authActions.login(data)))
+            .then(() => dispatch(profileActions.fetchProfile()))
+            .then(() => setIsLoading(false))
+            .then(() => navigation.navigate('App'))
             .catch(err => {
                 let m = "Intentalo de nuevo"
 

@@ -24,7 +24,7 @@ const ListItem = ({ list, onSelect }) => (
         <Card>
             <View style={styles.container}>
                 <View style={styles.leftContainer}>
-                    <Image source={{ uri: list.companyImage, width: 32, height: 32 }} resizeMode="contain" />
+                    <Image source={{ uri: list.companyImage, width: 48, height: 48 }} style={styles.image} resizeMode="contain" />
                 </View>
                 <View style={styles.middleContainer}>
                     <ItemTitle style={{ marginBottom: 8 }}>{list.companyName}</ItemTitle>
@@ -44,6 +44,9 @@ const styles = StyleSheet.create({
     },
     leftContainer: {
         marginRight: 8,
+    },
+    image: {
+        borderRadius: 24
     },
     middleContainer: {
         flex: 1,
