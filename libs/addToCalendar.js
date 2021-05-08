@@ -17,11 +17,11 @@ export const handleCalendar = async eventData => {
                 'Se añadirá al calendario de tu dispositivo',
                 [
                     {
-                        text: 'Cancel',
-                        style: 'destructive',
+                        text: 'Cancelar',
+                        style: 'cancel',
                     },
                     {
-                        text: 'OK',
+                        text: 'Añadir',
                         onPress: () => {
                             const laboraCalendar = calendars.find(each => each.name === 'Labora')
                             if (laboraCalendar === undefined) {
