@@ -12,13 +12,13 @@ import {
 } from 'react-native';
 
 // Libs
+import moment from 'moment'
 import countries from '../../libs/countries';
 
 // Constants
-import Colors from '../../constants/Colors'
-import Family from '../../constants/FontFamily'
-import Size from '../../constants/FontSize'
-
+import Colors from '../../constants/Colors';
+import Family from '../../constants/FontFamily';
+import Size from '../../constants/FontSize';
 
 // Redux
 import { useDispatch } from 'react-redux';
@@ -34,7 +34,7 @@ import ProfileItem from '../../components/profile/ProfileItem';
 import InputContainer from '../../components/form/InputContainer';
 import Input from '../../components/form/Input';
 import Label from '../../components/form/Label';
-import ErrorText from '../../components/form/ErrorText'
+import ErrorText from '../../components/form/ErrorText';
 import OptionListInput from '../../components/form/OptionListInput';
 import DatePicker from '../../components/form/DatePicker';
 
@@ -53,7 +53,9 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
   const [dniBack, setDniBack] = useState(profile.legal.dni.back);
   const [dniBackError, setDniBackError] = useState(null);
 
-  const [dniExpiryDate, setDniExpiryDate] = useState(profile.legal.dni.expiryDate)
+  const [dniExpiryDate, setDniExpiryDate] = useState(
+    profile.legal.dni.expiryDate
+  );
   const [dniExpiryDateError, setDniExpiryDateError] = useState(null);
 
   const [dniNumber, setDniNumber] = useState(profile.legal.dni.number);
@@ -92,11 +94,15 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
       <HomeWrapper
         leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
         title='Datos legales'
-        rightComponent={(
+        rightComponent={
           <TouchableOpacity onPress={handleSubmit}>
-            {isLoading ? <ActivityIndicator size="small" color={Colors.primary} /> : <Text style={styles.cta}>Guardar</Text>}
+            {isLoading ? (
+              <ActivityIndicator size='small' color={Colors.primary} />
+            ) : (
+              <Text style={styles.cta}>Guardar</Text>
+            )}
           </TouchableOpacity>
-        )}
+        }
       />
       <ScrollView
         contentContainerStyle={styles.container}
@@ -105,7 +111,24 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
         <View style={{ marginHorizontal: 16 }}>
           <InputContainer>
             <Label>Nacionalidad</Label>
-            <OptionListInput placeholder={nationality} options={countries} onChange={setNationality}/>
+            <TouchableOpacity
+              style={styles.inputPage}
+              onPress={() =>
+                navigation.navigate('ProfileStack', {
+                  screen: 'ProfileEditListItem',
+                  params: {
+                    title: 'Selecciona nacionalidad',
+                    placeholder: nationality,
+                    options: countries,
+                    onChange: setNationality,
+                  },
+                })
+              }
+            >
+              <Text style={styles.textInput}>
+                {nationality}
+              </Text>
+            </TouchableOpacity>
           </InputContainer>
           {profile.legal.dni.front && (
             <ProfileItem
@@ -129,10 +152,25 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
           </InputContainer>
           <InputContainer>
             <Label>Fecha de caducidad del DNI</Label>
-            <DatePicker
+            {/* <DatePicker
               placeholder={dniExpiryDate}
               onChange={setDniExpiryDate}
-            />
+            /> */}
+            <TouchableOpacity
+            style={styles.inputPage}
+              onPress={() =>
+                navigation.navigate('ProfileStack', {
+                  screen: 'ProfileEditDate',
+                  params: {
+                    title: 'Selecciona fecha de caducidad',
+                    onChange: setDniExpiryDate,
+                    placeholder: dniExpiryDate
+                  },
+                })
+              }
+            >
+              <Text style={styles.textInput}>{moment(dniExpiryDate).format('DD-MM-YYYY')}</Text>
+            </TouchableOpacity>
           </InputContainer>
           <InputContainer>
             <Label>Nº Seguridad Social</Label>
@@ -177,6 +215,22 @@ const styles = StyleSheet.create({
     fontSize: Size.tiny,
     fontFamily: Family.normal,
     color: Colors.primary,
+  },
+  inputPage: {
+    width: '100%',
+    height: 60,
+    padding: 16,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: Colors.grey,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
+  textInput: {
+    fontFamily: Family.normal,
+    fontSize: Size.medium,
+    color: Colors.white,
   },
 });
 

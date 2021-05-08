@@ -47,6 +47,8 @@ export const fetchProfile = () => {
         email: 'titomartinroig@gmail.com',
         phoneNumber: '984123432',
         address: 'Avenida de Barcelona 19, Córdoba, España',
+        lat: null,
+        lng: null
       },
       {
         nationality: 'Spain',
@@ -114,7 +116,9 @@ export const updateProfileGeneral = (
   address,
   gender,
   birthday,
-  bio
+  bio,
+  lat,
+  lng
 ) => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
@@ -131,6 +135,8 @@ export const updateProfileGeneral = (
         email: email,
         phoneNumber: phoneNumber,
         address: address,
+        lat: lat,
+        lng: lng
       },
       details: {
         gender: gender,
@@ -214,6 +220,8 @@ export const updateProfileLegal = (
         email: currentProfile.profile.contact.email,
         phoneNumber: currentProfile.profile.contact.phoneNumber,
         address: currentProfile.profile.contact.address,
+        lat: currentProfile.profile.contact.lat,
+        lng: currentProfile.profile.contact.lng,
       },
       details: {
         gender: currentProfile.profile.details.gender,
@@ -297,6 +305,8 @@ export const updateProfileTransport = (
         email: currentProfile.profile.contact.email,
         phoneNumber: currentProfile.profile.contact.phoneNumber,
         address: currentProfile.profile.contact.address,
+        lat: currentProfile.profile.contact.lat,
+        lng: currentProfile.profile.contact.lng,
       },
       details: {
         gender: currentProfile.profile.details.gender,

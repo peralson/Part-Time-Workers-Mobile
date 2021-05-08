@@ -9,6 +9,7 @@ export const handleCalendar = async eventData => {
         if (status === 'granted') {
         try {
             const calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT)
+            calendars[0].accessLevel = 'owner';
             createCalendar(calendars[0].id, eventData)
         } catch (error) {
             console.log(error)
