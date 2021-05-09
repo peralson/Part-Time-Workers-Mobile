@@ -11,13 +11,12 @@ const getContracts = async token => {
             }
         }
     )
-
+    
+    if (!response.ok && response.status === 404) return []
     if (!response.ok) throw new Error()
 
     const resData = await response.json()
     const contracts = []
-
-    if (resData.body === "We could not find any contract") return []
 
     resData.body.map(contract => {
         contracts.push(

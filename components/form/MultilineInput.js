@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
         lineHeight: 26,
         height: 160,
         marginHorizontal: 16,
-        marginBottom: 24
+        marginBottom: 24,
+        marginTop: 8
     }
 })
 

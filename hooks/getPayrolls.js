@@ -12,12 +12,11 @@ const getPayrolls = async token => {
         }
     )
 
+    if (!response.ok && response.status === 404) return []
     if (!response.ok) throw new Error()
 
     const resData = await response.json()
     const payrolls = []
-
-    if (resData.body === "We could not find any payroll") return []
 
     resData.body.map(payroll => {
         payrolls.push(

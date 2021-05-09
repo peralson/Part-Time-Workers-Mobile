@@ -21,29 +21,29 @@ export const fetchJobs = () => {
 		 	}
 		)
 		
+		if (!response.ok && response.status === 404) return []
+    	if (!response.ok) throw new Error()
+		
 		const resData = await response.json()
-
 		const loadedJobs = []
 
-		if (resData.body !== "We could not find any job") {
-			resData.body.map(job => {
-				loadedJobs.push(
-					new Job(
-					   	job.id,
-						job.offerData,
-						job.eventData,
-						job.companyData,
-						job.jobData
-					)
+		resData.body.map(job => {
+			loadedJobs.push(
+				new Job(
+					job.id,
+					job.offerData,
+					job.eventData,
+					job.companyData,
+					job.jobData
 				)
-			})
+			)
+		})
 
-			loadedJobs.sort((a, b) => {
-				if (a.eventData.date < b.eventData.date) return -1
-				if (a.eventData.date < b.eventData.date) return 1
-				return 0
-			})
-		}
+		loadedJobs.sort((a, b) => {
+			if (a.eventData.date < b.eventData.date) return -1
+			if (a.eventData.date < b.eventData.date) return 1
+			return 0
+		})
 
 		dispatch({
 			type: FETCH_JOBS,

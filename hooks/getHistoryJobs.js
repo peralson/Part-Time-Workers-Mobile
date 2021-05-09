@@ -12,12 +12,11 @@ const getHistoryJobs = async token => {
         }
     )
 
+    if (!response.ok && response.status === 404) return []
     if (!response.ok) throw new Error()
 
     const resData = await response.json()
     const pastJobs = []
-
-    if (resData.body === "We could not find any job") return []
 
     resData.body.map(job => {
         pastJobs.push(

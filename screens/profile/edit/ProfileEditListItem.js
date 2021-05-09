@@ -1,14 +1,9 @@
 // React
-import React, { useState, useCallback, useEffect } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
+import React, { useState } from 'react'
 
 // React Native
 import {
-  ScrollView,
   StyleSheet,
-  View,
-  TouchableOpacity,
-  Text,
 } from 'react-native';
 
 
@@ -24,10 +19,7 @@ import Family from '../../../constants/FontFamily';
 import Screen from '../../../components/UI/Screen';
 import HomeWrapper from '../../../components/UI/HomeWrapper';
 import BackButton from '../../../components/UI/BackButton';
-import EmptyList from '../../../components/works/EmptyList';
-import IsLoadingMini from '../../../components/UI/IsLoadingMini';
-import noList from '../../../assets/sin_posiciones.png';
-import ListItem from '../../../components/profile/ListItem';
+import TopRightButton from '../../../components/UI/TopRightButton';
 import OptionListInput from '../../../components/form/OptionListInput';
 
 export const ProfileEditListItem = ({ navigation, route }) => {
@@ -41,22 +33,14 @@ export const ProfileEditListItem = ({ navigation, route }) => {
       <HomeWrapper
         leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
         title={title}
+        rightComponent={<TopRightButton title='Guardar' color={Colors.primary} onSelect={() => navigation.goBack()} />}
       />
-      <View style={styles.optionContainer}>
-        <OptionListInput
-          placeholder={placeholder}
-          onChange={onChange}
-          options={options}
-          values={values}
-        />
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={() => navigation.goBack()}
-          activeOpacity={0.8}
-        >
-          <Text style={styles.buttonText}>Volver</Text>
-        </TouchableOpacity>
-      </View>
+      <OptionListInput
+        placeholder={placeholder}
+        onChange={onChange}
+        options={options}
+        values={values}
+      />
     </Screen>
   );
 };

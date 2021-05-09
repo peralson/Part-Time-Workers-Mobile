@@ -3,12 +3,7 @@ import React, { useState } from 'react';
 
 // React Native
 import {
-  View,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
   Alert,
-  Platform,
 } from 'react-native';
 
 // Constants
@@ -24,7 +19,7 @@ import firebaseConfig from '../../../env';
 import HomeWrapper from '../../../components/UI/HomeWrapper';
 import BackButton from '../../../components/UI/BackButton';
 import Screen from '../../../components/UI/Screen';
-import FormWrapper from '../../../components/form/FormWrapper';
+import TopRightButton from '../../../components/UI/TopRightButton';
 
 const DirectionScreen = ({ navigation, route }) => {
   const apiKey = firebaseConfig.apiKey;
@@ -71,47 +66,39 @@ const DirectionScreen = ({ navigation, route }) => {
       <HomeWrapper
         leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
         title={title}
+        rightComponent={<TopRightButton title='Guardar' color={Colors.primary} onSelect={onSubmitHandler} />}
       />
-      <FormWrapper>
         <GooglePlacesAutocomplete
           placeholder={address ? address : 'Eg. Puerta de Alcalá'}
+          placeholderTextColor={Colors.white}
           styles={mapStyles}
-          onPress={(data) => {
-            console.log(data);
-            setAddress(data.description);
-          }}
+          onPress={data => setAddress(data.description)}
           query={{
             key: apiKey,
             language: 'es',
             components: 'country:es',
           }}
         />
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={onSubmitHandler}
-          activeOpacity={0.8}
-        >
-          <Text style={styles.buttonText}>Volver</Text>
-        </TouchableOpacity>
-      </FormWrapper>
     </Screen>
   );
 };
 
 const mapStyles = {
   container: {
-    marginTop: 8,
+    marginTop: 16,
+    marginHorizontal: 16
   },
   textInput: {
     borderRadius: 4,
     height: 55,
     paddingVertical: 12,
     paddingHorizontal: 16,
-    fontSize: 14,
-    fontFamily: 'gotham-book',
-    borderColor: Colors.grey,
+    fontSize: Size.small,
+    backgroundColor: Colors.white,
+    fontFamily: Family.normal,
+    borderColor: Colors.darkGrey,
     borderWidth: 1,
-    color: Colors.black,
+    color: Colors.darkPrimary,
   },
   poweredContainer: {
     justifyContent: 'flex-end',
@@ -120,43 +107,19 @@ const mapStyles = {
     borderTopWidth: 0.5,
   },
   row: {
-    padding: 8,
-    height: 44,
+    paddingVertical: 16,
+    height: 48,
     flexDirection: 'row',
   },
   separator: {
-    height: 0.5,
-    backgroundColor: Colors.grey,
+    borderBottomColor: Colors.darkPrimary,
+    borderBottomWidth: .5
   },
   loader: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     height: 20,
   },
-};
+}
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: Colors.white,
-  },
-  wrapper: {
-    paddingHorizontal: 32,
-    paddingTop: 16,
-  },
-  buttonContainer: {
-    marginTop: 16,
-    backgroundColor: Colors.accent,
-    borderRadius: 4,
-    alignItems: 'center',
-    paddingVertical: 16,
-  },
-  buttonText: {
-    fontSize: Size.medium,
-    fontFamily: Family.bold,
-    color: Colors.white,
-    lineHeight: 24,
-  },
-});
-
-export default DirectionScreen;
+export default DirectionScreen
