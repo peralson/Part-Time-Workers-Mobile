@@ -17,6 +17,7 @@ const MultilineInput = props => (
         multiline
         onBlur={props.blur}
         onChangeText={props.onChange}
+        value={props.placeholder}
         placeholderTextColor={Colors.darkGrey}
     />
 )
@@ -33,7 +34,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         lineHeight: 26,
         height: 160,
-        marginHorizontal: 16,
         marginBottom: 24,
         marginTop: 8
     }

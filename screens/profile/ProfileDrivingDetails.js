@@ -17,6 +17,10 @@ import Colors from '../../constants/Colors';
 import Family from '../../constants/FontFamily';
 import Size from '../../constants/FontSize';
 
+// Form
+import { Formik, useFormik } from 'formik';
+import * as Yup from 'yup';
+
 // Redux
 import { useDispatch } from 'react-redux';
 
@@ -34,28 +38,31 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
-  //Vars
-  const [hasLicense, setHasLicense] = useState(profile.transport.hasLicense);
-  const [hasCar, setHasCar] = useState(profile.transport.hasCar);
+  const formik = useFormik({
+    initialValues: {
+      hasLicense: profile.transport.hasLicense,
+      hasCar: profile.transport.hasCar,
+    },
+    onSubmit: (values) => {
+      setIsLoading(true);
 
-  const handleSubmit = async () => {
-    setIsLoading(true);
-
-    const updateProfile = async () => {
-      await dispatch(
-        profileActions.updateProfileTransport(
-          profile.id,
-          hasLicense,
-          hasCar
-          // licenseType,
-          // licenseFront,
-          // licenseBack
-        )
-      );
-      setIsLoading(false);
-    };
-    updateProfile();
-  };
+      const updateProfile = async () => {
+        await dispatch(
+          profileActions.updateProfileTransport(
+            profile.id,
+            values.hasLicense,
+            values.hasCar
+            // licenseType,
+            // licenseFront,
+            // licenseBack
+            )
+            );
+            setIsLoading(false);
+          };
+    
+          updateProfile();
+        },
+      });
 
   return (
     <Screen>
@@ -63,7 +70,7 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
         leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
         title='Transporte'
         rightComponent={
-          <TouchableOpacity onPress={handleSubmit}>
+          <TouchableOpacity onPress={formik.handleSubmit}>
             {isLoading ? (
               <ActivityIndicator size='small' color={Colors.primary} />
             ) : (
@@ -72,26 +79,29 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
           </TouchableOpacity>
         }
       />
-      <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.switchContainer}>
           <Label style={{ marginBottom: 0 }}>Carnet de conducir</Label>
           <Switch
             trackColor={{ false: Colors.grey, true: Colors.accent }}
             thumbColor={Colors.lightPrimary}
             ios_backgroundColor={Colors.grey}
-            onValueChange={setHasLicense}
-            value={hasLicense}
+            onValueChange={formik.handleChange('hasLicense')}
+            value={formik.values.hasLicense}
           />
         </View>
-        {hasLicense && (
+        {formik.values.hasLicense && (
           <View style={styles.switchContainer}>
             <Label style={{ marginBottom: 0 }}>Tengo coche</Label>
             <Switch
               trackColor={{ false: Colors.grey, true: Colors.accent }}
               thumbColor={Colors.lightPrimary}
               ios_backgroundColor={Colors.grey}
-              onValueChange={setHasCar}
-              value={hasCar}
+              onValueChange={formik.handleChange('hasCar')}
+              value={formik.values.hasCar}
             />
           </View>
         )}
@@ -114,8 +124,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 24
-  }
+    marginBottom: 24,
+  },
 });
 
 export default ProfileDrivingDetails;

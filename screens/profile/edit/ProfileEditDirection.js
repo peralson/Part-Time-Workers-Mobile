@@ -44,6 +44,7 @@ const DirectionScreen = ({ navigation, route }) => {
 
     const geoData = await geocoding.json();
 
+    
     try {
       const coords = geoData.results[0].geometry.location;
       onChangeLocation({
@@ -52,12 +53,15 @@ const DirectionScreen = ({ navigation, route }) => {
         lng: coords.lng,
       });
       navigation.goBack();
+      
     } catch (error) {
-      Alert.alert(
-        'La dirección es inválida',
-        'Prueba a introducir otra o sé más especifico introduciendo la calle y el número',
-        [{ text: 'Okay' }]
-      );
+      console.log('error:', error )
+      // Alert.alert(
+      //   'La dirección es inválida',
+      //   'Prueba a introducir otra o sé más especifico introduciendo la calle y el número',
+      //   [{ text: 'Volver' }]
+      // );
+      navigation.goBack();
     }
   };
 

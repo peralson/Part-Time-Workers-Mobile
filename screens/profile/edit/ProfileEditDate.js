@@ -37,7 +37,7 @@ const ProfileEditDate = ({ navigation, route }) => {
   const [show, setShow] = useState(false);
 
   const onShowDatePicker = () => {
-    setShow((state) => !state);
+    setShow(!show);
   };
 
   const onSubmitHandler = async () => {
