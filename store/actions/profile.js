@@ -24,7 +24,7 @@ export const fetchProfile = () => {
       }
     )
 
-    if (!response.ok) throw new Error('Algo ha ocurrido con tu perfil. Contacta con nosotros.')
+    //if (!response.ok) throw new Error('Algo ha ocurrido con tu perfil. Contacta con nosotros.')
 
     const resData = await response.json()
 
