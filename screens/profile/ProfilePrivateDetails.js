@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 
 // Libs
-import moment from 'moment'
+import moment from 'moment';
 import countries from '../../libs/countries';
 
 // Constants
@@ -26,6 +26,10 @@ import { useDispatch } from 'react-redux';
 // Actions
 import * as profileActions from '../../store/actions/profile';
 
+// Form
+import { Formik, useFormik } from 'formik';
+import * as Yup from 'yup';
+
 // Components
 import Screen from '../../components/UI/Screen';
 import HomeWrapper from '../../components/UI/HomeWrapper';
@@ -35,59 +39,44 @@ import InputContainer from '../../components/form/InputContainer';
 import Input from '../../components/form/Input';
 import Label from '../../components/form/Label';
 import ErrorText from '../../components/form/ErrorText';
-import OptionListInput from '../../components/form/OptionListInput';
-import DatePicker from '../../components/form/DatePicker';
+import CustomInputComponent from '../../components/form/CustomInputComponent';
 
 const ProfilePrivateDetails = ({ navigation, route }) => {
   const { profile } = route.params;
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
-  //Vars
-  const [nationality, setNationality] = useState(profile.legal.nationality);
-  const [nationalityError, setNationalityError] = useState(null);
+  const formik = useFormik({
+    initialValues: {
+      nationality: profile.legal.nationality,
+      dniFront: profile.legal.dni.dniFront,
+      dniNumber: profile.legal.dni.number,
+      dniBack: profile.legal.dni.dniBack,
+      dniExpiryDate: profile.legal.dni.expiryDate,
+      ssNumber: profile.legal.ssNumber,
+      bankAccount: profile.bank.bankAccount,
+    },
+    onSubmit: (values) => {
+      setIsLoading(true);
 
-  const [dniFront, setDniFront] = useState(profile.legal.dni.front);
-  const [dniFrontError, setDniFrontError] = useState(null);
-
-  const [dniBack, setDniBack] = useState(profile.legal.dni.back);
-  const [dniBackError, setDniBackError] = useState(null);
-
-  const [dniExpiryDate, setDniExpiryDate] = useState(
-    profile.legal.dni.expiryDate
-  );
-  const [dniExpiryDateError, setDniExpiryDateError] = useState(null);
-
-  const [dniNumber, setDniNumber] = useState(profile.legal.dni.number);
-  const [dniNumberError, setDniNumberError] = useState(null);
-
-  const [ssNumber, setSsNumber] = useState(profile.legal.ssNumber);
-  const [ssNumberError, setSsNumberError] = useState(null);
-
-  const [bankAccount, setBankAccount] = useState(profile.bank.bankAccount);
-  const [bankAccountError, setBankAccountError] = useState(null);
-
-  const handleSubmit = async () => {
-    console.log('ola');
-    setIsLoading(true);
-
-    const updateProfile = async () => {
-      await dispatch(
-        profileActions.updateProfileLegal(
-          profile.id,
-          nationality,
-          dniFront,
-          dniNumber,
-          dniBack,
-          dniExpiryDate,
-          ssNumber,
-          bankAccount
-        )
-      );
-      setIsLoading(false);
-    };
-    updateProfile();
-  };
+      const updateProfile = async () => {
+        await dispatch(
+          profileActions.updateProfileLegal(
+            profile.id,
+            values.nationality,
+            values.dniFront,
+            values.dniNumber,
+            values.dniBack,
+            values.dniExpiryDate,
+            values.ssNumber,
+            values.bankAccount
+          )
+        );
+        setIsLoading(false);
+      };
+      updateProfile();
+    },
+  });
 
   return (
     <Screen>
@@ -95,7 +84,7 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
         leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
         title='Datos legales'
         rightComponent={
-          <TouchableOpacity onPress={handleSubmit}>
+          <TouchableOpacity onPress={formik.handleSubmit}>
             {isLoading ? (
               <ActivityIndicator size='small' color={Colors.primary} />
             ) : (
@@ -118,88 +107,57 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
                   screen: 'ProfileEditListItem',
                   params: {
                     title: 'Selecciona nacionalidad',
-                    placeholder: nationality,
+                    placeholder: formik.values.nationality,
                     options: countries,
-                    onChange: setNationality,
+                    onChange: formik.handleChange('nationality'),
                   },
                 })
               }
             >
-              <Text style={styles.textInput}>
-                {nationality}
-              </Text>
+              <Text style={styles.textInput}>{formik.values.nationality}</Text>
             </TouchableOpacity>
           </InputContainer>
-          {profile.legal.dni.front && (
+          {formik.values.dniFront && (
             <ProfileItem
               title='Imagen de DNI'
-              content={profile.legal.dni.front}
+              content={formik.values.dniFront.front}
             />
           )}
-          <InputContainer>
-            <Label>Número DNI</Label>
-            <Input
-              returnKeyType='next'
-              placeholder={dniNumber}
-              onChange={(text) => setDniNumber(text)}
-              blur={() => {
-                setDniNumberError(false);
-                if (!dniNumber) return setDniNumberError(true);
-              }}
-              value={dniNumber}
-            />
-            {dniNumberError && <ErrorText>Campo obligatorio</ErrorText>}
-          </InputContainer>
+          <CustomInputComponent
+            onChange={formik.handleChange('dniNumber')}
+            value={formik.values.dniNumber}
+            label='Número de DNI'
+          />
           <InputContainer>
             <Label>Fecha de caducidad del DNI</Label>
-            {/* <DatePicker
-              placeholder={dniExpiryDate}
-              onChange={setDniExpiryDate}
-            /> */}
             <TouchableOpacity
-            style={styles.inputPage}
+              style={styles.inputPage}
               onPress={() =>
                 navigation.navigate('ProfileStack', {
                   screen: 'ProfileEditDate',
                   params: {
                     title: 'Selecciona fecha de caducidad',
-                    onChange: setDniExpiryDate,
-                    placeholder: dniExpiryDate
+                    onChange: formik.handleChange('dniExpiryDate'),
+                    placeholder: formik.values.dniExpiryDate,
                   },
                 })
               }
             >
-              <Text style={styles.textInput}>{moment(dniExpiryDate).format('DD-MM-YYYY')}</Text>
+              <Text style={styles.textInput}>
+                {moment(formik.values.dniExpiryDate).format('DD-MM-YYYY')}
+              </Text>
             </TouchableOpacity>
           </InputContainer>
-          <InputContainer>
-            <Label>Nº Seguridad Social</Label>
-            <Input
-              returnKeyType='next'
-              placeholder={ssNumber}
-              onChange={(text) => setSsNumber(text)}
-              blur={() => {
-                setSsNumberError(false);
-                if (!ssNumber) return setSsNumberError(true);
-              }}
-              value={ssNumber}
-            />
-            {ssNumberError && <ErrorText>Campo obligatorio</ErrorText>}
-          </InputContainer>
-          <InputContainer>
-            <Label>Cuenta bancaria</Label>
-            <Input
-              returnKeyType='next'
-              placeholder={bankAccount}
-              onChange={(text) => setBankAccount(text)}
-              blur={() => {
-                setBankAccountError(false);
-                if (!bankAccount) return setBankAccountError(true);
-              }}
-              value={bankAccount}
-            />
-            {bankAccountError && <ErrorText>Campo obligatorio</ErrorText>}
-          </InputContainer>
+          <CustomInputComponent
+            onChange={formik.handleChange('ssNumber')}
+            value={formik.values.ssNumber}
+            label='Nº Seguridad Social'
+          />
+          <CustomInputComponent
+            onChange={formik.handleChange('bankAccount')}
+            value={formik.values.bankAccount}
+            label='Cuenta bancaria'
+          />
         </View>
       </ScrollView>
     </Screen>

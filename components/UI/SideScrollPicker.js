@@ -12,7 +12,6 @@ const SideScrollPicker = ({ children }) => (
 
 const styles = StyleSheet.create({
     contentContainer: {
-        paddingHorizontal: 16,
         paddingBottom: 16
     },
 })

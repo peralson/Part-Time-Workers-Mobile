@@ -124,6 +124,18 @@ export const updateProfileGeneral = (
     const token = getState().auth.token;
     const currentProfile = getState().profile;
 
+    // const updatedProfile = currentProfile
+
+    // updatedProfile.profile.name = name;
+    // updatedProfile.profile.contact.email = email;
+    // updatedProfile.profile.contact.phoneNumber = phoneNumber;
+    // updatedProfile.profile.contact.address = address;
+    // updatedProfile.profile.contact.lat = lat;
+    // updatedProfile.profile.contact.lng = lng;
+    // updatedProfile.profile.details.gender = gender;
+    // updatedProfile.profile.details.bio = bio;
+    // updatedProfile.profile.details.birthday = birthday;
+
     const updatedProfile = {
       id: id,
       name: name,

@@ -17,10 +17,14 @@ import Family from '../../constants/FontFamily';
 import Size from '../../constants/FontSize';
 
 // Libs
-import moment from 'moment'
+import moment from 'moment';
 
 // Redux
 import { useDispatch } from 'react-redux';
+
+// Form
+import { Formik, useFormik } from 'formik';
+import * as Yup from 'yup';
 
 // Actions
 import * as profileActions from '../../store/actions/profile';
@@ -29,68 +33,52 @@ import * as profileActions from '../../store/actions/profile';
 import Screen from '../../components/UI/Screen';
 import HomeWrapper from '../../components/UI/HomeWrapper';
 import BackButton from '../../components/UI/BackButton';
-import ProfileItem from '../../components/profile/ProfileItem';
 import ImagePicker from '../../components/UI/ImagePicker';
 import SideScrollPicker from '../../components/UI/SideScrollPicker';
 import MultilineInput from '../../components/form/MultilineInput';
 import InputContainer from '../../components/form/InputContainer';
-import Input from '../../components/form/Input';
 import Label from '../../components/form/Label';
-import ErrorText from '../../components/form/ErrorText';
-import OptionListInput from '../../components/form/OptionListInput';
-import DatePicker from '../../components/form/DatePicker';
+import CustomInputComponent from '../../components/form/CustomInputComponent';
 
 const ProfileDetailsScreen = ({ navigation, route }) => {
   const { profile } = route.params;
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
-  const [showDatePicker, setShowDatePicker] = useState(false);
 
-  //Vars
-  const [name, setName] = useState(profile.name);
-  const [nameError, setNameError] = useState(null);
+  const formik = useFormik({
+    initialValues: {
+      name: profile.name,
+      phoneNumber: profile.contact.phoneNumber,
+      email: profile.contact.email,
+      address: profile.contact.address,
+      lat: profile.contact.lat,
+      lng: profile.contact.lng,
+      birthday: profile.details.birthday,
+      gender: profile.details.gender,
+      bio: profile.details.bio,
+    },
+    onSubmit: (values) => {
+      setIsLoading(true);
 
-  const [phoneNumber, setPhoneNumber] = useState(profile.contact.phoneNumber);
-  const [phoneNumberError, setPhoneNumberError] = useState(null);
+      const updateProfile = async () => {
+        await dispatch(
+          profileActions.updateProfileGeneral(
+            profile.id,
+            values.name,
+            values.phoneNumber,
+            values.email,
+            values.address,
+            values.gender,
+            values.birthday,
+            values.bio
+          )
+        );
+        setIsLoading(false);
+      };
 
-  const [email, setEmail] = useState(profile.contact.email);
-  const [emailError, setEmailError] = useState(null);
-
-  const [address, setAddress] = useState(profile.contact.address);
-  const [lat, setLat] = useState(profile.contact.lat);
-  const [lng, setLng] = useState(profile.contact.lng);
-
-  const [birthday, setBirthday] = useState(profile.details.birthday);
-
-  const [gender, setGender] = useState(profile.details.gender);
-
-  const [bio, setBio] = useState(profile.details.bio);
-
-  const handleShowDatePicker = () => {
-    setShowDatePicker(!showDatePicker);
-  };
-
-  const handleSubmit = async () => {
-    console.log('ola');
-    setIsLoading(true);
-
-    const updateProfile = async () => {
-      await dispatch(
-        profileActions.updateProfileGeneral(
-          profile.id,
-          name,
-          phoneNumber,
-          email,
-          address,
-          gender,
-          birthday,
-          bio
-        )
-      );
-      setIsLoading(false);
-    };
-    updateProfile();
-  };
+      updateProfile();
+    },
+  });
 
   return (
     <Screen>
@@ -98,7 +86,7 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
         leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
         title='Mi información'
         rightComponent={
-          <TouchableOpacity onPress={handleSubmit}>
+          <TouchableOpacity onPress={formik.handleSubmit}>
             {isLoading ? (
               <ActivityIndicator size='small' color={Colors.primary} />
             ) : (
@@ -111,127 +99,97 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
       >
-        <Label style={{ paddingHorizontal: 16 }}>Fotografías</Label>
-        <SideScrollPicker>
-          <ImagePicker title='Personal' image={profile.images.main} />
-          <ImagePicker title='Profesional' image={profile.images.profesional} />
-        </SideScrollPicker>
         <View style={{ marginHorizontal: 16 }}>
-          <InputContainer>
-            <Label>Nombre</Label>
-            <Input
-              returnKeyType='next'
-              placeholder={name}
-              onChange={(text) => setName(text)}
-              blur={() => {
-                setNameError(false);
-                if (!name) return setNameError(true);
-              }}
-              value={name}
+          <SideScrollPicker>
+            <ImagePicker title='Personal' image={profile.images.main} />
+            <ImagePicker
+              title='Profesional'
+              image={profile.images.profesional}
             />
-            {nameError && <ErrorText>Campo obligatorio</ErrorText>}
-          </InputContainer>
-          <InputContainer>
-            <Label>Número de teléfono</Label>
-            <Input
-              returnKeyType='next'
-              keyboardType='numeric'
-              placeholder={phoneNumber}
-              onChange={(num) => setPhoneNumber(num)}
-              blur={() => {
-                setPhoneNumberError(false);
-                if (!phoneNumber) return setPhoneNumberError(true);
-              }}
-              value={phoneNumber}
-            />
-            {phoneNumberError && <ErrorText>Campo obligatorio</ErrorText>}
-          </InputContainer>
-          <InputContainer>
-            <Label>Email</Label>
-            <Input
-              returnKeyType='next'
-              placeholder={email}
-              onChange={(text) => setEmail(text)}
-              blur={() => {
-                setEmailError(false);
-                if (!email) return setEmailError(true);
-              }}
-              value={email}
-            />
-            {emailError && <ErrorText>Campo obligatorio</ErrorText>}
-          </InputContainer>
+          </SideScrollPicker>
+          <CustomInputComponent
+            onChange={formik.handleChange('name')}
+            value={formik.values.name}
+            label='Nombre'
+          />
+          <CustomInputComponent
+            onChange={formik.handleChange('phoneNumber')}
+            value={formik.values.phoneNumber}
+            label='Numero de teléfono'
+          />
+          <CustomInputComponent
+            onChange={formik.handleChange('email')}
+            value={formik.values.email}
+            label='Email'
+          />
           <InputContainer>
             <Label>Dirección</Label>
-            {/* <Input
-              returnKeyType='next'
-              placeholder={address}
-              onChange={(text) => setAddress(text)}
-              blur={() => {
-                setAddressError(false);
-                if (!address) return setAddressError(true);
-              }}
-              value={address}
-            />
-            {addressError && <ErrorText>Campo obligatorio</ErrorText>} */}
             <TouchableOpacity
-            style={styles.inputPage}
+              style={styles.inputPage}
               onPress={() =>
                 navigation.navigate('ProfileStack', {
                   screen: 'ProfileEditDirection',
                   params: {
                     title: 'Selecciona dirección',
-                    onChangeAddress: setAddress,
-                    onChangeLat: setLat,
-                    onChangeLng: setLng,
-                    placeholder: address
+                    onChangeAddress: formik.handleChange('address'),
+                    onChangeLat: formik.handleChange('lat'),
+                    onChangeLng: formik.handleChange('lng'),
+                    placeholder: formik.values.address,
                   },
                 })
               }
             >
-              <Text style={styles.textInput}>{address}</Text>
+              <Text style={styles.textInput}>{formik.values.address}</Text>
             </TouchableOpacity>
           </InputContainer>
           <InputContainer>
             <Label>Fecha de nacimiento</Label>
             <TouchableOpacity
-            style={styles.inputPage}
+              style={styles.inputPage}
               onPress={() =>
                 navigation.navigate('ProfileStack', {
                   screen: 'ProfileEditDate',
                   params: {
                     title: 'Selecciona fecha de nacimiento',
-                    onChange: setBirthday,
-                    placeholder: birthday
+                    onChange: formik.handleChange('birthday'),
+                    placeholder: formik.values.birthday,
                   },
                 })
               }
             >
-              <Text style={styles.textInput}>{moment(birthday).format('DD-MM-YYYY')}</Text>
+              <Text style={styles.textInput}>
+                {moment(formik.values.birthday).format('DD-MM-YYYY')}
+              </Text>
             </TouchableOpacity>
           </InputContainer>
           <InputContainer>
             <Label>Género</Label>
             <TouchableOpacity
-            style={styles.inputPage}
+              style={styles.inputPage}
               onPress={() =>
                 navigation.navigate('ProfileStack', {
                   screen: 'ProfileEditListItem',
                   params: {
-                    placeholder: gender,
+                    placeholder: formik.values.gender,
                     title: 'Selecciona género',
-                    onChange: setGender,
+                    onChange: formik.handleChange('gender'),
                     options: ['Hombre', 'Mujer'],
-                    values: ['male', 'female']
+                    values: ['male', 'female'],
                   },
                 })
               }
             >
-              <Text style={styles.textInput}>{gender === 'male' ? 'Hombre' : 'Mujer'}</Text>
+              <Text style={styles.textInput}>
+                {formik.values.gender === 'male' ? 'Hombre' : 'Mujer'}
+              </Text>
             </TouchableOpacity>
           </InputContainer>
+          <Label>Biografía</Label>
+          <MultilineInput
+            placeholder={formik.values.bio}
+            onChange={() => formik.handleChange('bio')}
+          />
         </View>
-        <ProfileItem title='Biografía' />
-        <MultilineInput placeholder={bio} onChange={() => setBio()} />
       </ScrollView>
     </Screen>
   );
@@ -261,7 +219,7 @@ const styles = StyleSheet.create({
     fontFamily: Family.normal,
     fontSize: Size.medium,
     color: Colors.white,
-  }
+  },
 });
 
 export default ProfileDetailsScreen;

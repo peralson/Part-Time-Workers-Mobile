@@ -46,18 +46,22 @@ const DirectionScreen = ({ navigation, route }) => {
 
     const geoData = await geocoding.json();
 
+    
     try {
       const coords = geoData.results[0].geometry.location;
       onChangeAddress(address);
       onChangeLat(coords.lat);
       onChangeLng(coords.lng);
       navigation.goBack();
+      
     } catch (error) {
-      Alert.alert(
-        'La dirección es inválida',
-        'Prueba a introducir otra o sé más especifico introduciendo la calle y el número',
-        [{ text: 'Okay' }]
-      );
+      console.log('error:', error )
+      // Alert.alert(
+      //   'La dirección es inválida',
+      //   'Prueba a introducir otra o sé más especifico introduciendo la calle y el número',
+      //   [{ text: 'Volver' }]
+      // );
+      navigation.goBack();
     }
   };
 
