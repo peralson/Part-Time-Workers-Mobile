@@ -60,7 +60,7 @@ const AuthScreen = ({ navigation }) => {
             .then(() => setIsLoading(false))
             .then(() => navigation.navigate('App'))
             .catch(err => {
-                let m = "Intentalo de nuevo"
+                let m = err.message
 
                 if (err.message === "There is no user record corresponding to this identifier. The user may have been deleted.") {
                     m = "No existe ningún usuario con este correo electrónico."

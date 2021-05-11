@@ -1,12 +1,14 @@
 class Profile {
-    constructor (id, name, images, details, contact, legal, bank, transport) {
+    constructor (id, name, images, gender, bio, birthday, contact, legal, payments, transport) {
         this.id = id
         this.name = name
         this.images = images
-        this.details = details
+        this.gender = gender
+        this.bio = bio
+        this.birthday = birthday
         this.contact = contact
         this.legal = legal
-        this.bank = bank
+        this.payments = payments
         this.transport = transport
     }
 }

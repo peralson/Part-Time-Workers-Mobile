@@ -24,43 +24,22 @@ export const fetchProfile = () => {
       }
     )
 
+    if (!response.ok && response.status === 404) throw new Error('El usuario no existe.')
     if (!response.ok) throw new Error('Algo ha ocurrido con tu perfil. Contacta con nosotros.')
 
     const resData = await response.json()
 
     const profile = new Profile(
-      '1',
-      'Tito Martin Roch',
-      {
-        main:
-          'https://media-exp1.licdn.com/dms/image/C5603AQE4UkXJA_04OQ/profile-displayphoto-shrink_800_800/0/1519913090300?e=1624492800&v=beta&t=3rO6IYYAAOYbLe-1ZBJT6QJ2NiA8P1uuxkv9uk4AHCU',
-        profesional:
-          'https://www.altonivel.com.mx/wp-content/uploads/2018/02/presentacion-de-negocios-profesional.jpg',
-      },
-      {
-        gender: 'male',
-        bio:
-          'Hago fotos con cámaras muy caras y cuando tengo tiempo libre salgo a pescar',
-        birthday: 0,
-      },
-      {
-        email: 'titomartinroig@gmail.com',
-        phoneNumber: '984123432',
-        address: 'Avenida de Barcelona 19, Córdoba, España',
-        lat: null,
-        lng: null
-      },
-      {
-        nationality: 'Spain',
-        ssNumber: '834759384753489',
-        dni: { number: '35289473R', front: null, back: null, expiryDate: 0 },
-      },
-      { bankAccount: '234829347982349' },
-      {
-        hasLicense: true,
-        hasCar: true,
-        license: [{ type: 'A', front: null, back: null }],
-      }
+      resData.body[0].id,
+      resData.body[0].data.name,
+      resData.body[0].data.images,
+      resData.body[0].data.gender,
+      resData.body[0].data.bio,
+      resData.body[0].data.birthday,
+      resData.body[0].data.contact,
+      resData.body[0].data.legal,
+      resData.body[0].data.payments,
+      resData.body[0].data.transport,
     );
 
     dispatch({

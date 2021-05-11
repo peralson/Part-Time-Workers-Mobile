@@ -36,13 +36,9 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
 
   //Vars
   const [hasLicense, setHasLicense] = useState(profile.transport.hasLicense);
-  const [hasLicenseError, setHasLicenseError] = useState(null);
-
   const [hasCar, setHasCar] = useState(profile.transport.hasCar);
-  const [hasCarError, setHasCarError] = useState(null);
 
   const handleSubmit = async () => {
-    console.log('ola');
     setIsLoading(true);
 
     const updateProfile = async () => {

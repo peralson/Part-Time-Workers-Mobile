@@ -44,7 +44,6 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
   const { profile } = route.params;
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
-  const [showDatePicker, setShowDatePicker] = useState(false);
 
   //Vars
   const [name, setName] = useState(profile.name);
@@ -56,22 +55,12 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
   const [email, setEmail] = useState(profile.contact.email);
   const [emailError, setEmailError] = useState(null);
 
-  const [address, setAddress] = useState(profile.contact.address);
-  const [lat, setLat] = useState(profile.contact.lat);
-  const [lng, setLng] = useState(profile.contact.lng);
-
-  const [birthday, setBirthday] = useState(profile.details.birthday);
-
-  const [gender, setGender] = useState(profile.details.gender);
-
-  const [bio, setBio] = useState(profile.details.bio);
-
-  const handleShowDatePicker = () => {
-    setShowDatePicker(!showDatePicker);
-  };
+  const [location, setLocation] = useState(profile.contact.location);
+  const [birthday, setBirthday] = useState(profile.birthday);
+  const [gender, setGender] = useState(profile.gender);
+  const [bio, setBio] = useState(profile.bio);
 
   const handleSubmit = async () => {
-    console.log('ola');
     setIsLoading(true);
 
     const updateProfile = async () => {
@@ -174,21 +163,19 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
             />
             {addressError && <ErrorText>Campo obligatorio</ErrorText>} */}
             <TouchableOpacity
-            style={styles.inputPage}
-              onPress={() =>
-                navigation.navigate('ProfileStack', {
-                  screen: 'ProfileEditDirection',
-                  params: {
-                    title: 'Selecciona dirección',
-                    onChangeAddress: setAddress,
-                    onChangeLat: setLat,
-                    onChangeLng: setLng,
-                    placeholder: address
-                  },
-                })
-              }
-            >
-              <Text style={styles.textInput}>{address}</Text>
+              style={styles.inputPage}
+                onPress={() =>
+                  navigation.navigate('ProfileStack', {
+                    screen: 'ProfileEditDirection',
+                    params: {
+                      title: 'Selecciona dirección',
+                      onChangeLocation: setLocation,
+                      placeholder: location.address
+                    },
+                  })
+                }
+              >
+              <Text style={styles.textInput}>{location.address}</Text>
             </TouchableOpacity>
           </InputContainer>
           <InputContainer>
@@ -206,7 +193,7 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
                 })
               }
             >
-              <Text style={styles.textInput}>{moment(birthday).format('DD-MM-YYYY')}</Text>
+              <Text style={styles.textInput}>{moment(birthday).format('DD/MM/YYYY')}</Text>
             </TouchableOpacity>
           </InputContainer>
           <InputContainer>

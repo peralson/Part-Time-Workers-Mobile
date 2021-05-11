@@ -25,9 +25,7 @@ const DirectionScreen = ({ navigation, route }) => {
   const apiKey = firebaseConfig.apiKey;
   const {
     title,
-    onChangeAddress,
-    onChangeLat,
-    onChangeLng,
+    onChangeLocation,
     placeholder,
   } = route.params;
 
@@ -48,9 +46,11 @@ const DirectionScreen = ({ navigation, route }) => {
 
     try {
       const coords = geoData.results[0].geometry.location;
-      onChangeAddress(address);
-      onChangeLat(coords.lat);
-      onChangeLng(coords.lng);
+      onChangeLocation({
+        address: address,
+        lat: coords.lat,
+        lng: coords.lng,
+      });
       navigation.goBack();
     } catch (error) {
       Alert.alert(
@@ -72,7 +72,7 @@ const DirectionScreen = ({ navigation, route }) => {
           placeholder={address ? address : 'Eg. Puerta de Alcalá'}
           placeholderTextColor={Colors.white}
           styles={mapStyles}
-          onPress={data => setAddress(data.description)}
+          onPress={(data) => setAddress(data.description)}
           query={{
             key: apiKey,
             language: 'es',

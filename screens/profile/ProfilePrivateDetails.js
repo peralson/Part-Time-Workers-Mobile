@@ -35,8 +35,6 @@ import InputContainer from '../../components/form/InputContainer';
 import Input from '../../components/form/Input';
 import Label from '../../components/form/Label';
 import ErrorText from '../../components/form/ErrorText';
-import OptionListInput from '../../components/form/OptionListInput';
-import DatePicker from '../../components/form/DatePicker';
 
 const ProfilePrivateDetails = ({ navigation, route }) => {
   const { profile } = route.params;
@@ -53,9 +51,7 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
   const [dniBack, setDniBack] = useState(profile.legal.dni.back);
   const [dniBackError, setDniBackError] = useState(null);
 
-  const [dniExpiryDate, setDniExpiryDate] = useState(
-    profile.legal.dni.expiryDate
-  );
+  const [dniExpiryDate, setDniExpiryDate] = useState(profile.legal.dni.expiryDate);
   const [dniExpiryDateError, setDniExpiryDateError] = useState(null);
 
   const [dniNumber, setDniNumber] = useState(profile.legal.dni.number);
@@ -64,7 +60,7 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
   const [ssNumber, setSsNumber] = useState(profile.legal.ssNumber);
   const [ssNumberError, setSsNumberError] = useState(null);
 
-  const [bankAccount, setBankAccount] = useState(profile.bank.bankAccount);
+  const [bankAccount, setBankAccount] = useState(profile.payments.bankAccount);
   const [bankAccountError, setBankAccountError] = useState(null);
 
   const handleSubmit = async () => {
@@ -169,7 +165,7 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
                 })
               }
             >
-              <Text style={styles.textInput}>{moment(dniExpiryDate).format('DD-MM-YYYY')}</Text>
+              <Text style={styles.textInput}>{moment(dniExpiryDate).format('DD/MM/YYYY')}</Text>
             </TouchableOpacity>
           </InputContainer>
           <InputContainer>
