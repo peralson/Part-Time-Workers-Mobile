@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 
 // React Native
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
 //Constants
@@ -13,32 +13,60 @@ import Size from '../../constants/FontSize';
 //Components
 import FormWrapper from './FormWrapper'
 
-const OptionListInput = ({ placeholder, options, onChange, values }) => {
+const OptionListInput = ({
+  placeholder,
+  options,
+  onChange,
+  values
+}) => {
   const [selectedValue, setSelectedValue] = useState(placeholder);
 
   return (
-    <FormWrapper>
-      <View style={styles.container}>
-      <Picker
-        selectedValue={selectedValue}
-        onValueChange={(itemValue, itemIndex) => {
-          setSelectedValue(itemValue);
-          onChange(itemValue);
-        }}
-        style={styles.form}
-        itemStyle={styles.item}
-      >
-        {options.map((option) => (
-          <Picker.Item
-            label={option}
-            value={values ? values[options.indexOf(option)] : option}
-            key={option}
-            style={{ textDecorationColor: Colors.white }}
-          />
-        ))}
-      </Picker>
-    </View>
-    </FormWrapper>
+    <>
+      {Platform.OS === 'android' ? (
+        <FormWrapper>
+          <View style={styles.container}>
+            <Picker
+              selectedValue={selectedValue}
+              onValueChange={(itemValue) => {
+                setSelectedValue(itemValue);
+                onChange(itemValue);
+              }}
+              style={styles.form}
+              itemStyle={styles.item}
+            >
+              {options.map((option) => (
+                <Picker.Item
+                  label={option}
+                  value={values ? values[options.indexOf(option)] : option}
+                  key={option}
+                  style={{ textDecorationColor: Colors.white }}
+                />
+              ))}
+            </Picker>
+          </View>
+        </FormWrapper>
+      ) : (
+          <Picker
+            selectedValue={selectedValue}
+            onValueChange={(itemValue) => {
+              setSelectedValue(itemValue);
+              onChange(itemValue);
+            }}
+            style={styles.form}
+            itemStyle={styles.item}
+          >
+            {options.map((option) => (
+              <Picker.Item
+                label={option}
+                value={values ? values[options.indexOf(option)] : option}
+                key={option}
+                style={{ textDecorationColor: Colors.white }}
+              />
+            ))}
+          </Picker>
+      )}
+    </>
   );
 };
 

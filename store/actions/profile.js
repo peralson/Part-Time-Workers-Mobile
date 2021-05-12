@@ -167,25 +167,21 @@ export const updateProfileLegal = (
     const updatedProfile = {...currentProfile.profile}
     
     const response = await fetch(
-      `https://us-central1-partime-60670.cloudfunctions.net/api/user/worker`,
+      `https://us-central1-partime-60670.cloudfunctions.net/api/user/worker/`,
       {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify(updatedProfile),
       }
     );
 
-    if (response.error) {
-      const errorResData = await response.json();
-      console.log(errorResData);
-    }
-
     const resData = await response.json();
-
     console.log(resData);
+
+    if (!response.ok) throw new Error('Ha ocurrido un error.')
 
     dispatch({
       type: UPDATE_PROFILE_LEGAL,

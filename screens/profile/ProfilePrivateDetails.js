@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Text,
+  Alert,
 } from 'react-native';
 
 // Libs
@@ -20,11 +21,9 @@ import Colors from '../../constants/Colors';
 import Family from '../../constants/FontFamily';
 import Size from '../../constants/FontSize';
 
-// Redux
-import { useDispatch } from 'react-redux';
-
-// Actions
-import * as profileActions from '../../store/actions/profile';
+// Redux && Actions
+import { connect } from 'react-redux';
+import { updateProfileLegal } from '../../store/actions/profile';
 
 // Form
 import { Formik, useFormik } from 'formik';
@@ -36,14 +35,15 @@ import HomeWrapper from '../../components/UI/HomeWrapper';
 import BackButton from '../../components/UI/BackButton';
 import ProfileItem from '../../components/profile/ProfileItem';
 import InputContainer from '../../components/form/InputContainer';
-import Input from '../../components/form/Input';
 import Label from '../../components/form/Label';
-import ErrorText from '../../components/form/ErrorText';
 import CustomInputComponent from '../../components/form/CustomInputComponent';
 
-const ProfilePrivateDetails = ({ navigation, route }) => {
+const ProfilePrivateDetails = ({
+  navigation,
+  route,
+  updateProfileLegal
+}) => {
   const { profile } = route.params;
-  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
   const formik = useFormik({
@@ -61,9 +61,8 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
       setIsLoading(true);
 
       const updateProfile = async () => {
-        await dispatch(
-          profileActions.updateProfileLegal(
-            profile.id,
+        try {
+          await updateProfileLegal(
             values.nationality,
             values.dniFront,
             values.dniNumber,
@@ -71,9 +70,12 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
             values.dniExpiryDate,
             values.ssNumber,
             values.bankAccount
-          )
-        );
-        setIsLoading(false);
+          );
+        } catch (error) {
+          Alert.alert('Oh! Vaya...', error.message, [{ text: 'Okay' }])
+        } finally {
+          setIsLoading(false);
+        }
       };
       updateProfile();
     },
@@ -193,4 +195,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfilePrivateDetails;
+const mapDispatchToProps = {
+  updateProfileLegal
+}
+
+export default connect(null, mapDispatchToProps)(ProfilePrivateDetails);
