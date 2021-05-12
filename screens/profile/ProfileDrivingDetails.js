@@ -55,14 +55,14 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
             // licenseType,
             // licenseFront,
             // licenseBack
-            )
-            );
-            setIsLoading(false);
-          };
-    
-          updateProfile();
-        },
-      });
+          )
+        );
+        setIsLoading(false);
+      };
+
+      updateProfile();
+    },
+  });
 
   return (
     <Screen>

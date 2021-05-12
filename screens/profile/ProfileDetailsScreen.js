@@ -50,12 +50,12 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
       name: profile.name,
       phoneNumber: profile.contact.phoneNumber,
       email: profile.contact.email,
-      address: profile.contact.address,
-      lat: profile.contact.lat,
-      lng: profile.contact.lng,
-      birthday: profile.details.birthday,
-      gender: profile.details.gender,
-      bio: profile.details.bio,
+      address: profile.contact.location.address,
+      lat: profile.contact.location.lat,
+      lng: profile.contact.location.lng,
+        birthday: profile.birthday,
+      gender: profile.gender,
+      bio: profile.bio,
     },
     onSubmit: (values) => {
       setIsLoading(true);

@@ -103,60 +103,17 @@ export const updateProfileGeneral = (
     const token = getState().auth.token;
     const currentProfile = getState().profile;
 
-    // const updatedProfile = currentProfile
+    currentProfile.profile.name = name;
+    currentProfile.profile.contact.email = email;
+    currentProfile.profile.contact.phoneNumber = phoneNumber;
+    currentProfile.profile.contact.location.address = address;
+    currentProfile.profile.contact.location.lat = lat;
+    currentProfile.profile.contact.location.lng = lng;
+    currentProfile.profile.gender = gender;
+    currentProfile.profile.bio = bio;
+    currentProfile.profile.birthday = birthday;
 
-    // updatedProfile.profile.name = name;
-    // updatedProfile.profile.contact.email = email;
-    // updatedProfile.profile.contact.phoneNumber = phoneNumber;
-    // updatedProfile.profile.contact.address = address;
-    // updatedProfile.profile.contact.lat = lat;
-    // updatedProfile.profile.contact.lng = lng;
-    // updatedProfile.profile.details.gender = gender;
-    // updatedProfile.profile.details.bio = bio;
-    // updatedProfile.profile.details.birthday = birthday;
-
-    const updatedProfile = {
-      id: id,
-      name: name,
-      images: {
-        main: currentProfile.profile.images.main,
-        profesional: currentProfile.profile.images.profesional,
-      },
-      contact: {
-        email: email,
-        phoneNumber: phoneNumber,
-        address: address,
-        lat: lat,
-        lng: lng
-      },
-      details: {
-        gender: gender,
-        bio: bio,
-        birthday: birthday,
-      },
-      legal: {
-        nationality: currentProfile.profile.legal.nationality,
-        ssNumber: currentProfile.profile.legal.ssNumber,
-        dni: {
-          number: currentProfile.profile.legal.dni.number,
-          front: currentProfile.profile.legal.dni.front,
-          back: currentProfile.profile.legal.dni.back,
-          expiryDate: currentProfile.profile.legal.dni.expiryDate,
-        },
-      },
-      bank: { bankAccount: currentProfile.profile.bank.bankAccount },
-      transport: {
-        hasLicense: currentProfile.profile.transport.hasLicense,
-        hasCar: currentProfile.profile.transport.hasCar,
-        license: [
-          {
-            type: currentProfile.profile.transport.license.type,
-            front: currentProfile.profile.transport.license.front,
-            back: currentProfile.profile.transport.license.back,
-          },
-        ],
-      },
-    };
+    const updatedProfile = {...currentProfile.profile}
 
     const response = await fetch(
       `https://us-central1-partime-60670.cloudfunctions.net/api/user/worker`,
@@ -171,11 +128,11 @@ export const updateProfileGeneral = (
     );
 
     if (response.error) {
-      const errorResData = await response.json();
+      const errorResData = await response.text();
       console.log(errorResData);
     }
 
-    const resData = await response.json();
+    const resData = await response.text();
 
     console.log(resData);
 
@@ -187,7 +144,6 @@ export const updateProfileGeneral = (
 };
 
 export const updateProfileLegal = (
-  id,
   nationality,
   dniFront,
   dniNumber,
@@ -200,51 +156,16 @@ export const updateProfileLegal = (
     const token = getState().auth.token;
     const currentProfile = getState().profile;
 
-    const updatedProfile = {
-      id: id,
-      name: currentProfile.profile.name,
-      images: {
-        main: currentProfile.profile.images.main,
-        profesional: currentProfile.profile.images.profesional,
-      },
-      contact: {
-        email: currentProfile.profile.contact.email,
-        phoneNumber: currentProfile.profile.contact.phoneNumber,
-        address: currentProfile.profile.contact.address,
-        lat: currentProfile.profile.contact.lat,
-        lng: currentProfile.profile.contact.lng,
-      },
-      details: {
-        gender: currentProfile.profile.details.gender,
-        bio: currentProfile.profile.details.bio,
-        birthday: currentProfile.profile.details.birthday,
-      },
-      legal: {
-        nationality: nationality,
-        ssNumber: ssNumber,
-        dni: {
-          number: dniNumber,
-          front: dniFront,
-          back: dniBack,
-          expiryDate: dniExpiryDate,
-        },
-      },
-      bank: {
-        bankAccount: bankAccount,
-      },
-      transport: {
-        hasLicense: currentProfile.profile.transport.hasLicense,
-        hasCar: currentProfile.profile.transport.hasCar,
-        license: [
-          {
-            type: currentProfile.profile.transport.license.type,
-            front: currentProfile.profile.transport.license.front,
-            back: currentProfile.profile.transport.license.back,
-          },
-        ],
-      },
-    };
+    currentProfile.profile.legal.nationality = nationality;
+    currentProfile.profile.legal.ssNumber = ssNumber;
+    currentProfile.profile.legal.dni.number = dniNumber;
+    currentProfile.profile.legal.dni.front = dniFront;
+    currentProfile.profile.legal.dni.back = dniBack;
+    currentProfile.profile.legal.dni.expiryDate = dniExpiryDate;
+    currentProfile.profile.payments.bankAccount = bankAccount;
 
+    const updatedProfile = {...currentProfile.profile}
+    
     const response = await fetch(
       `https://us-central1-partime-60670.cloudfunctions.net/api/user/worker`,
       {
@@ -285,57 +206,10 @@ export const updateProfileTransport = (
     const token = getState().auth.token;
     const currentProfile = getState().profile;
 
-    const updatedProfile = {
-      id: id,
-      name: currentProfile.profile.name,
-      images: {
-        main: currentProfile.profile.images.main,
-        profesional: currentProfile.profile.images.profesional,
-      },
-      contact: {
-        email: currentProfile.profile.contact.email,
-        phoneNumber: currentProfile.profile.contact.phoneNumber,
-        address: currentProfile.profile.contact.address,
-        lat: currentProfile.profile.contact.lat,
-        lng: currentProfile.profile.contact.lng,
-      },
-      details: {
-        gender: currentProfile.profile.details.gender,
-        bio: currentProfile.profile.details.bio,
-        birthday: currentProfile.profile.details.birthday,
-      },
-      legal: {
-        nationality: currentProfile.profile.legal.nationality,
-        ssNumber: currentProfile.profile.legal.ssNumber,
-        dni: {
-          number: currentProfile.profile.legal.dni.number,
-          front: currentProfile.profile.legal.dni.front,
-          back: currentProfile.profile.legal.dni.back,
-          expiryDate: currentProfile.profile.legal.dni.expiryDate,
-        },
-      },
-      bank: {
-        bankAccount: currentProfile.profile.bank.bankAccount,
-      },
-      transport: {
-        hasLicense: hasLicense,
-        hasCar: hasCar,
-        // license: [
-        //   {
-        //     type: licenseType,
-        //     front: licenseFront,
-        //     back: licenseBack,
-        //   },
-        // ],
-        license: [
-          {
-            type: currentProfile.profile.transport.license.type,
-            front: currentProfile.profile.transport.license.front,
-            back: currentProfile.profile.transport.license.back,
-          },
-        ],
-      },
-    };
+    currentProfile.profile.transport.hasLicense = hasLicense;
+    currentProfile.profile.transport.hasCar = hasCar;
+    
+    const updatedProfile = {...currentProfile.profile}    
 
     const response = await fetch(
       `https://us-central1-partime-60670.cloudfunctions.net/api/user/worker`,
