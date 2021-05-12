@@ -48,6 +48,9 @@ const OfferDetailScreen = ({ navigation, route }) => {
     const { hours, minutes } = totalHoursCalc(offerData.schedule)
     const totalSalary = ((hours + minutes / 60) * offerData.salary).toFixed(0)
 
+	const datesLength = offerData.schedule.length;
+    const formatDate = date => moment(date._seconds * 1000).format('D MMMM')
+
 	const handleSendApplication = () => {
 		navigation.navigate(
 			'ApplicationsStack',
@@ -73,7 +76,10 @@ const OfferDetailScreen = ({ navigation, route }) => {
 				/>
 				<DetailsContainer>
 				<DetailItem
-					title={moment(eventData.date).format('D MMMM')}
+					title={datesLength === 1
+						? formatDate(offerData.schedule[0].day)
+						: `${formatDate(eventData.dates[0])} - ${formatDate(offerData.schedule[datesLength - 1].day)}`
+					}
 					icon={
 						<Ionicons
 							name='calendar-outline'
@@ -99,19 +105,16 @@ const OfferDetailScreen = ({ navigation, route }) => {
 				</DetailsContainer>
 				{offerData.description.length !== 0 && (
 					<>
-						<Label style={{ marginBottom: 8 }}>Requerimientos</Label>
+						<Label style={{ marginBottom: 12 }}>Requerimientos</Label>
 						<Description>{offerData.description}</Description>
 					</>
 				)}
+				
 				<Label style={{ marginBottom: 8 }}>Horario</Label>
-				<Schedules
-					schedules={offerData.schedule}
-					hours={hours}
-					minutes={minutes}
-				/>
+				<Schedules schedules={offerData.schedule} />
 
 				<Label style={{ marginBottom: 8 }}>Más información</Label>
-				<OfferCompany name={companyData.name} image={companyData.photo} />
+				<OfferCompany name={companyData.companyName} image={companyData.companyImage} />
 				<OfferInfoItem
 					left='Salario'
 					right={formattedSalary(offerData.salary) + '€'}

@@ -3,6 +3,9 @@ export const FETCH_APPLICATIONS = 'FETCH_APPLICATIONS'
 export const SEND_APPLICATIONS = 'SEND_APPLICATION'
 export const CANCEL_APPLICATIONS = 'CANCEL_APPLICATION'
 
+// Libs
+import sortByDate from '../../libs/sortByDate'
+
 // Models for fetching
 import Application from '../../models/Application'
 
@@ -39,15 +42,9 @@ export const fetchApplications = () => {
 			)
 		})
 
-		loadedApplications.sort((a, b) => {
-			if (a.eventData.date < b.eventData.date) return -1
-			if (a.eventData.date < b.eventData.date) return 1
-			return 0
-		})
-
         dispatch({
 			type: FETCH_APPLICATIONS,
-			userApplications: loadedApplications
+			userApplications: sortByDate(loadedApplications, 'DES')
         })
     }
 }
@@ -55,6 +52,7 @@ export const fetchApplications = () => {
 export const sendApplication = offerId => {
 	return async (dispatch, getState) => {
 		const token = getState().auth.token
+		const offer = getState().offers.openOffers.find(item => item.id === offerId)
 
 		const response = await fetch(
 			`https://us-central1-partime-60670.cloudfunctions.net/api/application/apply/${offerId}`,
@@ -67,9 +65,17 @@ export const sendApplication = offerId => {
 			}
 		)
 
-		const resData = await response.json()
+    	if (!response.ok && response.status === 400) throw new Error('Ya has aplicado a esta oferta')
+    	if (!response.ok) throw new Error('Ha ocurrido un error')
 
-		console.log(resData)
+		const resData = await response.json()
+		
+		dispatch({
+			type: SEND_APPLICATIONS,
+			offerId: offerId,
+			offer: offer,
+			applicationId: resData.body
+		})
 	}
 }
 
@@ -87,6 +93,8 @@ export const cancelApplication = applicationId => {
 				}
 			}
 		)
+
+    	if (!response.ok) throw new Error('Ha ocurrido un error')
 
 		const resData = await response.json()
 

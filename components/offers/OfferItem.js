@@ -9,9 +9,6 @@ import {
     TouchableOpacity
 } from 'react-native'
 
-// Expo
-import { Ionicons } from '@expo/vector-icons'
-
 // Libs
 import formattedSalary from '../../libs/formattedSalary'
 import totalHoursCalc from '../../libs/totalHoursCalc'
@@ -34,20 +31,26 @@ const OfferItem = ({ offerData, eventData, companyData, onSelect }) => {
     const { hours, minutes } = totalHoursCalc(offerData.schedule)
     const total = offerData.salary * (hours + (minutes / 60))
 
+    const datesLength = offerData.schedule.length;
+    const formatDate = date => moment(date._seconds * 1000).format('D MMMM')
+
     return (
         <TouchableOpacity activeOpacity={0.8} onPress={onSelect}>
             <Card>
                 <View style={styles.topContainer}>
                     <ItemTitle>{eventData.name}</ItemTitle>
                     <DarkTag>
-                        {moment(eventData.date).format('DD MMM').split('.')[0]}
+                        {datesLength === 1
+                            ? formatDate(offerData.schedule[0].day)
+                            : `${formatDate(eventData.dates[0])} - ${formatDate(offerData.schedule[datesLength - 1].day)}`
+                        }
                     </DarkTag>
                 </View>
                 <View style={styles.bottomContainer}>
                     <View style={styles.left}>
                         <ItemDetails
                             category={offerData.category}
-                            companyName={companyData.name}
+                            companyName={companyData.companyName}
                             address={eventData.location.address.split(',')[0]}
                         />
                         <View style={styles.importants}>

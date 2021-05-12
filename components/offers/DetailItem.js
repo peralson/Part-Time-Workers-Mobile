@@ -13,7 +13,7 @@ const DetailItem = ({ onSelect, icon, title, cta }) => {
     return (
         <TouchableOpacity activeOpacity={0.8} onPress={onSelect} style={styles.buttonContainer}>
             {icon}
-            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.title} numberOfLines={1}>{title}</Text>
             <Text style={styles.cta}>{cta}</Text>
         </TouchableOpacity>
     )

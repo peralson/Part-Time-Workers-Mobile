@@ -1,6 +1,9 @@
 // Actions
 export const FETCH_OPEN_OFFERS = 'FETCH_OPEN_OFFERS'
 
+// Libs
+import sortByDate from '../../libs/sortByDate'
+
 // Models for fetching
 import Offer from '../../models/Offer'
 
@@ -36,15 +39,9 @@ export const fetchOpenOffers = () => {
             )
         })
 
-        loadedOffers.sort((a, b) => {
-            if (a.eventData.date < b.eventData.date) return -1
-            if (a.eventData.date < b.eventData.date) return 1
-            return 0
-        })
-
         dispatch({
             type: FETCH_OPEN_OFFERS,
-            userOpenOffers: loadedOffers
+            userOpenOffers: sortByDate(loadedOffers, 'DES')
         })
     }
 }

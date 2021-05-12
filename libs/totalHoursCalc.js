@@ -1,21 +1,21 @@
-import moment from 'moment'
-import 'moment/locale/es'
+import getShiftDuration from './getShiftDuration'
 
 const totalHoursCalc = schedules => {
     let hours = 0
     let minutes = 0
 
-    schedules.map(sche => {
-        const start = moment(sche.start._seconds * 1000).locale('es').format('HH:mm').split(':')
-        const end = moment(sche.end._seconds * 1000).locale('es').format('HH:mm').split(':')
+    schedules.map((schedule) => {
+        schedule.shifts.map((shift) => {
+            const duration = getShiftDuration(shift.start._seconds, shift.end._seconds)
 
-        hours = hours + (parseInt(end[0]) - parseInt(start[0]))
-        minutes = minutes + (parseInt(end[1]) - parseInt(start[1]))
+            hours = hours + duration.hours
+            minutes = minutes + duration.minutes
+        })
     })
 
     return { 
-        hours: hours, 
-        minutes: Math.abs(minutes)
+        hours,
+        minutes
     }
 }
 

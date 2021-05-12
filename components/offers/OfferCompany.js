@@ -64,9 +64,9 @@ const styles = StyleSheet.create({
         lineHeight: 21,
     },
     imageContainer: {
-        borderRadius: 4,
         overflow: 'hidden',
-        paddingVertical: 4
+        marginVertical: 4,
+        borderRadius: 20
     },
 })
 

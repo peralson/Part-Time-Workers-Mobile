@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         fontFamily: Family.normal,
         fontSize: Size.small,
         color: Colors.white,
-        lineHeight: 19
+        lineHeight: 21
     },
 })
 

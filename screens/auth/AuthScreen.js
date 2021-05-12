@@ -38,6 +38,10 @@ const AuthScreen = ({ navigation }) => {
     const [password, setPassword] = useState('')
 
     useEffect(() => {
+        handleLogIn()
+    }, [])
+
+    useEffect(() => {
         if (error) {
             Alert.alert('Ha habido un error', error, [{ text: 'Okay' }])
         }
@@ -47,7 +51,7 @@ const AuthScreen = ({ navigation }) => {
         setError(null)
         setIsLoading(true)
 
-        firebase.auth().signInWithEmailAndPassword(email, password)
+        firebase.auth().signInWithEmailAndPassword('pabloperaltapalacios@gmail.com', 'holaquetal')
             .then(({ user }) => {
                 if (user.emailVerified) {
                     return firebase.auth().currentUser.getIdTokenResult(true)

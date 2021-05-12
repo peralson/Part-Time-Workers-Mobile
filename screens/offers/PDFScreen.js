@@ -37,6 +37,9 @@ const PDFScreen = ({ navigation, route }) => {
         case 2:
             request = getPayrollPdf
             break
+
+        default:
+            break
     }
 
     useEffect(() => {

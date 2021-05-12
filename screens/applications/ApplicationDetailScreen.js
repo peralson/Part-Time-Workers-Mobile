@@ -1,8 +1,8 @@
 // React
-import React from 'react'
+import React, { useState } from 'react'
 
 // React Native
-import { Alert, ScrollView } from 'react-native'
+import { ActivityIndicator, Alert, ScrollView } from 'react-native'
 
 // Expo
 import { Ionicons } from '@expo/vector-icons'
@@ -40,6 +40,7 @@ import TinyContractButton from '../../components/UI/TinyTextButton'
 
 const ApplicationDetailScreen = ({ navigation, route }) => {
     const { applicationId } = route.params
+    const [isLoading, setLoading] = useState(false)
 
     const {
         offerData,
@@ -53,6 +54,9 @@ const ApplicationDetailScreen = ({ navigation, route }) => {
     const { hours, minutes } = totalHoursCalc(offerData.schedule)
     const totalSalary = ((hours + minutes / 60) * offerData.salary).toFixed(0)
 
+	const datesLength = offerData.schedule.length;
+    const formatDate = date => moment(date._seconds * 1000).format('D MMMM')
+
     const handleCancelApplication = () => {
         Alert.alert('¿Estas seguro?', '', [
             { text: 'No' },
@@ -60,8 +64,15 @@ const ApplicationDetailScreen = ({ navigation, route }) => {
                 text: 'Sí',
                 style: 'destructive',
                 onPress: async () => {
-                    await dispatch(applicationActions.cancelApplication(applicationId))
-                    navigation.navigate('Home', { screen: 'Trabajos' })
+                    setLoading(true)
+                    try {
+                        await dispatch(applicationActions.cancelApplication(applicationId))
+                        navigation.navigate('Home', { screen: 'Trabajos' })
+                    } catch (err) {
+                        Alert.alert('Oh! Vaya...', err.message, [{ text: 'Okay' }])
+                    } finally {
+                        setLoading(false)
+                    }
                 },
             },
         ]);
@@ -72,7 +83,7 @@ const ApplicationDetailScreen = ({ navigation, route }) => {
             <HomeWrapper
                 leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
                 title="Aplicación"
-                rightComponent={<TopRightButton title='Anular' color='red' onSelect={handleCancelApplication} />}
+                rightComponent={<TopRightButton title={isLoading ? <ActivityIndicator size="small" color="red" /> : 'Anular'} color='red' onSelect={handleCancelApplication} />}
             />
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ padding: 16, paddingBottom: 32 }}>
                 <OfferHeader
@@ -82,7 +93,10 @@ const ApplicationDetailScreen = ({ navigation, route }) => {
                 />
                 <DetailsContainer>
                     <DetailItem
-                        title={moment(eventData.date).format('D MMMM')}
+                        title={datesLength === 1
+                            ? formatDate(offerData.schedule[0].day)
+                            : `${formatDate(eventData.dates[0])} - ${formatDate(offerData.schedule[datesLength - 1].day)}`
+                        }
                         icon={
                             <Ionicons
                                 name='calendar-outline'
@@ -108,19 +122,17 @@ const ApplicationDetailScreen = ({ navigation, route }) => {
                 </DetailsContainer>
                 {offerData.description.length !== 0 && (
                     <>
-                        <Label style={{ marginBottom: 8 }}>Requerimientos</Label>
+                        <Label style={{ marginBottom: 12 }}>Requerimientos</Label>
                         <Description>{offerData.description}</Description>
                     </>
                 )}
                 <Label style={{ marginBottom: 8 }}>Horario</Label>
                 <Schedules
-                    schedules={offerData.schedule}
-                    hours={hours}
-                    minutes={minutes}
-                />
+					schedules={offerData.schedule}
+				/>
 
                 <Label style={{ marginBottom: 8 }}>Más información</Label>
-                <OfferCompany name={companyData.name} image={companyData.photo} />
+                <OfferCompany name={companyData.companyName} image={companyData.companyImage} />
                 <OfferInfoItem
                     left='Salario'
                     right={formattedSalary(offerData.salary) + '€'}
