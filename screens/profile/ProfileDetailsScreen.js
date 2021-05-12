@@ -33,7 +33,7 @@ import * as profileActions from '../../store/actions/profile';
 import Screen from '../../components/UI/Screen';
 import HomeWrapper from '../../components/UI/HomeWrapper';
 import BackButton from '../../components/UI/BackButton';
-import ImagePicker from '../../components/UI/ImagePicker';
+import ImagePickerComponent from '../../components/UI/ImagePickerComponent';
 import SideScrollPicker from '../../components/UI/SideScrollPicker';
 import MultilineInput from '../../components/form/MultilineInput';
 import InputContainer from '../../components/form/InputContainer';
@@ -53,7 +53,7 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
       address: profile.contact.location.address,
       lat: profile.contact.location.lat,
       lng: profile.contact.location.lng,
-        birthday: profile.birthday,
+      birthday: profile.birthday,
       gender: profile.gender,
       bio: profile.bio,
     },
@@ -101,8 +101,11 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
       >
         <View style={{ marginHorizontal: 16 }}>
           <SideScrollPicker>
-            <ImagePicker title='Personal' image={profile.images.main} />
-            <ImagePicker
+            <ImagePickerComponent
+              title='Personal'
+              image={profile.images.main}
+            />
+            <ImagePickerComponent
               title='Profesional'
               image={profile.images.profesional}
             />
@@ -139,7 +142,9 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
                 })
               }
             >
-              <Text style={styles.textInput}>{formik.values.address}</Text>
+              <Text style={styles.textInput}>
+                {formik.values.address}
+              </Text>
             </TouchableOpacity>
           </InputContainer>
           <InputContainer>
