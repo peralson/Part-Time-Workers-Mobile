@@ -46,7 +46,7 @@ const ApplicationResumeScreen = ({ navigation, route }) => {
 
     return (
         <Screen>
-            <HomeWrapper leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}/>
+            <HomeWrapper leftComponent={<BackButton onGoBack={() => navigation.goBack()} title="Firmar contrato" />}/>
             <View style={styles.center}>
                 <Ionicons color={Colors.primary} name="document-text-outline" size={80} />
                 <Text style={{...styles.title, ...{ marginTop: 16 }}}>

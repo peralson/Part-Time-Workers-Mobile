@@ -98,6 +98,9 @@ export const cancelApplication = applicationId => {
 
 		const resData = await response.json()
 
-		console.log(resData)
+		dispatch({
+			type: CANCEL_APPLICATIONS,
+			applicationId: resData.body.id
+		})
 	}
 }

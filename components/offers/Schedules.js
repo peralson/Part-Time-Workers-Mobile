@@ -15,8 +15,8 @@ const Schedules = ({ schedules }) => (
     <View style={styles.container}>
         {schedules.length === 1
             ? <ScheduleItem shifts={schedules[0].shifts} />
-            : schedules.map(({ day, shifts }, index) => (
-                <ScheduleToggleItem index={index} day={day} shifts={shifts} />
+            : schedules.map(({ day, shifts }) => (
+                <ScheduleToggleItem key={day._seconds} day={day} shifts={shifts} />
             ))
         }
     </View>

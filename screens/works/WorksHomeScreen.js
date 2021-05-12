@@ -6,11 +6,11 @@ import { useFocusEffect } from '@react-navigation/native'
 import { ScrollView, StyleSheet, View } from 'react-native'
 
 // Redux
-import { useSelector, useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 
-//Actions
-import * as applicationsActions from '../../store/actions/applications'
-import * as jobsActions from '../../store/actions/jobs'
+// Actions
+import { fetchApplications } from '../../store/actions/applications'
+import { fetchJobs } from '../../store/actions/jobs'
 
 // Components
 import Screen from '../../components/UI/Screen'
@@ -23,19 +23,19 @@ import EmptyList from '../../components/works/EmptyList'
 import JobItem from '../../components/works/JobItem'
 import IsLoadingMini from '../../components/UI/IsLoadingMini'
 
-const WorksHomeScreen = ({ navigation }) => {
+const WorksHomeScreen = ({ 
+	navigation,
+	userApplications,
+	userJobs,
+	fetchApplications,
+	fetchJobs
+}) => {
 	const [applicationsLoading, setApplicationsLoading] = useState(true)
-	const applications = useSelector(state => state.applications.userApplications)
-
 	const [jobsLoading, setJobsLoading] = useState(true)
-	const jobs = useSelector(state => state.jobs.userJobs)
-
-	const dispatch = useDispatch()
-
 
 	const loadApplications = async () => {
 		try {
-			await dispatch(applicationsActions.fetchApplications())
+			await fetchApplications()
 		} catch ({ message }) {
 			console.log('error', message)
 		}
@@ -43,7 +43,7 @@ const WorksHomeScreen = ({ navigation }) => {
 
 	const loadJobs = async () => {
 		try {
-			await dispatch(jobsActions.fetchJobs())
+			await fetchJobs()
 		} catch ({ message }) {
 			console.log('error', message)
 		}
@@ -54,7 +54,7 @@ const WorksHomeScreen = ({ navigation }) => {
 		useCallback(() => {
 			loadJobs()
 			loadApplications()
-		}, [dispatch, setJobsLoading, setApplicationsLoading])
+		}, [setJobsLoading, setApplicationsLoading])
 	)
 
 	// Cargamos los proyectos de una manera visible al entrar por primera vez
@@ -92,18 +92,23 @@ const WorksHomeScreen = ({ navigation }) => {
 				leftComponent={<HeaderTitle title='Trabajos' />}
 				description='Aquí verás los trabajos que tengas pendientes de realizar y tus aplicaciones activas.'
 			/>
-			<ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
-				<Label style={{ paddingHorizontal: 16, marginBottom: 8 }}>Próximos trabajos</Label>
+			<ScrollView
+				contentContainerStyle={styles.container}
+				showsVerticalScrollIndicator={false}
+			>
+				<Label style={{ paddingHorizontal: 16, marginBottom: 8 }}>
+					Próximos trabajos
+				</Label>
 				{jobsLoading ? <IsLoadingMini text="trabajos" /> : (
 					<>
-						{jobs.length === 0 ? (
+						{userJobs.length === 0 ? (
 							<EmptyList
 								quote='No tienes próximos trabajos'
 								image={require('../../assets/sin_proyectos.png')}
 							/>
 						) : (
 							<SideScrollPicker>
-								{jobs.map(job => (
+								{userJobs.map(job => (
 									<JobItem
 										key={job.id}
 										{...job}
@@ -118,14 +123,14 @@ const WorksHomeScreen = ({ navigation }) => {
 					<Label style={{ marginBottom: 8 }}>Ofertas a las que he aplicado</Label>
 					{applicationsLoading ? <IsLoadingMini text="aplicaciones" /> : (
 						<>
-							{applications.length === 0 ? (
+							{userApplications.length === 0 ? (
 								<EmptyList
 									quote='No tienes aplicaciones...'
 									image={require('../../assets/sin_posiciones.png')}
 									onApply={() => navigation.navigate('Home', { screen: 'Ofertas' })}
 								/>
 							) : (
-								applications.map(application => (
+								userApplications.map(application => (
 									<OfferItem
 										key={application.id}
 										{...application}
@@ -148,4 +153,16 @@ const styles = StyleSheet.create({
     }
 })
 
-export default WorksHomeScreen
+const mapStateToProps = state => {
+    return {
+        userApplications: state.applications.userApplications,
+		userJobs: state.jobs.userJobs
+    }
+}
+
+const mapDispatchToProps = {
+	fetchApplications,
+	fetchJobs
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WorksHomeScreen)

@@ -7,11 +7,9 @@ import { ActivityIndicator, Alert, ScrollView } from 'react-native'
 // Expo
 import { Ionicons } from '@expo/vector-icons'
 
-// Redux
-import { useSelector, useDispatch } from 'react-redux'
-
-// Actions
-import * as applicationActions from '../../store/actions/applications'
+// Redux && Actions
+import { connect } from 'react-redux'
+import { cancelApplication } from '../../store/actions/applications'
 
 // Libs
 import { handleCalendar } from '../../libs/addToCalendar'
@@ -38,18 +36,24 @@ import OfferInfoItem from '../../components/offers/OfferInfoItem'
 import OfferCompany from '../../components/offers/OfferCompany'
 import TinyContractButton from '../../components/UI/TinyTextButton'
 
-const ApplicationDetailScreen = ({ navigation, route }) => {
+const ApplicationDetailScreen = ({
+    navigation,
+    route,
+    userApplications,
+    cancelApplication
+}) => {
     const { applicationId } = route.params
     const [isLoading, setLoading] = useState(false)
+    const thisApplication = userApplications.find(item => item.id === applicationId)
+
+    if (!thisApplication) return <ScrollView></ScrollView>
 
     const {
         offerData,
         eventData,
         companyData,
         applicationData
-    } = useSelector(state => state.applications.userApplications.find(application => application.id === applicationId))
-
-    const dispatch = useDispatch()
+    } = thisApplication
 
     const { hours, minutes } = totalHoursCalc(offerData.schedule)
     const totalSalary = ((hours + minutes / 60) * offerData.salary).toFixed(0)
@@ -66,7 +70,7 @@ const ApplicationDetailScreen = ({ navigation, route }) => {
                 onPress: async () => {
                     setLoading(true)
                     try {
-                        await dispatch(applicationActions.cancelApplication(applicationId))
+                        await cancelApplication(applicationId)
                         navigation.navigate('Home', { screen: 'Trabajos' })
                     } catch (err) {
                         Alert.alert('Oh! Vaya...', err.message, [{ text: 'Okay' }])
@@ -160,4 +164,14 @@ const ApplicationDetailScreen = ({ navigation, route }) => {
     )
 }
 
-export default ApplicationDetailScreen
+const mapStateToProps = state => {
+    return {
+        userApplications: state.applications.userApplications,
+    }
+}
+
+const mapDispatchToProps = {
+    cancelApplication,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ApplicationDetailScreen)

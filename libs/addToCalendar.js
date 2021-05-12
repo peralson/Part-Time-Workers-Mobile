@@ -24,13 +24,14 @@ export const handleCalendar = async eventData => {
                         text: 'Añadir',
                         onPress: () => {
                             const laboraCalendar = calendars.find(each => each.title === 'Labora')
+                            const lastDate = eventData.dates.length === 1 ? 0 : eventData.dates.length - 1
                             if (laboraCalendar === undefined) {
                                 createCalendar()
                                     .then(id => {
                                         Calendar.createEventAsync(id, {
                                             title: eventData.name,
-                                            startDate: eventData.date,
-                                            endDate: eventData.date,
+                                            startDate: eventData.dates[0]._seconds * 1000,
+                                            endDate: eventData.dates[lastDate]._seconds * 1000,
                                             timeZone: 'Europe/Madrid',
                                             location: eventData.location.address.split(',')[0],
                                         })
@@ -38,8 +39,8 @@ export const handleCalendar = async eventData => {
                             } else {
                                 Calendar.createEventAsync(laboraCalendar.id, {
                                     title: eventData.name,
-                                    startDate: eventData.date,
-                                    endDate: eventData.date,
+                                    startDate: eventData.dates[0]._seconds * 1000,
+                                    endDate: eventData.dates[lastDate]._seconds * 1000,
                                     timeZone: 'Europe/Madrid',
                                     location: eventData.location.address.split(',')[0],
                                 })
