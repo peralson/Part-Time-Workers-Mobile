@@ -50,11 +50,12 @@ const ProfilePrivateDetails = ({ navigation, route }) => {
     initialValues: {
       nationality: profile.legal.nationality,
       dniFront: profile.legal.dni.dniFront,
+      dniBack: profile.legal.dni.dniBack,
       dniNumber: profile.legal.dni.number,
       dniBack: profile.legal.dni.dniBack,
       dniExpiryDate: profile.legal.dni.expiryDate,
       ssNumber: profile.legal.ssNumber,
-      bankAccount: profile.bank.bankAccount,
+      bankAccount: profile.payments.bankAccount,
     },
     onSubmit: (values) => {
       setIsLoading(true);

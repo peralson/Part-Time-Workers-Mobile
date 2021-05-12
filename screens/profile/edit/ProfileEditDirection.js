@@ -25,7 +25,9 @@ const DirectionScreen = ({ navigation, route }) => {
   const apiKey = firebaseConfig.apiKey;
   const {
     title,
-    onChangeLocation,
+    onChangeAddress,
+    onChangeLat,
+    onChangeLng,
     placeholder,
   } = route.params;
 
@@ -47,11 +49,9 @@ const DirectionScreen = ({ navigation, route }) => {
     
     try {
       const coords = geoData.results[0].geometry.location;
-      onChangeLocation({
-        address: address,
-        lat: coords.lat,
-        lng: coords.lng,
-      });
+      onChangeAddress(address)
+      onChangeLat(coords.lat)
+      onChangeLng(coords.lng)
       navigation.goBack();
       
     } catch (error) {
