@@ -20,15 +20,15 @@ const ItemDetails = ({ style, category, companyName, address }) => (
     <View style={style}>
         {category && <View style={styles.detail}>
             <Ionicons name="person-outline" color={Colors.darkGrey} size={10} />
-            <Text style={styles.detailText}>{category}</Text>
+            <Text style={styles.detailText} numberOfLines={1}>{category}</Text>
         </View>}
         {companyName && <View style={styles.detail}>
             <Ionicons name="compass-outline" color={Colors.darkGrey} size={10} />
-            <Text style={styles.detailText}>{companyName}</Text>
+            <Text style={styles.detailText} numberOfLines={1}>{companyName}</Text>
         </View>}
         {address && <View style={styles.detail}>
             <Ionicons name="location-outline" color={Colors.darkGrey} size={10} />
-            <Text style={styles.detailText}>{address}</Text>
+            <Text style={styles.detailText} numberOfLines={1}>{address}</Text>
         </View>}
     </View>
 )

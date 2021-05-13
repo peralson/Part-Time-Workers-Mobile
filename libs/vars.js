@@ -23,7 +23,7 @@ export const countries = [
   'Bermuda',
   'Bhutan',
   'Bolivia',
-  'Bosnia &amp; Herzegovina',
+  'Bosnia & Herzegovina',
   'Botswana',
   'Brazil',
   'British Virgin Islands',

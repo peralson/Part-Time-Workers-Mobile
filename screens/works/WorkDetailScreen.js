@@ -2,16 +2,14 @@
 import React, { useState } from 'react'
 
 // React Native
-import { Alert, ScrollView } from 'react-native'
+import { ActivityIndicator, Alert, ScrollView } from 'react-native'
 
 // Expo
 import { Ionicons } from '@expo/vector-icons'
 
-// Redux
-import { useSelector, useDispatch } from 'react-redux'
-
-// Actions
-import * as jobActions from '../../store/actions/jobs'
+// Redux && Actions
+import { connect } from 'react-redux'
+import { cancelJob, checkJob } from '../../store/actions/jobs'
 
 // Libs
 import handleStatus from '../../libs/handleStatus'
@@ -41,22 +39,32 @@ import OfferCompany from '../../components/offers/OfferCompany'
 import TinyContractButton from '../../components/UI/TinyTextButton'
 import BottomAbsConatiner from '../../components/UI/BottomAbsConatiner'
 
-const WorkDetailScreen = ({ navigation, route }) => {
-    const [loading, setLoading] = useState(false)
-
+const WorkDetailScreen = ({
+    navigation,
+    route,
+    cancelJob,
+    checkJob,
+    userJobs
+}) => {
     const { jobId } = route.params
+    const [loading, setLoading] = useState(false)
+    const [loadingDel, setLoadingDel] = useState(false)
+    const thisJob = userJobs.find(job => job.id === jobId)
+
+    if (!thisJob) return <Screen></Screen>
 
     const {
         offerData,
         eventData,
         companyData,
         jobData
-    } = useSelector(state => state.jobs.userJobs.find(job => job.id === jobId))
-
-    const dispatch = useDispatch()
+    } = thisJob
 
     const { hours, minutes } = totalHoursCalc(offerData.schedule)
     const totalSalary = ((hours + minutes / 60) * offerData.salary).toFixed(0)
+
+    const datesLength = offerData.schedule.length;
+    const formatDate = date => moment(date._seconds * 1000).format('D MMMM')
 
     const handleCancelJob = () => {
         Alert.alert('¿Estas seguro?', '', [
@@ -64,24 +72,30 @@ const WorkDetailScreen = ({ navigation, route }) => {
             {
                 text: 'Sí',
                 style: 'destructive',
-                onPress: () => {
-                    dispatch(jobActions.cancelJob(jobId))
-                    navigation.navigate('Home', { screen: 'Trabajos' })
+                onPress: async () => {
+                    setLoadingDel(true)
+                    try {
+                        await cancelJob(jobId)
+                        navigation.navigate('Home', { screen: 'Trabajos' })
+                    } catch (err) {
+                        Alert.alert('Oh! Vaya...', err.message, [{ text: 'Okay' }])
+                    } finally {
+                        setLoadingDel(false)
+                    }
                 }
             }
         ])
     }
 
-    const handleCheck = () => {
+    const handleCheck = async () => {
         setLoading(true)
-        dispatch(jobsActions.checkJob(jobData.id_event))
-            .then(() => {
-                setLoading(false)
-            })
-            .catch(e => {
-                Alert(e.message)
-                setLoading(false)
-            })
+        try {
+            await checkJob(jobData.id_event)
+        } catch (err) {
+            Alert.alert('Oh! Vaya...', err.message, [{ text: 'Okay' }])
+        } finally {
+            setLoading(false)
+        }
     }
 
     return (
@@ -89,7 +103,13 @@ const WorkDetailScreen = ({ navigation, route }) => {
             <HomeWrapper
                 leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
                 title="Trabajo"
-                rightComponent={<TopRightButton title='Cancelar' color='red' onSelect={handleCancelJob} />}
+                rightComponent={(
+                    <TopRightButton
+                        title={loadingDel ? <ActivityIndicator color="red" size="small" /> : 'Cancelar'}
+                        color='red'
+                        onSelect={handleCancelJob}
+                    />
+                )}
             />
             <ScrollView
                 showsVerticalScrollIndicator={false}
@@ -106,7 +126,10 @@ const WorkDetailScreen = ({ navigation, route }) => {
                 />
                 <DetailsContainer>
                     <DetailItem
-                        title={moment(eventData.date).format('D MMMM')}
+                        title={datesLength === 1
+                            ? formatDate(offerData.schedule[0].day)
+                            : `${formatDate(eventData.dates[0])} - ${formatDate(offerData.schedule[datesLength - 1].day)}`
+                        }
                         icon={
                             <Ionicons
                                 name='calendar-outline'
@@ -129,20 +152,6 @@ const WorkDetailScreen = ({ navigation, route }) => {
                         cta='Ver'
                         onSelect={() => navigation.navigate('OffersStack', {screen: 'Map', params: { address: eventData.location.address.split(',')[0], lat: eventData.location.lat, lng: eventData.location.lng }})}
                     />
-                    {/*
-                        <DetailItem
-                            title='WhatsApp'
-                            icon={
-                                <Ionicons
-                                    name='logo-whatsapp'
-                                    size={21}
-                                    color={Colors.white}
-                                />
-                            }
-                            cta='Entrar'
-                            onSelect={() => {}}
-                        />
-                    */}
                 </DetailsContainer>
                 {offerData.description.length !== 0 && (
                     <>
@@ -158,7 +167,7 @@ const WorkDetailScreen = ({ navigation, route }) => {
                 />
 
                 <Label style={{ marginBottom: 8 }}>Más información</Label>
-                <OfferCompany name={companyData.name} image={companyData.photo} />
+                <OfferCompany name={companyData.companyName} image={companyData.companyImage} />
                 <OfferInfoItem
                     left='Salario'
                     right={formattedSalary(offerData.salary) + '€'}
@@ -167,8 +176,11 @@ const WorkDetailScreen = ({ navigation, route }) => {
                     left='Salario extra'
                     right={formattedSalary(offerData.extraSalary) + '€'}
                 />
-                <OfferInfoItem left='Desplazamiento' right='Si' />
-                <OfferInfoItem left='Nocturnidad' right='No' />
+                {offerData.extras.map((extra, index) => {
+					if (extra.amount === 0) return
+					const extraAmount = formattedSalary(parseInt(extra.amount))
+					return <OfferInfoItem key={index} left={extra.name} right={extraAmount + '€'} />
+				})}
                 <OfferInfoItem left='Contrato' right={
 						<TinyContractButton
 							onSelect={() => navigation.navigate('OffersStack', { screen: 'PDF', params: { id: jobData.id_offer, type: 1 } })} 
@@ -191,4 +203,15 @@ const WorkDetailScreen = ({ navigation, route }) => {
     )
 }
 
-export default WorkDetailScreen
+const mapStateToProps = state => {
+    return {
+        userJobs: state.jobs.userJobs
+    }
+}
+
+const mapDispatchToProps = {
+    cancelJob,
+    checkJob
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WorkDetailScreen)

@@ -14,10 +14,10 @@ import moment from 'moment'
 import 'moment/locale/es'
 
 // Redux
-import { useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 
 // Actions
-import * as jobsActions from '../../store/actions/jobs'
+import { checkJob } from '../../store/actions/jobs'
 
 // Components
 import Card from '../UI/Card'
@@ -26,21 +26,25 @@ import ItemTitle from '../UI/ItemTitle'
 import ItemDetails from '../UI/ItemDetails'
 import ApplyButton from '../offers/ApplyButton'
 
-const JobItem = ({ offerData, eventData, companyData, jobData, onSelect }) => {
+const JobItem = ({
+    offerData,
+    eventData,
+    companyData,
+    jobData,
+    onSelect,
+    checkJob
+}) => {
     const [loading, setLoading] = useState(false)
 
-    const dispatch = useDispatch()
-
-    const handleCheck = () => {
+    const handleCheck = async () => {
         setLoading(true)
-        dispatch(jobsActions.checkJob(jobData.id_event))
-            .then(() => {
-                setLoading(false)
-            })
-            .catch(e => {
-                Alert(e.message)
-                setLoading(false)
-            })
+        try {
+            await checkJob(jobData.id_event)
+        } catch (err) {
+            Alert.alert('Oh! Vaya...', err.message, [{ text: 'Okay' }])
+        } finally {
+            setLoading(false)
+        }
     }
 
     return (
@@ -56,7 +60,7 @@ const JobItem = ({ offerData, eventData, companyData, jobData, onSelect }) => {
                 <ItemDetails
                     style={{ marginBottom: 16 }}
                     category={offerData.category}
-                    companyName={companyData.name}
+                    companyName={companyData.companyName}
                     address={eventData.location.address.split(',')[0]}
                 />
                 <ApplyButton locked={jobData.status === "none"} onSelect={handleCheck}>
@@ -67,4 +71,8 @@ const JobItem = ({ offerData, eventData, companyData, jobData, onSelect }) => {
     )
 }
 
-export default JobItem
+const mapDispatchToProps = {
+    checkJob
+}
+
+export default connect(null, mapDispatchToProps)(JobItem)

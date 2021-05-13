@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontFamily: Family.normal,
-        fontSize: Size.small
+        fontSize: Size.tiny
     }
 })
 

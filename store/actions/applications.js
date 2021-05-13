@@ -2,6 +2,7 @@
 export const FETCH_APPLICATIONS = 'FETCH_APPLICATIONS'
 export const SEND_APPLICATIONS = 'SEND_APPLICATION'
 export const CANCEL_APPLICATIONS = 'CANCEL_APPLICATION'
+export const REMOVE_OFFER = 'REMOVE_OFFER'
 
 // Libs
 import sortByDate from '../../libs/sortByDate'
@@ -75,6 +76,11 @@ export const sendApplication = offerId => {
 			offerId: offerId,
 			offer: offer,
 			applicationId: resData.body
+		})
+
+		dispatch({
+			type: REMOVE_OFFER,
+			offerId: offerId,
 		})
 	}
 }
