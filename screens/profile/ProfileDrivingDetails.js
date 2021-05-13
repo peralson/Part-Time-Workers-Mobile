@@ -67,7 +67,7 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
             profile.id,
             values.hasLicense,
             values.hasCar,
-            values.license,
+            values.type,
             values.front,
             values.back
           )

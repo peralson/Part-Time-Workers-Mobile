@@ -41,7 +41,8 @@ export const fetchProfile = () => {
       resData.body[0].data.payments,
       resData.body[0].data.transport,
     );
-
+    
+    profile.transport.license.type = ["A", "B"];
     dispatch({
       type: FETCH_PROFILE,
       profile: profile,
@@ -194,9 +195,9 @@ export const updateProfileTransport = (
   id,
   hasLicense,
   hasCar,
-  licenseType,
-  licenseFront,
-  licenseBack
+  type,
+  front,
+  back
 ) => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
@@ -204,12 +205,12 @@ export const updateProfileTransport = (
 
     currentProfile.profile.transport.hasLicense = hasLicense;
     currentProfile.profile.transport.hasCar = hasCar;
-    currentProfile.profile.transport.license.type = licenseType;
-    currentProfile.profile.transport.license.front = licenseFront;
-    currentProfile.profile.transport.license.back = licenseBack;
+    currentProfile.profile.transport.license.type = type;
+    currentProfile.profile.transport.license.front = front;
+    currentProfile.profile.transport.license.back = back;
 
     
-    const updatedProfile = {...currentProfile.profile}    
+    const updatedProfile = {...currentProfile.profile} 
 
     const response = await fetch(
       `https://us-central1-partime-60670.cloudfunctions.net/api/user/worker`,
