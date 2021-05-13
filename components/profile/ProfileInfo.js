@@ -14,6 +14,9 @@ import Colors from "../../constants/Colors"
 import Family from "../../constants/FontFamily"
 import Size from "../../constants/FontSize"
 
+// Libs
+import loadImage from '../../libs/loadImage';
+
 const ProfileInfo = ({
 	title,
 	image,
@@ -30,7 +33,7 @@ const ProfileInfo = ({
 			)}
 			</View>
 			<View style={styles.imageContainer}>
-				<Image style={styles.image} source={{ uri: image }} />
+				<Image style={styles.image} source={loadImage(image)} />
 			</View>
 		</View>
     </View>

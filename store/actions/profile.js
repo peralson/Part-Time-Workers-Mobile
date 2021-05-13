@@ -42,7 +42,6 @@ export const fetchProfile = () => {
       resData.body[0].data.transport,
     );
     
-    profile.transport.license.type = ["A", "B"];
     dispatch({
       type: FETCH_PROFILE,
       profile: profile,
@@ -98,7 +97,9 @@ export const updateProfileGeneral = (
   birthday,
   bio,
   lat,
-  lng
+  lng,
+  main,
+  profesional
 ) => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
@@ -106,6 +107,8 @@ export const updateProfileGeneral = (
 
     currentProfile.profile.name = name;
     currentProfile.profile.contact.email = email;
+    currentProfile.profile.images.main = main;
+    currentProfile.profile.images.profesional = profesional;
     currentProfile.profile.contact.phoneNumber = phoneNumber;
     currentProfile.profile.contact.location.address = address;
     currentProfile.profile.contact.location.lat = lat;

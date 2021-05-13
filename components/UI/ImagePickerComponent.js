@@ -23,16 +23,19 @@ import Colors from '../../constants/Colors';
 import Family from '../../constants/FontFamily';
 import Size from '../../constants/FontSize';
 
+// Libs
+import loadImage from '../../libs/loadImage';
+
 const ImagePickerComponent = ({ title, placeholder, onChange }) => {
   const [image, setImage] = useState(placeholder);
-  //TODO: AÑADIR ONCHANGE FORMIK
+  console.log(placeholder)
   useEffect(() => {
     (async () => {
       if (Platform.OS !== 'web') {
         const { status } =
           await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (status !== 'granted') {
-          alert('Sorry, we need camera roll permissions to make this work!');
+          alert('Se necesitan permisos para realizar esta acción');
         }
       }
     })();
@@ -43,19 +46,15 @@ const ImagePickerComponent = ({ title, placeholder, onChange }) => {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 1,
+      quality: 0,
     });
 
-    console.log('base64: ');
     let options = { encoding: FileSystem.EncodingType.Base64 };
     let base64 = await FileSystem.readAsStringAsync(result.uri, options);
 
-    console.log(result);
-    console.log('base64: ');
-    console.log(base64);
-
     if (!result.cancelled) {
-      setImage(result.uri);
+      setImage(base64);
+      onChange(base64);
     }
   };
 
@@ -63,12 +62,12 @@ const ImagePickerComponent = ({ title, placeholder, onChange }) => {
     <View style={styles.profile}>
       <View style={styles.left}>
         {image ? (
-          <Image style={styles.image} source={{ uri: image }} />
+          <Image style={styles.image} source={loadImage(image)} />
         ) : (
           <Ionicons
             name='cloud-upload-outline'
             size={19}
-            style={{color: Colors.primary}}
+            style={{ color: Colors.primary }}
           />
         )}
       </View>
@@ -95,7 +94,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     marginRight: 16,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   image: {
     width: '100%',

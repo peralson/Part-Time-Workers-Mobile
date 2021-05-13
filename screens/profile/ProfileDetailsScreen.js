@@ -56,7 +56,9 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
       birthday: profile.birthday,
       gender: profile.gender,
       bio: profile.bio,
-    },//TODO: AÑADIR VARIABLES DE IMAGENES
+      main: profile.images.main,
+      profesional: profile.images.profesional
+    },
     onSubmit: (values) => {
       setIsLoading(true);
 
@@ -68,9 +70,13 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
             values.phoneNumber,
             values.email,
             values.address,
+            values.lat,
+            values.lng,
             values.gender,
             values.birthday,
-            values.bio
+            values.bio,
+            values.main,
+            values.profesional
           )
         );
         setIsLoading(false);
@@ -101,13 +107,15 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
       >
         <View style={{ marginHorizontal: 16 }}>
           <SideScrollPicker>
-            <ImagePickerComponent //TODO: AÑADIR FUNCIONALIDAD ONCHANGE
+            <ImagePickerComponent
               title='Personal'
-              image={profile.images.main}
+              placeholder={formik.values.main}
+              onChange={formik.handleChange('main')}
             />
             <ImagePickerComponent
               title='Profesional'
-              image={profile.images.profesional}
+              placeholder={formik.values.profesional}
+              onChange={formik.handleChange('profesional')}
             />
           </SideScrollPicker>
           <CustomInputComponent
