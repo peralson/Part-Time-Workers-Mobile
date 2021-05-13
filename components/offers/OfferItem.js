@@ -33,6 +33,8 @@ const OfferItem = ({ offerData, eventData, companyData, onSelect }) => {
 
     const datesLength = offerData.schedule.length;
     const formatDate = date => moment(date._seconds * 1000).format('D MMMM')
+    
+    const hasExtras = offerData.extras.filter(extra => extra.amount)
 
     return (
         <TouchableOpacity activeOpacity={0.8} onPress={onSelect}>
@@ -63,9 +65,11 @@ const OfferItem = ({ offerData, eventData, companyData, onSelect }) => {
                                     minutes < 10 ? `:0${minutes}` : `:${minutes}`
                                 )} horas
                             </PrimaryTag>
-                            <PrimaryTag>
-                                ...
-                            </PrimaryTag>
+                            {hasExtras.length !== 0 && (
+                                <PrimaryTag>
+                                    ...
+                                </PrimaryTag>
+                            )}
                         </View>
                     </View>
                     <View style={styles.right}>

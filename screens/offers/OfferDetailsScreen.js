@@ -8,7 +8,7 @@ import { ScrollView } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 
 // Redux
-import { useSelector } from 'react-redux'
+import { connect } from 'react-redux'
 
 // Libs
 import { handleCalendar } from '../../libs/addToCalendar'
@@ -36,14 +36,21 @@ import OfferCompany from '../../components/offers/OfferCompany'
 import TinyContractButton from '../../components/UI/TinyTextButton'
 import BottomAbsConatiner from '../../components/UI/BottomAbsConatiner'
 
-const OfferDetailScreen = ({ navigation, route }) => {
+const OfferDetailScreen = ({
+	navigation,
+	route,
+	openOffers
+}) => {
     const { offerId } = route.params
+	const thisOffer = openOffers.find(offer => offer.id === offerId)
+
+	if (!thisOffer) return <Screen></Screen>
 
     const {
       offerData,
       eventData,
       companyData
-    } = useSelector(state => state.offers.openOffers.find(offer => offer.id === offerId))
+    } = thisOffer
 
     const { hours, minutes } = totalHoursCalc(offerData.schedule)
     const totalSalary = ((hours + minutes / 60) * offerData.salary).toFixed(0)
@@ -80,25 +87,13 @@ const OfferDetailScreen = ({ navigation, route }) => {
 						? formatDate(offerData.schedule[0].day)
 						: `${formatDate(eventData.dates[0])} - ${formatDate(offerData.schedule[datesLength - 1].day)}`
 					}
-					icon={
-						<Ionicons
-							name='calendar-outline'
-							size={21}
-							color={Colors.white}
-						/>
-					}
+					icon={<Ionicons name='calendar-outline' size={21} color={Colors.white} />}
 					cta='Añadir'
 					onSelect={() => handleCalendar(eventData)}
 				/>
 				<DetailItem
 					title={eventData.location.address.split(',')[0]}
-					icon={
-						<Ionicons
-							name='map-outline'
-							size={21}
-							color={Colors.white}
-						/>
-					}
+					icon={<Ionicons name='map-outline' size={21} color={Colors.white} />}
 					cta='Ver'
 					onSelect={() => navigation.navigate('Map', { address: eventData.location.address.split(',')[0], lat: eventData.location.lat, lng: eventData.location.lng })}
 				/>
@@ -123,8 +118,11 @@ const OfferDetailScreen = ({ navigation, route }) => {
 					left='Salario extra'
 					right={formattedSalary(offerData.extraSalary) + '€'}
 				/>
-				<OfferInfoItem left='Desplazamiento' right='Si' />
-				<OfferInfoItem left='Nocturnidad' right='No' />
+				{offerData.extras.map((extra, index) => {
+					if (extra.amount === 0) return
+					const extraAmount = formattedSalary(parseInt(extra.amount))
+					return <OfferInfoItem key={index} left={extra.name} right={extraAmount + '€'} />
+				})}
 				<OfferInfoItem left='Contrato' right={
 						<TinyContractButton
 							onSelect={() => navigation.navigate('OffersStack', { screen: 'PDF', params: { id: offerId, type: 0 } })} 
@@ -147,4 +145,10 @@ const OfferDetailScreen = ({ navigation, route }) => {
 	)
 }
 
-export default OfferDetailScreen
+const mapStateToProps = state => {
+	return {
+		openOffers: state.offers.openOffers
+	}
+}
+
+export default connect(mapStateToProps, null)(OfferDetailScreen)

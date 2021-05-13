@@ -71,21 +71,14 @@ export const checkJob = eventId => {
 			}
 		)
 
-		if (!response.ok) {
-			const resData = await response.json()
-			console.log('Error', resData);
-			throw new Error(resData.body)
-		}
+		if (!response.ok) throw new Error('Ha ocurrido un error')
 
 		const resData = await response.json()
-		const newTask = resData.body.newStatus
-
-		console.log(newTask)
 		
 		dispatch({
 			type: CHECK_JOB,
 			eventId: eventId,
-			newTask: newTask
+			newTask: resData.body.newStatus
 		})
 	}
 }
@@ -104,6 +97,8 @@ export const cancelJob = jobId => {
 				}
 			}
 		)
+
+		if (!response.ok) throw new Error('Ha ocurrido un error')
 
 		const resData = await response.json()
 

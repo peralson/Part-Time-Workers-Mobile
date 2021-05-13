@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 
 // React Native
 import {
-  View,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -11,11 +10,9 @@ import {
   Platform,
 } from 'react-native';
 
-// Redux
-import { useSelector, useDispatch } from 'react-redux';
-
 // Date Picker
 import moment from 'moment';
+import 'moment/locale/es'
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 // Constants
@@ -29,6 +26,7 @@ import ToggleBottomMenu from '../../../components/UI/ToggleBottomMenu';
 import FormWrapper from '../../../components/form/FormWrapper';
 import HomeWrapper from '../../../components/UI/HomeWrapper';
 import BackButton from '../../../components/UI/BackButton';
+import TopRightButton from '../../../components/UI/TopRightButton';
 
 const ProfileEditDate = ({ navigation, route }) => {
   const { title, onChange, placeholder } = route.params;
@@ -36,9 +34,7 @@ const ProfileEditDate = ({ navigation, route }) => {
   const [date, setDate] = useState(new Date(moment(placeholder)));
   const [show, setShow] = useState(false);
 
-  const onShowDatePicker = () => {
-    setShow(!show);
-  };
+  const onShowDatePicker = () => setShow(state => !state);
 
   const onSubmitHandler = async () => {
     if (!date) {
@@ -54,57 +50,78 @@ const ProfileEditDate = ({ navigation, route }) => {
       <HomeWrapper
         leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
         title={title}
+        rightComponent={Platform.OS === 'ios' ? (
+          <TopRightButton
+            title='Guardar'
+            color={Colors.primary}
+            onSelect={onSubmitHandler}
+          />
+        ) : null}
       />
-      <FormWrapper>
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={onShowDatePicker}
-          style={{ marginVertical: 16 }}
-        >
-          <Text style={styles.dateText}>
-            {moment(date).locale('es').format('DD-MM-YYYY')}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={onSubmitHandler}
-          activeOpacity={0.8}
-        >
-          <Text style={styles.buttonText}>Volver</Text>
-        </TouchableOpacity>
-      </FormWrapper>
-      {show && Platform.OS === 'ios' && (
-        <ToggleBottomMenu onSelect={onShowDatePicker}>
-          <DateTimePicker
-            testID='dateTimePicker'
-            locale='es-ES'
-            mode='date'
-            display='inline'
-            value={date}
-            onChange={(e, date) => {
-              const m = moment(date);
-              setDate(new Date(m));
-              onChange(new Date(m));
-              setShow(false);
-            }}
-          />
-        </ToggleBottomMenu>
-      )}
-      {show && Platform.OS === 'android' && (
-        <ToggleBottomMenu onSelect={onShowDatePicker}>
-          <DateTimePicker
-            testID='dateTimePicker'
-            locale='es-ES'
-            mode='date'
-            value={date}
-            onChange={(e, date) => {
-              const m = moment(date);
-              setDate(new Date(m));
-              onChange(new Date(m));
-              setShow(false);
-            }}
-          />
-        </ToggleBottomMenu>
+      {Platform.OS === 'android' ? (
+        <FormWrapper>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={onShowDatePicker}
+            style={styles.dateContainer}
+          >
+            <Text style={styles.dateText}>
+              {moment(date).format('DD-MM-YYYY')}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={onSubmitHandler}
+            activeOpacity={0.8}
+          >
+            <Text style={styles.buttonText}>Volver</Text>
+          </TouchableOpacity>
+          {show && (
+            <ToggleBottomMenu onSelect={onShowDatePicker}>
+              <DateTimePicker
+                testID='dateTimePicker'
+                locale='es-ES'
+                mode='date'
+                value={date}
+                onChange={(e, date) => {
+                  const m = moment(date);
+                  setDate(new Date(m));
+                  onChange(new Date(m));
+                  setShow(false);
+                }}
+              />
+            </ToggleBottomMenu>
+          )}
+        </FormWrapper>
+      ) : (
+        <>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={onShowDatePicker}
+            style={styles.dateContainer}
+          >
+            <Text style={styles.dateText}>
+              {moment(date).format('DD-MM-YYYY')}
+            </Text>
+          </TouchableOpacity>
+          {show && (
+            <ToggleBottomMenu onSelect={onShowDatePicker}>
+              <DateTimePicker
+                testID='dateTimePicker'
+                locale='es-ES'
+                mode='date'
+                display='inline'
+                value={date}
+                onChange={(e, date) => {
+                  const m = moment(date);
+                  setDate(new Date(m));
+                  onChange(new Date(m));
+                  setShow(false);
+                }}
+              />
+            </ToggleBottomMenu>
+          )}
+        </>
       )}
     </Screen>
   );
@@ -115,15 +132,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.white,
   },
-  dateText: {
-    fontFamily: 'gotham-book',
-    fontSize: 16,
+  dateContainer: {
     padding: 16,
+    backgroundColor: Colors.grey,
+    marginTop: 8,
+    marginHorizontal: 16,
     borderRadius: 4,
-    borderColor: Colors.grey,
-    borderWidth: 1,
-    color: Colors.black,
-    backgroundColor: 'white',
+  },
+  dateText: {
+    fontFamily: Family.normal,
+    fontSize: Size.medium,
+    color: Colors.white,
+    lineHeight: 24
   },
   buttonContainer: {
     marginTop: 16,

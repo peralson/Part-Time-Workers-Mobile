@@ -26,7 +26,7 @@ const HomeWrapper = ({ leftComponent, title, rightComponent, description }) => (
 const styles = StyleSheet.create({
     header: {
         paddingHorizontal: 16,
-        paddingTop: Platform.OS === "android" ? 16 : 56,
+        paddingTop: Platform.OS === "android" ? 32 : 56,
         borderBottomColor: Colors.grey,
         borderBottomWidth: 1
     },

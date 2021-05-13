@@ -46,7 +46,7 @@ const ApplicationDetailScreen = ({
     const [isLoading, setLoading] = useState(false)
     const thisApplication = userApplications.find(item => item.id === applicationId)
 
-    if (!thisApplication) return <ScrollView></ScrollView>
+    if (!thisApplication) return <Screen></Screen>
 
     const {
         offerData,
@@ -145,8 +145,11 @@ const ApplicationDetailScreen = ({
                     left='Salario extra'
                     right={formattedSalary(offerData.extraSalary) + '€'}
                 />
-                <OfferInfoItem left='Desplazamiento' right='Si' />
-                <OfferInfoItem left='Nocturnidad' right='No' />
+                {offerData.extras.map((extra, index) => {
+					if (extra.amount === 0) return
+					const extraAmount = formattedSalary(parseInt(extra.amount))
+					return <OfferInfoItem key={index} left={extra.name} right={extraAmount + '€'} />
+				})}
                 <OfferInfoItem left='Contrato' right={
 						<TinyContractButton
 							onSelect={() => navigation.navigate('OffersStack', { screen: 'PDF', params: { id: applicationData.id_offer, type: 0 } })} 

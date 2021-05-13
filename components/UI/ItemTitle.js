@@ -13,9 +13,11 @@ const ItemTitle = ({ children, style }) => <Text numberOfLines={1} style={{...st
 
 const styles = StyleSheet.create({
     title: {
+        flex: 1,
         fontFamily: Family.bold,
         fontSize: Size.small,
-        color: Colors.white
+        color: Colors.white,
+        paddingRight: 8
     },
 })
 
