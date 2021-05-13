@@ -48,6 +48,7 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
   const { profile } = route.params;
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
+  const [showAdder, setShowAdder] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -66,7 +67,7 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
             profile.id,
             values.hasLicense,
             values.hasCar,
-            values.license,
+            values.type,
             values.front,
             values.back
           )
@@ -121,7 +122,7 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
             </View>
 
             <Label>Tipo de licencia</Label>
-            {formik.values.type.map(({ text }, index) => (
+            {formik.values.type.map((item, index) => (
               <View style={styles.licenseInput}>
                 <TouchableOpacity
                   style={styles.inputPage}
@@ -143,7 +144,18 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.removeButton}
-                  onPress={() => formik.values.type.splice(index, 1)}
+                  onPress={() => {
+                    formik.values.type = formik.values.type.filter(
+                      (item) => item !== formik.values.type[index]
+                    );
+                    formik.setFormikState({
+                      ...formik,
+                      ...(formik.values.type = formik.values.type.filter(
+                        (item) => item !== formik.values.type[index]
+                      )),
+                    });
+                    console.log(formik.values.type);
+                  }}
                 >
                   <Ionicons
                     name='trash-outline'
@@ -153,15 +165,25 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
                 </TouchableOpacity>
               </View>
             ))}
-            {/* <Button
-              onPress={() => {}
-                // setFieldValue('questions', [
-                //   ...values.questions,
-                //   createQuestion(),
-                // ])
-              }
-              title='Añadir tipo de licencia'
-            /> */}
+            <TouchableOpacity
+              style={{ ...styles.inputPage, ...{ marginBottom: 24 } }}
+              onPress={() => {
+                const newIndex = formik.values.type.length
+                console.log(formik.values.type);
+                navigation.navigate('ProfileStack', {
+                  screen: 'ProfileEditListItem',
+                  params: {
+                    placeholder: formik.values.type[newIndex],
+                    title: 'Selecciona tipo de licencia',
+                    onChange: formik.handleChange(`type[${newIndex}]`),
+                    options: vars.licenses,
+                  },
+                });
+                setShowAdder(false);
+              }}
+            >
+              <Text style={styles.textInput}>Añadir licencia</Text>
+            </TouchableOpacity>
 
             <Label>Carnet de conducir</Label>
             <ImagePickerComponent
