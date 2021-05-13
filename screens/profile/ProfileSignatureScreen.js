@@ -2,7 +2,7 @@
 import React, { useState, createRef } from 'react'
 
 // React Native
-import { Alert, StyleSheet, View } from 'react-native'
+import { Alert, StyleSheet, View, Text } from 'react-native'
 
 // Libs
 import { Signature } from 'expo-pixi'
@@ -11,6 +11,8 @@ import { fromByteArray } from 'base64-js'
 
 // Constants
 import Colors from '../../constants/Colors'
+import Family from '../../constants/FontFamily'
+import Size from '../../constants/FontSize'
 
 // Components
 import Screen from '../../components/UI/Screen'
@@ -65,6 +67,7 @@ const ProfileSignatureScreen = ({ navigation, sketch = createRef() }) => {
                 )}
             />
             <View style={styles.container}>
+                <Text style={styles.text}>Dibuja tu firma aquí</Text>
                 <Signature
                     ref={ref => (sketch = ref)}
                     strokeColor={0x000000}
@@ -94,6 +97,17 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         height: 300,
         backgroundColor: Colors.grey,
+        overflow: 'hidden'
+    },
+    text: {
+        position: 'absolute',
+        width: '100%',
+        textAlign: 'center',
+        lineHeight: 60,
+        paddingVertical: 120,
+        color: Colors.darkPrimary,
+        fontFamily: Family.bold,
+        fontSize: Size.medium
     }
 })
 

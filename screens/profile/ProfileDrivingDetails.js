@@ -10,8 +10,7 @@ import {
   ActivityIndicator,
   Text,
   Switch,
-  Button,
-  TextInput,
+  Alert,
 } from 'react-native';
 
 // Constants
@@ -24,31 +23,26 @@ import { Ionicons } from '@expo/vector-icons';
 
 // Libs
 import * as vars from '../../libs/vars';
-
-// Form
-import { Formik, useFormik, FieldArray } from 'formik';
-import * as Yup from 'yup';
+import { useFormik } from 'formik';
 
 // Redux
-import { useDispatch } from 'react-redux';
-
-// Actions
-import * as profileActions from '../../store/actions/profile';
+import { connect } from 'react-redux';
+import { updateProfileTransport } from '../../store/actions/profile';
 
 // Components
 import Screen from '../../components/UI/Screen';
 import HomeWrapper from '../../components/UI/HomeWrapper';
 import BackButton from '../../components/UI/BackButton';
-import InputContainer from '../../components/form/InputContainer';
 import Label from '../../components/form/Label';
 import ImagePickerComponent from '../../components/UI/ImagePickerComponent';
-import CustomInputComponent from '../../components/form/CustomInputComponent';
 
-const ProfileDrivingDetails = ({ navigation, route }) => {
+const ProfileDrivingDetails = ({
+  navigation,
+  route,
+  updateProfileTransport
+}) => {
   const { profile } = route.params;
-  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
-  const [showAdder, setShowAdder] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -58,24 +52,27 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
       front: profile.transport.license.front,
       back: profile.transport.license.back,
     },
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       setIsLoading(true);
-      console.log(values);
-      const updateProfile = async () => {
-        await dispatch(
-          profileActions.updateProfileTransport(
-            profile.id,
-            values.hasLicense,
-            values.hasCar,
-            values.type,
-            values.front,
-            values.back
-          )
-        );
-        setIsLoading(false);
-      };
 
-      updateProfile();
+      try {
+        await updateProfileTransport(
+          profile.id,
+          values.hasLicense,
+          values.hasCar,
+          values.type,
+          values.front,
+          values.back
+        );
+      } catch (err) {
+        Alert.alert(
+          'Oh! Vaya...',
+          err.message,
+          [{ text: 'Okay' }]
+        );
+      } finally {
+        setIsLoading(false);
+      }
     },
   });
 
@@ -179,7 +176,6 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
                     options: vars.licenses,
                   },
                 });
-                setShowAdder(false);
               }}
             >
               <Text style={styles.textInput}>Añadir licencia</Text>
@@ -251,4 +247,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileDrivingDetails;
+const mapDispatchToProps = {
+  updateProfileTransport
+}
+
+export default connect(null, mapDispatchToProps)(ProfileDrivingDetails);

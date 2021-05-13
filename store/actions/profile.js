@@ -64,12 +64,14 @@ export const fetchUserLists = () => {
       }
     )
 
-    if (!response.ok) throw new Error()
+    if (!response.ok && response.status === 404) {
+      dispatch({ type: FETCH_USER_LISTS, userLists: [] })
+      return
+    }
+    if (!response.ok) throw new Error('Algo ha ocurrido un error.')
 
     const resData = await response.json()
     const userLists = []
-
-    if (resData.body === "We could not find any list") dispatch({ type: FETCH_USER_LISTS, userLists: [] })
 
     resData.body.map(list => {
       userLists.push({

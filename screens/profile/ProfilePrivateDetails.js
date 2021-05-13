@@ -15,6 +15,7 @@ import {
 // Libs
 import moment from 'moment';
 import * as vars from '../../libs/vars';
+import { useFormik } from 'formik';
 
 // Constants
 import Colors from '../../constants/Colors';
@@ -24,10 +25,6 @@ import Size from '../../constants/FontSize';
 // Redux && Actions
 import { connect } from 'react-redux';
 import { updateProfileLegal } from '../../store/actions/profile';
-
-// Form
-import { Formik, useFormik } from 'formik';
-import * as Yup from 'yup';
 
 // Components
 import Screen from '../../components/UI/Screen';
@@ -57,27 +54,27 @@ const ProfilePrivateDetails = ({
       ssNumber: profile.legal.ssNumber,
       bankAccount: profile.payments.bankAccount,
     },
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       setIsLoading(true);
-
-      const updateProfile = async () => {
-        try {
-          await updateProfileLegal(
-            values.nationality,
-            values.dniFront,
-            values.dniNumber,
-            values.dniBack,
-            values.dniExpiryDate,
-            values.ssNumber,
-            values.bankAccount
-          );
-        } catch (error) {
-          Alert.alert('Oh! Vaya...', error.message, [{ text: 'Okay' }])
-        } finally {
-          setIsLoading(false);
-        }
-      };
-      updateProfile();
+      try {
+        await updateProfileLegal(
+          values.nationality,
+          values.dniFront,
+          values.dniNumber,
+          values.dniBack,
+          values.dniExpiryDate,
+          values.ssNumber,
+          values.bankAccount
+        );
+      } catch (error) {
+        Alert.alert(
+          'Oh! Vaya...',
+          error.message,
+          [{ text: 'Okay' }]
+        )
+      } finally {
+        setIsLoading(false);
+      }
     },
   });
 

@@ -9,6 +9,7 @@ import {
   View,
   TouchableOpacity,
   Platform,
+  Alert,
 } from 'react-native';
 
 // Expo
@@ -35,7 +36,11 @@ const ImagePickerComponent = ({ title, placeholder, onChange }) => {
         const { status } =
           await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (status !== 'granted') {
-          alert('Se necesitan permisos para realizar esta acción');
+          Alert.alert(
+            'Oh! Vaya...',
+            'Se necesitan permisos para realizar esta acción',
+            [{ text: 'Okay' }]
+          );
         }
       }
     })();

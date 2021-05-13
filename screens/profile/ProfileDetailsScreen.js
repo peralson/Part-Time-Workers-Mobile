@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Text,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 
 // Constants
@@ -18,16 +19,12 @@ import Size from '../../constants/FontSize';
 
 // Libs
 import moment from 'moment';
+import 'moment/locale/es'
+import { useFormik } from 'formik';
 
 // Redux
-import { useDispatch } from 'react-redux';
-
-// Form
-import { Formik, useFormik } from 'formik';
-import * as Yup from 'yup';
-
-// Actions
-import * as profileActions from '../../store/actions/profile';
+import { connect } from 'react-redux';
+import { updateProfileGeneral } from '../../store/actions/profile';
 
 // Components
 import Screen from '../../components/UI/Screen';
@@ -40,9 +37,12 @@ import InputContainer from '../../components/form/InputContainer';
 import Label from '../../components/form/Label';
 import CustomInputComponent from '../../components/form/CustomInputComponent';
 
-const ProfileDetailsScreen = ({ navigation, route }) => {
+const ProfileDetailsScreen = ({
+  navigation,
+  route,
+  updateProfileGeneral
+}) => {
   const { profile } = route.params;
-  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
   const formik = useFormik({
@@ -59,30 +59,32 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
       main: profile.images.main,
       profesional: profile.images.profesional
     },
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       setIsLoading(true);
-
-      const updateProfile = async () => {
-        await dispatch(
-          profileActions.updateProfileGeneral(
-            profile.id,
-            values.name,
-            values.phoneNumber,
-            values.email,
-            values.address,
-            values.lat,
-            values.lng,
-            values.gender,
-            values.birthday,
-            values.bio,
-            values.main,
-            values.profesional
-          )
+      try {
+        await updateProfileGeneral(
+          profile.id,
+          values.name,
+          values.phoneNumber,
+          values.email,
+          values.address,
+          values.lat,
+          values.lng,
+          values.gender,
+          values.birthday,
+          values.bio,
+          values.main,
+          values.profesional
         );
+      } catch (err) {
+        Alert.alert(
+          'Oh! Vaya...',
+          err.message,
+          [{ text: 'Okay' }]
+        );
+      } finally {
         setIsLoading(false);
-      };
-
-      updateProfile();
+      }
     },
   });
 
@@ -145,7 +147,7 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
                     onChangeAddress: formik.handleChange('address'),
                     onChangeLat: formik.handleChange('lat'),
                     onChangeLng: formik.handleChange('lng'),
-                    // placeholder: formik.values.address,
+                    placeholder: formik.values.address,
                   },
                 })
               }
@@ -235,4 +237,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileDetailsScreen;
+const mapDispatchToProps = {
+  updateProfileGeneral
+}
+
+export default connect(null, mapDispatchToProps)(ProfileDetailsScreen);
