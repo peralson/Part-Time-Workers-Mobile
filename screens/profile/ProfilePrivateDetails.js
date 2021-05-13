@@ -14,7 +14,7 @@ import {
 
 // Libs
 import moment from 'moment';
-import countries from '../../libs/countries';
+import * as vars from '../../libs/vars';
 
 // Constants
 import Colors from '../../constants/Colors';
@@ -111,7 +111,7 @@ const ProfilePrivateDetails = ({
                   params: {
                     title: 'Selecciona nacionalidad',
                     placeholder: formik.values.nationality,
-                    options: countries,
+                    options: vars.countries,
                     onChange: formik.handleChange('nationality'),
                   },
                 })

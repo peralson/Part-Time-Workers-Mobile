@@ -2,11 +2,21 @@
 import React, { useState, useEffect } from 'react';
 
 // React Native
-import { Image, Text, StyleSheet, View, TouchableOpacity, Platform } from 'react-native';
+import {
+  Image,
+  Text,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
+
+// Expo
+import { Ionicons } from '@expo/vector-icons';
 
 // Image picker
 import * as ImagePicker from 'expo-image-picker';
-import * as FileSystem from 'expo-file-system'
+import * as FileSystem from 'expo-file-system';
 
 // Constants
 import Colors from '../../constants/Colors';
@@ -15,11 +25,12 @@ import Size from '../../constants/FontSize';
 
 const ImagePickerComponent = ({ title, placeholder, onChange }) => {
   const [image, setImage] = useState(placeholder);
-
+  //TODO: AÑADIR ONCHANGE FORMIK
   useEffect(() => {
     (async () => {
       if (Platform.OS !== 'web') {
-        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        const { status } =
+          await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (status !== 'granted') {
           alert('Sorry, we need camera roll permissions to make this work!');
         }
@@ -29,29 +40,37 @@ const ImagePickerComponent = ({ title, placeholder, onChange }) => {
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
 
+    console.log('base64: ');
     let options = { encoding: FileSystem.EncodingType.Base64 };
-  let base64 = await FileSystem.readAsStringAsync(result.uri, options);
+    let base64 = await FileSystem.readAsStringAsync(result.uri, options);
 
     console.log(result);
-    console.log('base64: ', base64)
+    console.log('base64: ');
+    console.log(base64);
 
     if (!result.cancelled) {
       setImage(result.uri);
     }
   };
 
-  
-
   return (
     <View style={styles.profile}>
       <View style={styles.left}>
-        <Image style={styles.image} source={{ uri: image }} />
+        {image ? (
+          <Image style={styles.image} source={{ uri: image }} />
+        ) : (
+          <Ionicons
+            name='cloud-upload-outline'
+            size={19}
+            style={{color: Colors.primary}}
+          />
+        )}
       </View>
       <View style={styles.right}>
         <Text style={styles.title}>{title}</Text>
@@ -75,6 +94,8 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     overflow: 'hidden',
     marginRight: 16,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   image: {
     width: '100%',

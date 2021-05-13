@@ -56,7 +56,7 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
       birthday: profile.birthday,
       gender: profile.gender,
       bio: profile.bio,
-    },
+    },//TODO: AÑADIR VARIABLES DE IMAGENES
     onSubmit: (values) => {
       setIsLoading(true);
 
@@ -101,7 +101,7 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
       >
         <View style={{ marginHorizontal: 16 }}>
           <SideScrollPicker>
-            <ImagePickerComponent
+            <ImagePickerComponent //TODO: AÑADIR FUNCIONALIDAD ONCHANGE
               title='Personal'
               image={profile.images.main}
             />

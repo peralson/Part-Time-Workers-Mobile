@@ -194,9 +194,9 @@ export const updateProfileTransport = (
   id,
   hasLicense,
   hasCar,
-  // licenseType,
-  // licenseFront,
-  // licenseBack
+  licenseType,
+  licenseFront,
+  licenseBack
 ) => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
@@ -204,6 +204,10 @@ export const updateProfileTransport = (
 
     currentProfile.profile.transport.hasLicense = hasLicense;
     currentProfile.profile.transport.hasCar = hasCar;
+    currentProfile.profile.transport.license.type = licenseType;
+    currentProfile.profile.transport.license.front = licenseFront;
+    currentProfile.profile.transport.license.back = licenseBack;
+
     
     const updatedProfile = {...currentProfile.profile}    
 
