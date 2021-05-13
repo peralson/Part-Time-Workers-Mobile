@@ -38,7 +38,7 @@ const ProfileInfo = ({
 
 const styles = StyleSheet.create({
 	component: {
-		paddingTop: Platform.OS === 'android' ? 16 : 72,
+		paddingTop: Platform.OS === 'android' ? 48 : 72,
 		backgroundColor: Colors.darkPrimary,
 		borderBottomColor: Colors.grey,
 		borderBottomWidth: 1,
