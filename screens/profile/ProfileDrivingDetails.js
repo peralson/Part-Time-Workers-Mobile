@@ -168,8 +168,7 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
             <TouchableOpacity
               style={{ ...styles.inputPage, ...{ marginBottom: 24 } }}
               onPress={() => {
-                formik.values.type.push('Nueva licencia');
-                const newIndex = formik.values.type.indexOf('nueva licencia');
+                const newIndex = formik.values.type.length
                 console.log(formik.values.type);
                 navigation.navigate('ProfileStack', {
                   screen: 'ProfileEditListItem',
