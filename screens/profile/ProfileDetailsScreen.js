@@ -179,13 +179,13 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
                     title: 'Selecciona género',
                     onChange: formik.handleChange('gender'),
                     options: ['Hombre', 'Mujer'],
-                    values: ['male', 'female'],
+                    values: ['Hombre', 'Mujer'],
                   },
                 })
               }
             >
               <Text style={styles.textInput}>
-                {formik.values.gender === 'male' ? 'Hombre' : 'Mujer'}
+                {formik.values.gender === 'Hombre' ? 'Hombre' : 'Mujer'}
               </Text>
             </TouchableOpacity>
           </InputContainer>

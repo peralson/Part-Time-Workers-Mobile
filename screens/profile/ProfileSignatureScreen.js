@@ -1,11 +1,13 @@
 // React
-import React from 'react'
+import React, { useState, createRef } from 'react'
 
 // React Native
-import { StyleSheet, Text, View, Button } from 'react-native'
+import { Alert, StyleSheet, View } from 'react-native'
 
 // Libs
-import ExpoPixi from 'expo-pixi'
+import { Signature } from 'expo-pixi'
+import { readAsStringAsync } from 'expo-file-system'
+import { fromByteArray } from 'base64-js'
 
 // Constants
 import Colors from '../../constants/Colors'
@@ -16,9 +18,37 @@ import HomeWrapper from '../../components/UI/HomeWrapper'
 import BackButton from '../../components/UI/BackButton'
 import TopRightButton from '../../components/UI/TopRightButton'
 
-const ProfileSignatureScreen = ({ navigation }) => {
-    const handleSaveSignature = () => {
+const ProfileSignatureScreen = ({ navigation, sketch = createRef() }) => {
+    const [file, setFile] = useState(null)
 
+    const stringToUint8Array = str => {
+        const length = str.length;
+        const array = new Uint8Array(new ArrayBuffer(length));
+
+        return array.forEach(item => array[item] = str.charCodeAt(item));
+    }
+    
+    const fileToBase64 = async uri => {
+        try {
+          const content = await readAsStringAsync(uri);
+          return fromByteArray(stringToUint8Array(content));
+        } catch (e) {
+          console.error('fileToBase64()', e.message);
+        }
+    }
+
+    const handleSaveSignature = () => {
+        if (!file) {
+            Alert.alert(
+                '¡Ha ocurrido un error!',
+                'Parece que no has firmado correctamente',
+                [{ text: 'Okay' }]
+            )
+            return
+        }
+
+        console.log(file);
+        console.log('Has firmado correctamente');
     }
 
     return (
@@ -35,11 +65,22 @@ const ProfileSignatureScreen = ({ navigation }) => {
                 )}
             />
             <View style={styles.container}>
-                <ExpoPixi.Sketch
-                    strokeColor={0xFFFFFF}
-                    strokeWidth={8}
-                    strokeAlpha={0.9}
+                <Signature
+                    ref={ref => (sketch = ref)}
+                    strokeColor={0x000000}
                     style={{ flex: 1 }}
+                    onChange={async () => {
+                        const { uri } = await sketch.takeSnapshotAsync({
+                            format: 'png',
+                        });
+                        try {
+                            setFile(await readAsStringAsync(
+                                uri, { encoding: 'base64' }
+                            ))
+                        } catch (e) {
+                            console.error(e.message);
+                        }
+                    }}
                 />
             </View>
         </Screen>
