@@ -60,7 +60,7 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
     },
     onSubmit: (values) => {
       setIsLoading(true);
-
+      console.log(values);
       const updateProfile = async () => {
         await dispatch(
           profileActions.updateProfileTransport(
@@ -85,7 +85,7 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
         leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
         title='Transporte'
         rightComponent={
-          <TouchableOpacity onPress={formik.handleSubmit}>
+          <TouchableOpacity onPress={formik.submitForm}>
             {isLoading ? (
               <ActivityIndicator size='small' color={Colors.primary} />
             ) : (
@@ -168,7 +168,7 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
             <TouchableOpacity
               style={{ ...styles.inputPage, ...{ marginBottom: 24 } }}
               onPress={() => {
-                const newIndex = formik.values.type.length
+                const newIndex = formik.values.type.length;
                 console.log(formik.values.type);
                 navigation.navigate('ProfileStack', {
                   screen: 'ProfileEditListItem',
@@ -188,11 +188,13 @@ const ProfileDrivingDetails = ({ navigation, route }) => {
             <Label>Carnet de conducir</Label>
             <ImagePickerComponent
               title='Imagen Frontal'
-              image={formik.values.front}
+              placeholder={formik.values.front}
+              onChange={formik.handleChange('front')}
             />
             <ImagePickerComponent
               title='Imagen trasera'
-              image={formik.values.back}
+              placeholder={formik.values.back}
+              onChange={formik.handleChange('back')}
             />
           </View>
         )}

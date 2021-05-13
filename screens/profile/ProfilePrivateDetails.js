@@ -87,7 +87,7 @@ const ProfilePrivateDetails = ({
         leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
         title='Datos legales'
         rightComponent={
-          <TouchableOpacity onPress={formik.handleSubmit}>
+          <TouchableOpacity onPress={formik.submitForm}>
             {isLoading ? (
               <ActivityIndicator size='small' color={Colors.primary} />
             ) : (

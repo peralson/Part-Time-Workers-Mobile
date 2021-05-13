@@ -27,8 +27,8 @@ import Size from '../../constants/FontSize';
 import loadImage from '../../libs/loadImage';
 
 const ImagePickerComponent = ({ title, placeholder, onChange }) => {
-  const [image, setImage] = useState(placeholder);
-  console.log(placeholder)
+  const [image, setImage] = useState({placeholder});
+
   useEffect(() => {
     (async () => {
       if (Platform.OS !== 'web') {

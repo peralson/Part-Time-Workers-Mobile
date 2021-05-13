@@ -92,7 +92,7 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
         leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
         title='Mi información'
         rightComponent={
-          <TouchableOpacity onPress={formik.handleSubmit}>
+          <TouchableOpacity onPress={formik.submitForm}>
             {isLoading ? (
               <ActivityIndicator size='small' color={Colors.primary} />
             ) : (
@@ -145,7 +145,7 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
                     onChangeAddress: formik.handleChange('address'),
                     onChangeLat: formik.handleChange('lat'),
                     onChangeLng: formik.handleChange('lng'),
-                    placeholder: formik.values.address,
+                    // placeholder: formik.values.address,
                   },
                 })
               }
@@ -165,7 +165,7 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
                   params: {
                     title: 'Selecciona fecha de nacimiento',
                     onChange: formik.handleChange('birthday'),
-                    placeholder: formik.values.birthday,
+                    // placeholder: formik.values.birthday,
                   },
                 })
               }
@@ -183,7 +183,7 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
                 navigation.navigate('ProfileStack', {
                   screen: 'ProfileEditListItem',
                   params: {
-                    placeholder: formik.values.gender,
+                    // placeholder: formik.values.gender,
                     title: 'Selecciona género',
                     onChange: formik.handleChange('gender'),
                     options: ['Hombre', 'Mujer'],
@@ -199,7 +199,7 @@ const ProfileDetailsScreen = ({ navigation, route }) => {
           </InputContainer>
           <Label>Biografía</Label>
           <MultilineInput
-            placeholder={formik.values.bio}
+            // placeholder={formik.values.bio}
             onChange={() => formik.handleChange('bio')}
           />
         </View>
