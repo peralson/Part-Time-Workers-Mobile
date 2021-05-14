@@ -202,7 +202,7 @@ const ProfileDetailsScreen = ({
           <Label>Biografía</Label>
           <MultilineInput
             placeholder={formik.values.bio}
-            onChange={() => formik.handleChange('bio')}
+            onChange={formik.handleChange('bio')}
           />
         </View>
       </ScrollView>
