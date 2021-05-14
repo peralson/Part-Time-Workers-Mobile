@@ -107,19 +107,19 @@ const ProfileDetailsScreen = ({
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
       >
+        <SideScrollPicker>
+          <ImagePickerComponent
+            title='Personal'
+            placeholder={formik.values.main}
+            onChange={formik.handleChange('main')}
+          />
+          <ImagePickerComponent
+            title='Profesional'
+            placeholder={formik.values.profesional}
+            onChange={formik.handleChange('profesional')}
+          />
+        </SideScrollPicker>
         <View style={{ marginHorizontal: 16 }}>
-          <SideScrollPicker>
-            <ImagePickerComponent
-              title='Personal'
-              placeholder={formik.values.main}
-              onChange={formik.handleChange('main')}
-            />
-            <ImagePickerComponent
-              title='Profesional'
-              placeholder={formik.values.profesional}
-              onChange={formik.handleChange('profesional')}
-            />
-          </SideScrollPicker>
           <CustomInputComponent
             onChange={formik.handleChange('name')}
             value={formik.values.name}

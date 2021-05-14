@@ -14,15 +14,12 @@ import Colors from "../../constants/Colors"
 import Family from "../../constants/FontFamily"
 import Size from "../../constants/FontSize"
 
-// Libs
-import loadImage from '../../libs/loadImage';
-
 const ProfileInfo = ({
 	title,
 	image,
 	percentage
 }) => (
-    <View style={styles.component}>
+	<View style={styles.component}>
 		<View style={styles.profile}>
 			<View style={styles.profileMainText}>
 			<Text style={styles.name}>{title}</Text>
@@ -33,10 +30,10 @@ const ProfileInfo = ({
 			)}
 			</View>
 			<View style={styles.imageContainer}>
-				<Image style={styles.image} source={{uri: image}} />
+				<Image source={{ uri: image, width: 48, height: 48 }} />
 			</View>
 		</View>
-    </View>
+	</View>
 )
 
 const styles = StyleSheet.create({
@@ -53,14 +50,8 @@ const styles = StyleSheet.create({
 		paddingBottom: 16,
 	},
 	imageContainer: {
-		height: 48,
-		width: 48,
 		borderRadius: 4,
 		overflow: 'hidden',
-	},
-	image: {
-		width: '100%',
-		height: '100%',
 	},
 	profileMainText: {
 		flex: 1,
