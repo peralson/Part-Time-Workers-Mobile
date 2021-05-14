@@ -28,7 +28,7 @@ import Size from '../../constants/FontSize';
 import loadImage from '../../libs/loadImage';
 
 const ImagePickerComponent = ({ title, placeholder, onChange }) => {
-  const [image, setImage] = useState({uri: placeholder});
+  const [image, setImage] = useState(placeholder);
 
   useEffect(() => {
     (async () => {
@@ -58,7 +58,7 @@ const ImagePickerComponent = ({ title, placeholder, onChange }) => {
     let base64 = await FileSystem.readAsStringAsync(result.uri, options);
 
     if (!result.cancelled) {
-      setImage(loadImage(base64));
+      setImage(result);
       onChange(base64);
     }
   };
@@ -67,7 +67,7 @@ const ImagePickerComponent = ({ title, placeholder, onChange }) => {
     <View style={styles.profile}>
       <View style={styles.left}>
         {image ? (
-          <Image style={styles.image} source={image} />
+          <Image style={styles.image} source={{uri: image}} />
         ) : (
           <Ionicons
             name='cloud-upload-outline'

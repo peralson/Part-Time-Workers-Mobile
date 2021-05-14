@@ -41,15 +41,6 @@ export const fetchProfile = () => {
       resData.body[0].data.payments,
       resData.body[0].data.transport,
     );
-
-    profile.bio = "Hola";
-    profile.birthday = {
-      "_nanoseconds": 0,
-      "_seconds": 1651010400,
-    };
-    profile.contact.location.lat = 43
-    profile.gender = 'male'
-    console.log(profile)
     
     dispatch({
       type: FETCH_PROFILE,
