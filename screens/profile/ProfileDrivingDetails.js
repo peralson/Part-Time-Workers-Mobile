@@ -45,8 +45,6 @@ const ProfileDrivingDetails = ({
   const { profile } = route.params;
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(profile);
-
   const formik = useFormik({
     initialValues: {
       hasLicense: profile.transport.hasLicense,

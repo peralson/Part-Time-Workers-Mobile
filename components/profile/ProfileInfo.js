@@ -1,18 +1,13 @@
 // React
-import React from "react"
+import React from 'react';
 
 // React Native
-import {
-  Image,
-  Text,
-  StyleSheet,
-  View
-} from "react-native"
+import { Image, Text, StyleSheet, View } from 'react-native';
 
 // Constants
-import Colors from "../../constants/Colors"
-import Family from "../../constants/FontFamily"
-import Size from "../../constants/FontSize"
+import Colors from '../../constants/Colors';
+import Family from '../../constants/FontFamily';
+import Size from '../../constants/FontSize';
 import noPicture from '../../assets/profile-no-picture.png';
 
 const ProfileInfo = ({ title, image, percentage }) => (

@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Actions
 import * as offersActions from '../../store/actions/offers';
-import * as applicationActions from '../../store/actions/applications';
 
 // Components
 import Screen from '../../components/UI/Screen';

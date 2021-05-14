@@ -12,12 +12,10 @@ import Family from '../../constants/FontFamily'
 // Firebase
 import firebase from 'firebase'
 
-// Redux
-import { useDispatch } from 'react-redux'
-
-// Actions
-import * as authActions from '../../store/actions/auth'
-import * as profileActions from '../../store/actions/profile'
+// Redux & Actions
+import { connect } from 'react-redux'
+import { login } from '../../store/actions/auth'
+import { fetchProfile } from '../../store/actions/profile'
 
 // Logo
 import Logo from '../../assets/Logo.png'
@@ -29,9 +27,11 @@ import InputContainer from '../../components/form/InputContainer'
 import Label from '../../components/form/Label'
 import Input from '../../components/form/Input'
 
-const AuthScreen = ({ navigation }) => {
-    const dispatch = useDispatch()
-
+const AuthScreen = ({
+    navigation,
+    login,
+    fetchProfile
+}) => {
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
     const [email, setEmail] = useState('')
@@ -59,8 +59,8 @@ const AuthScreen = ({ navigation }) => {
                     firebase.auth().signOut()
                 }
             })
-            .then(data => dispatch(authActions.login(data)))
-            .then(() => dispatch(profileActions.fetchProfile()))
+            .then(data => login(data))
+            .then(() => fetchProfile())
             .then(() => setIsLoading(false))
             .then(() => navigation.navigate('App'))
             .catch(err => {
@@ -179,4 +179,9 @@ const styles = StyleSheet.create({
     }
 })
 
-export default AuthScreen
+const mapDispatchToProps = {
+    login,
+    fetchProfile
+}
+
+export default connect(null, mapDispatchToProps)(AuthScreen)
