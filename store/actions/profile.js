@@ -41,6 +41,15 @@ export const fetchProfile = () => {
       resData.body[0].data.payments,
       resData.body[0].data.transport,
     );
+
+    profile.bio = "Hola";
+    profile.birthday = {
+      "_nanoseconds": 0,
+      "_seconds": 1651010400,
+    };
+    profile.contact.location.lat = 43
+    profile.gender = 'male'
+    console.log(profile)
     
     dispatch({
       type: FETCH_PROFILE,
@@ -95,11 +104,11 @@ export const updateProfileGeneral = (
   phoneNumber,
   email,
   address,
+  lat,
+  lng,
   gender,
   birthday,
   bio,
-  lat,
-  lng,
   main,
   profesional
 ) => {
@@ -120,6 +129,8 @@ export const updateProfileGeneral = (
     currentProfile.profile.birthday = birthday;
 
     const updatedProfile = {...currentProfile.profile}
+
+    console.log(updatedProfile)
 
     const response = await fetch(
       `https://us-central1-partime-60670.cloudfunctions.net/api/user/worker`,

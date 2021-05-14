@@ -11,6 +11,7 @@ import Size from '../../constants/FontSize'
 
 const MultilineInput = props => (
     <TextInput
+        placeholder={props.placeholder}
         {...props}
         textAlignVertical="top"
         style={styles.textInput}

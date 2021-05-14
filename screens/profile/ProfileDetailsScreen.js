@@ -167,7 +167,7 @@ const ProfileDetailsScreen = ({
                   params: {
                     title: 'Selecciona fecha de nacimiento',
                     onChange: formik.handleChange('birthday'),
-                    // placeholder: formik.values.birthday,
+                    placeholder: formik.values.birthday,
                   },
                 })
               }
@@ -185,7 +185,7 @@ const ProfileDetailsScreen = ({
                 navigation.navigate('ProfileStack', {
                   screen: 'ProfileEditListItem',
                   params: {
-                    // placeholder: formik.values.gender,
+                    placeholder: formik.values.gender,
                     title: 'Selecciona género',
                     onChange: formik.handleChange('gender'),
                     options: ['Hombre', 'Mujer'],
@@ -201,7 +201,7 @@ const ProfileDetailsScreen = ({
           </InputContainer>
           <Label>Biografía</Label>
           <MultilineInput
-            // placeholder={formik.values.bio}
+            placeholder={formik.values.bio}
             onChange={() => formik.handleChange('bio')}
           />
         </View>

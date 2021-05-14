@@ -33,7 +33,7 @@ const ProfileInfo = ({
 			)}
 			</View>
 			<View style={styles.imageContainer}>
-				<Image style={styles.image} source={loadImage(image)} />
+				<Image style={styles.image} source={{uri: image}} />
 			</View>
 		</View>
     </View>
