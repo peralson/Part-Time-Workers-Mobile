@@ -132,16 +132,16 @@ const ProfilePrivateDetails = ({
             <Label>Fecha de caducidad del DNI</Label>
             <TouchableOpacity
               style={styles.inputPage}
-              onPress={() =>
-                navigation.navigate('ProfileStack', {
-                  screen: 'ProfileEditDate',
-                  params: {
-                    title: 'Selecciona fecha de caducidad',
-                    onChange: formik.handleChange('dniExpiryDate'),
-                    placeholder: formik.values.dniExpiryDate,
-                  },
-                })
-              }
+              // onPress={() =>
+              //   navigation.navigate('ProfileStack', {
+              //     screen: 'ProfileEditDate',
+              //     params: {
+              //       title: 'Selecciona fecha de caducidad',
+              //       onChange: formik.handleChange('dniExpiryDate'),
+              //       placeholder: formik.values.dniExpiryDate,
+              //     },
+              //   })
+              // }
             >
               <Text style={styles.textInput}>
                 {moment(formik.values.dniExpiryDate).format('DD-MM-YYYY')}

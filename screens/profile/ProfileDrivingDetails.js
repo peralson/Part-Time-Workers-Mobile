@@ -76,7 +76,7 @@ const ProfileDrivingDetails = ({
       }
     },
   });
-  console.log(formik.values.type)
+  
   return (
     <Screen>
       <HomeWrapper
@@ -145,9 +145,6 @@ const ProfileDrivingDetails = ({
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                      // formik.values.type = formik.values.type.filter(
-                      //   (item) => item !== formik.values.type[index]
-                      // );
                       formik.setFormikState({
                         ...formik,
                         ...(formik.values.type = formik.values.type.filter(

@@ -161,16 +161,16 @@ const ProfileDetailsScreen = ({
             <Label>Fecha de nacimiento</Label>
             <TouchableOpacity
               style={styles.inputPage}
-              onPress={() =>
-                navigation.navigate('ProfileStack', {
-                  screen: 'ProfileEditDate',
-                  params: {
-                    title: 'Selecciona fecha de nacimiento',
-                    onChange: formik.handleChange('birthday'),
-                    placeholder: formik.values.birthday,
-                  },
-                })
-              }
+              // onPress={() =>
+              //   navigation.navigate('ProfileStack', {
+              //     screen: 'ProfileEditDate',
+              //     params: {
+              //       title: 'Selecciona fecha de nacimiento',
+              //       onChange: formik.handleChange('birthday'),
+              //       placeholder: formik.values.birthday,
+              //     },
+              //   })
+              // }
             >
               <Text style={styles.textInput}>
                 {moment(formik.values.birthday).format('DD-MM-YYYY')}
