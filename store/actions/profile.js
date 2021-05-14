@@ -119,10 +119,7 @@ export const updateProfileGeneral = (
     currentProfile.profile.bio = bio;
     currentProfile.profile.birthday = birthday;
 
-    const updatedProfile = {...currentProfile.profile}
-
-    console.log(currentProfile.profile.transport.hasLicense)
-    console.log(currentProfile.profile.transport.hasCar)
+    const updatedProfile = { ...currentProfile.profile };
 
     const response = await fetch(
       `https://us-central1-partime-60670.cloudfunctions.net/api/user/worker`,
