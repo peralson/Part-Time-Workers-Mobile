@@ -90,7 +90,6 @@ export const fetchUserLists = () => {
 }
 
 export const updateProfileGeneral = (
-  id,
   name,
   phoneNumber,
   email,
@@ -197,7 +196,6 @@ export const updateProfileLegal = (
 };
 
 export const updateProfileTransport = (
-  id,
   hasLicense,
   hasCar,
   type,
@@ -214,8 +212,7 @@ export const updateProfileTransport = (
     currentProfile.profile.transport.license.front = front;
     currentProfile.profile.transport.license.back = back;
 
-    
-    const updatedProfile = {...currentProfile.profile} 
+    const updatedProfile = { ...currentProfile.profile };
 
     const response = await fetch(
       `https://us-central1-partime-60670.cloudfunctions.net/api/user/worker`,

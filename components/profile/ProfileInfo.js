@@ -13,28 +13,37 @@ import {
 import Colors from "../../constants/Colors"
 import Family from "../../constants/FontFamily"
 import Size from "../../constants/FontSize"
+import noPicture from '../../assets/profile-no-picture.png';
 
-const ProfileInfo = ({
-	title,
-	image,
-	percentage
-}) => (
-	<View style={styles.component}>
-		<View style={styles.profile}>
-			<View style={styles.profileMainText}>
-			<Text style={styles.name}>{title}</Text>
-			{percentage && (
-				<Text style={percentage === 100 ? { ...styles.profileState, ...{ color: 'green' }} : styles.profileState}>
-					{percentage === 100 ? 'Perfil completo' : `Perfil incompleto (${percentage}%)`}
-				</Text>
-			)}
-			</View>
-			<View style={styles.imageContainer}>
-				<Image source={{ uri: image, width: 48, height: 48 }} />
-			</View>
-		</View>
-	</View>
-)
+const ProfileInfo = ({ title, image, percentage }) => (
+  <View style={styles.component}>
+    <View style={styles.profile}>
+      <View style={styles.profileMainText}>
+        <Text style={styles.name}>{title}</Text>
+        {percentage && (
+          <Text
+            style={
+              percentage === 100
+                ? { ...styles.profileState, ...{ color: 'green' } }
+                : styles.profileState
+            }
+          >
+            {percentage === 100
+              ? 'Perfil completo'
+              : `Perfil incompleto (${percentage}%)`}
+          </Text>
+        )}
+      </View>
+      <View style={styles.imageContainer}>
+        {image ? (
+          <Image source={{ uri: image, width: 48, height: 48 }} />
+        ) : (
+          <Image source={noPicture} style={{ width: 40, height: 40 }} />
+        )}
+      </View>
+    </View>
+  </View>
+);
 
 const styles = StyleSheet.create({
 	component: {

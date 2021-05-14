@@ -63,7 +63,6 @@ const ProfileDetailsScreen = ({
       setIsLoading(true);
       try {
         await updateProfileGeneral(
-          profile.id,
           values.name,
           values.phoneNumber,
           values.email,

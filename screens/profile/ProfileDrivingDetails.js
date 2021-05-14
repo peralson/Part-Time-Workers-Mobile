@@ -45,6 +45,8 @@ const ProfileDrivingDetails = ({
   const { profile } = route.params;
   const [isLoading, setIsLoading] = useState(false);
 
+  console.log(profile);
+
   const formik = useFormik({
     initialValues: {
       hasLicense: profile.transport.hasLicense,
@@ -55,10 +57,8 @@ const ProfileDrivingDetails = ({
     },
     onSubmit: async (values) => {
       setIsLoading(true);
-
       try {
         await updateProfileTransport(
-          profile.id,
           values.hasLicense,
           values.hasCar,
           values.type,
