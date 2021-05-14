@@ -24,9 +24,6 @@ import Colors from '../../constants/Colors';
 import Family from '../../constants/FontFamily';
 import Size from '../../constants/FontSize';
 
-// Libs
-import loadImage from '../../libs/loadImage';
-
 const ImagePickerComponent = ({ title, placeholder, onChange }) => {
   const [image, setImage] = useState(placeholder);
 
@@ -58,11 +55,11 @@ const ImagePickerComponent = ({ title, placeholder, onChange }) => {
     let base64 = await FileSystem.readAsStringAsync(result.uri, options);
 
     if (!result.cancelled) {
-      setImage(result);
+      setImage(result.uri);
       onChange(base64);
     }
+    
   };
-
   return (
     <View style={styles.profile}>
       <View style={styles.left}>

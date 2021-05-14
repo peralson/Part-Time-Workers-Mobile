@@ -76,7 +76,7 @@ const ProfileDrivingDetails = ({
       }
     },
   });
-
+console.log(formik.values.hasLicense)
   return (
     <Screen>
       <HomeWrapper
@@ -103,10 +103,10 @@ const ProfileDrivingDetails = ({
               trackColor={{ false: Colors.grey, true: Colors.accent }}
               thumbColor={Colors.lightPrimary}
               ios_backgroundColor={Colors.grey}
-              onValueChange={formik.handleChange('hasLicense')}
+              onValueChange={() => formik.setFieldValue('hasLicense',!formik.values.hasLicense)}
               value={formik.values.hasLicense}
             />
-          </View>
+          </View> 
         </View>
         {formik.values.hasLicense && (
           <>
@@ -117,7 +117,7 @@ const ProfileDrivingDetails = ({
                   trackColor={{ false: Colors.grey, true: Colors.accent }}
                   thumbColor={Colors.lightPrimary}
                   ios_backgroundColor={Colors.grey}
-                  onValueChange={formik.handleChange('hasCar')}
+                  onValueChange={() => formik.setFieldValue('hasCar',!formik.values.hasCar)}
                   value={formik.values.hasCar}
                 />
               </View>

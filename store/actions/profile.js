@@ -121,7 +121,8 @@ export const updateProfileGeneral = (
 
     const updatedProfile = {...currentProfile.profile}
 
-    console.log(updatedProfile)
+    console.log(currentProfile.profile.transport.hasLicense)
+    console.log(currentProfile.profile.transport.hasCar)
 
     const response = await fetch(
       `https://us-central1-partime-60670.cloudfunctions.net/api/user/worker`,
