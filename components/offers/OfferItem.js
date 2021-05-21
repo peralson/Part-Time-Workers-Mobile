@@ -44,7 +44,7 @@ const OfferItem = ({ offerData, eventData, companyData, onSelect }) => {
                     <DarkTag>
                         {datesLength === 1
                             ? formatDate(offerData.schedule[0].day)
-                            : `${formatDate(eventData.dates[0])} - ${formatDate(offerData.schedule[datesLength - 1].day)}`
+                            : `${formatDate(offerData.schedule[0].day)} - ${formatDate(offerData.schedule[datesLength - 1].day)}`
                         }
                     </DarkTag>
                 </View>
