@@ -16,9 +16,9 @@ import firebase from 'firebase/app'
 
 // Getting Firebase ready to go!
 if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig)
+  firebase.initializeApp(firebaseConfig);;
 } else {
-    firebase.app() // if already initialized, use that one
+  firebase.app(); // if already initialized, use that one
 }
 
 // Redux
@@ -35,44 +35,44 @@ import profileReducer from './store/reducers/profile'
 
 // Introducimos todos nuestros reducers en un global
 const rootReducer = combineReducers({
-    auth: authReducer,
-    offers: offersReducer,
-    applications: applicationsReducer,
-    jobs: jobsReducer,
-    profile: profileReducer,
-})
+  auth: authReducer,
+  offers: offersReducer,
+  applications: applicationsReducer,
+  jobs: jobsReducer,
+  profile: profileReducer,
+});
 
 // y agregamos nuestro reducer global al store de Redux
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk))
     
 const fetchFonts = async () => {
-    return await Font.loadAsync({
-        'gotham-book': require('./assets/fonts/Gotham-Book.otf'),
-        'gotham-bold': require('./assets/fonts/Gotham-Bold.otf')
-    })
+	return await Font.loadAsync({
+    "gotham-book": require("./assets/fonts/Gotham-Book.otf"),
+    "gotham-bold": require("./assets/fonts/Gotham-Bold.otf"),
+  });
 }
 
 const App = () => {
 	const [fontLoaded, setFontLoaded] = useState(false)
 
-    if (!fontLoaded) {
-        return (
-            <AppLoading
-                startAsync={fetchFonts}
-                onFinish={() => setFontLoaded(true)}
-                onError={err => console.log(err)}
-            />
-        )
-    }
-
+	if (!fontLoaded) {
     return (
-        <Provider store={store}>
-            <StatusBar style="light" />
-            <NavigationContainer>
-                <AuthNavigation />
-            </NavigationContainer>
-        </Provider>
-    )
+      <AppLoading
+        startAsync={fetchFonts}
+        onFinish={() => setFontLoaded(true)}
+        onError={(err) => console.log(err)}
+      />
+    );
+  }
+
+	return (
+    <Provider store={store}>
+      <StatusBar style="light" />
+      <NavigationContainer>
+        <AuthNavigation />
+      </NavigationContainer>
+    </Provider>
+  );
 }
 
 export default App

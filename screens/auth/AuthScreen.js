@@ -28,105 +28,102 @@ import Label from '../../components/form/Label'
 import Input from '../../components/form/Input'
 
 const AuthScreen = ({
-    navigation,
-    login,
-    fetchProfile
+	navigation,
+	login,
+	fetchProfile
 }) => {
-    const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState(null)
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+	const [isLoading, setIsLoading] = useState(false)
+	const [error, setError] = useState(null)
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
 
-    useEffect(() => {
-        handleLogIn()
-    }, [])
+	useEffect(() => {
+		if (error) {
+			Alert.alert('Ha habido un error', error, [{ text: 'Okay' }])
+		}
+	}, [error])
 
-    useEffect(() => {
-        if (error) {
-            Alert.alert('Ha habido un error', error, [{ text: 'Okay' }])
-        }
-    }, [error])
+	const handleLogIn = () => {
+		setError(null)
+		setIsLoading(true)
 
-    const handleLogIn = () => {
-        setError(null)
-        setIsLoading(true)
+		firebase.auth()
+			.signInWithEmailAndPassword(email, password)
+			.then(({ user }) => {
+				if (user.emailVerified) {
+					return firebase.auth().currentUser.getIdTokenResult(true)
+				} else {
+					firebase.auth().signOut()
+				}
+			})
+			.then(data => login(data))
+			.then(() => fetchProfile())
+			.then(() => setIsLoading(false))
+			.then(() => navigation.navigate('App'))
+			.catch(err => {
+				let m = err.message
 
-        firebase.auth().signInWithEmailAndPassword('pabloperaltapalacios@gmail.com', 'holaquetal')
-            .then(({ user }) => {
-                if (user.emailVerified) {
-                    return firebase.auth().currentUser.getIdTokenResult(true)
-                } else {
-                    firebase.auth().signOut()
-                }
-            })
-            .then(data => login(data))
-            .then(() => fetchProfile())
-            .then(() => setIsLoading(false))
-            .then(() => navigation.navigate('App'))
-            .catch(err => {
-                let m = err.message
+				if (err.message === "There is no user record corresponding to this identifier. The user may have been deleted.") {
+					m = "No existe ningún usuario con este correo electrónico."
+				}
 
-                if (err.message === "There is no user record corresponding to this identifier. The user may have been deleted.") {
-                    m = "No existe ningún usuario con este correo electrónico."
-                }
+				if (err.message === "The password is invalid or the user does not have a password.") {
+					m = "Parece que la contraseña es incorrecta. Prueba con otra."
+				}
 
-                if (err.message === "The password is invalid or the user does not have a password.") {
-                    m = "Parece que la contraseña es incorrecta. Prueba con otra."
-                }
+				setError(m)
+				setIsLoading(false)
+			})
+  }
 
-                setError(m)
-                setIsLoading(false)
-            })
-    }
-
-    return (
-        <Screen>
-            <View style={styles.header}>
-                <Image
-                    source={BG}
-                    style={styles.bg}
-                    resizeMode="stretch"
-                />
-                <Image
-                    source={Logo}
-                    style={styles.image}
-                    resizeMode="contain"
-                />
-            </View>
-            <View style={styles.container}>
-                <InputContainer>
-                    <Label>Correo electrónico</Label>
-                    <Input
-                        returnKeyType="next"
-                        onChange={text => setEmail(text)}
-                        value={email}
-                        keyboardType="email-address" 
-                        required 
-                        email
-                        autoCapitalize="none"
-                    />
-                </InputContainer>
-                <InputContainer>
-                    <Label>Contraseña</Label>
-                    <Input
-                        onChange={text => setPassword(text)}
-                        value={password}
-                        required 
-                        secureTextEntry
-                        required
-                        minLength={5}
-                        autoCapitalize="none"
-                    />
-                </InputContainer>
-                <TouchableOpacity style={styles.buttonContainer} onPress={handleLogIn} activeOpacity={0.8}>
-                    <Text style={styles.buttonText}>{isLoading ? 'Accediendo...' : 'Acceder'}</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.textButtonContainer} onPress={() => {}} activeOpacity={0.8}>
-                    <Text style={styles.textButton}>¿Has olvidado tu contraseña?</Text>
-                </TouchableOpacity>
-            </View>
-        </Screen>
-    )
+  return (
+		<Screen>
+			<View style={styles.header}>
+				<Image
+					source={BG}
+					style={styles.bg}
+					resizeMode="stretch"
+				/>
+				<Image
+					source={Logo}
+					style={styles.image}
+					resizeMode="contain"
+				/>
+			</View>
+			<View style={styles.container}>
+				<InputContainer>
+					<Label>Correo electrónico</Label>
+					<Input
+						returnKeyType="next"
+						onChange={text => setEmail(text)}
+						value={email}
+						keyboardType="email-address" 
+						required 
+						email
+						autoCapitalize="none"
+					/>
+				</InputContainer>
+				<InputContainer>
+					<Label>Contraseña</Label>
+					<Input
+						onChange={text => setPassword(text)}
+						value={password}
+						required 
+						secureTextEntry
+						required
+						minLength={5}
+						autoCapitalize="none"
+					/>
+				</InputContainer>
+				<TouchableOpacity style={styles.buttonContainer} onPress={handleLogIn} activeOpacity={0.8}>
+					<Text style={styles.buttonText}>{isLoading ? 'Accediendo...' : 'Acceder'}</Text>
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.textButtonContainer} onPress={() => {}} activeOpacity={0.8}>
+					<Text style={styles.textButton}>¿Has olvidado tu contraseña?</Text>
+				</TouchableOpacity>
+			</View>
+		</Screen>
+	)
 }
 
 const styles = StyleSheet.create({

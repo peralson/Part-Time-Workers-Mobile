@@ -34,41 +34,54 @@ const JobItem = ({
     onSelect,
     checkJob
 }) => {
-    const [loading, setLoading] = useState(false)
+	const [loading, setLoading] = useState(false);
 
-    const handleCheck = async () => {
-        setLoading(true)
-        try {
-            await checkJob(jobData.id_event)
-        } catch (err) {
-            Alert.alert('Oh! Vaya...', err.message, [{ text: 'Okay' }])
-        } finally {
-            setLoading(false)
-        }
+	const handleCheck = async () => {
+    setLoading(true);
+    try {
+      await checkJob(jobData.id_event);
+    } catch (err) {
+      Alert.alert("Oh! Vaya...", err.message, [{ text: "Okay" }]);
+    } finally {
+      setLoading(false);
     }
+  };
+  
+  if (jobData.status !== "none") {
+		console.log("OFFER", offerData);
+		console.log("EVENT", eventData);
+		console.log("JOB", jobData);
+	}
 
-    return (
-        <TouchableOpacity activeOpacity={0.8} onPress={onSelect} style={{ marginRight: 8, width: 185 }}>
-            <Card>
-                <View style={{ flexDirection: 'row', marginBottom: 8 }}>
-                    <DarkTag>
-                        {moment(eventData.date).format('DD MMMM')}
-                    </DarkTag>
-                    <View style={{ flex: 1 }}></View>
-                </View>
-                <ItemTitle style={{ marginBottom: 8 }}>{eventData.name}</ItemTitle>
-                <ItemDetails
-                    style={{ marginBottom: 16 }}
-                    category={offerData.category}
-                    companyName={companyData.companyName}
-                    address={eventData.location.address.split(',')[0]}
-                />
-                <ApplyButton locked={jobData.status === "none"} onSelect={handleCheck}>
-                    {loading ? 'Esperando...' : handleStatus(jobData.status)}
-                </ApplyButton>
-            </Card>
-        </TouchableOpacity>
-    )
+	return (
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={onSelect}
+      style={{ marginRight: 8, width: 185 }}
+    >
+      <Card>
+        <View style={{ flexDirection: "row", marginBottom: 8 }}>
+          <DarkTag>
+            {moment(eventData.dates[0]._seconds * 1000).format("D MMMM")}
+            {eventData.dates.length !== 1 ? ` - ${moment(eventData.dates[eventData.dates.length - 1]._seconds * 1000).format("D MMMM")}` : ""}
+          </DarkTag>
+          <View style={{ flex: 1 }}></View>
+        </View>
+        <ItemTitle style={{ marginBottom: 8 }}>
+					{eventData.name ? eventData.name : offerData.name}
+				</ItemTitle>
+        <ItemDetails
+          style={{ marginBottom: 16 }}
+          category={offerData.category}
+          companyName={companyData.companyName}
+          address={eventData.location.address.split(",")[0]}
+        />
+        <ApplyButton locked={jobData.status === "none"} onSelect={handleCheck}>
+          {loading ? "Esperando..." : handleStatus(jobData.status)}
+        </ApplyButton>
+      </Card>
+    </TouchableOpacity>
+  );
 }
 
 const mapDispatchToProps = {

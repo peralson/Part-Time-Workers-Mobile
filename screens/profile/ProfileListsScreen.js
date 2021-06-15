@@ -24,27 +24,34 @@ export const ProfileListsScreen = ({ navigation }) => {
 	const [userListsLoading, setUserListsLoading] = useState(true)
 	const userLists = useSelector(state => state.profile.userLists)
 
+	console.log(userLists);
+
 	const dispatch = useDispatch()
 
-  	const loadUserLists = async () => {
-		try {
-			await dispatch(profileActions.fetchUserLists())
-		} catch ({ message }) {
-			console.log('error', message)
-		}
-	}
+  const loadUserLists = async () => {
+    try {
+      await dispatch(profileActions.fetchUserLists());
+    } catch ({ message }) {
+      console.log("error", message);
+    }
+  };
 
-  	useFocusEffect(
-		useCallback(() => {
-			loadUserLists()
-		}, [dispatch, setUserListsLoading])
-	)
+  useFocusEffect(
+    useCallback(() => {
+      loadUserLists();
+    }, []),
+  );
 
-  	useEffect(() => {
-		setUserListsLoading(true)
-		loadUserLists()
-			.then(() => setUserListsLoading(false))
-	}, [])
+  useEffect(() => {
+		(() => {
+			setUserListsLoading(true);
+			const unsubscribe =
+				loadUserLists()
+				.then(() => setUserListsLoading(false));
+
+			return unsubscribe
+		})()
+  }, []);
 	
 	return (
 		<Screen>
@@ -52,15 +59,17 @@ export const ProfileListsScreen = ({ navigation }) => {
 				leftComponent={<BackButton onGoBack={() => navigation.goBack()} />}
 				title='Listas'
 			/>
-			{userListsLoading ? <IsLoadingMini text="Listas" /> : 
-				userLists.length === 0 ? <EmptyList quote='Actualmente no apareces en listas' image={noList} /> : (
-					<ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
-						{userLists.map((list, index) => 
-							<ListItem key={index} list={list} />
-						)}
-					</ScrollView>
-				)
-			}
+			{userListsLoading
+				? <IsLoadingMini text="Listas" />
+				: userLists && userLists.length === 0
+					? <EmptyList quote='Actualmente no apareces en listas' image={noList} />
+					: (
+				<ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
+					{userLists && userLists.map((list, index) => 
+						<ListItem key={index} list={list} />
+					)}
+				</ScrollView>
+			)}
 		</Screen>
 	)
 }

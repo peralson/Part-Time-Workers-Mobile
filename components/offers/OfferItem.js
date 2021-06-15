@@ -37,50 +37,49 @@ const OfferItem = ({ offerData, eventData, companyData, onSelect }) => {
     const hasExtras = offerData.extras.filter(extra => extra.amount)
 
     return (
-        <TouchableOpacity activeOpacity={0.8} onPress={onSelect}>
-            <Card>
-                <View style={styles.topContainer}>
-                    <ItemTitle>{eventData.name}</ItemTitle>
-                    <DarkTag>
-                        {datesLength === 1
-                            ? formatDate(offerData.schedule[0].day)
-                            : `${formatDate(offerData.schedule[0].day)} - ${formatDate(offerData.schedule[datesLength - 1].day)}`
-                        }
-                    </DarkTag>
-                </View>
-                <View style={styles.bottomContainer}>
-                    <View style={styles.left}>
-                        <ItemDetails
-                            category={offerData.category}
-                            companyName={companyData.companyName}
-                            address={eventData.location.address.split(',')[0]}
-                        />
-                        <View style={styles.importants}>
-                            <PrimaryTag>
-                                {formattedSalary(offerData.salary)}€/hora
-                            </PrimaryTag>
-                            <PrimaryTag>
-                                {hours}
-                                {minutes !== 0 && (
-                                    minutes < 10 ? `:0${minutes}` : `:${minutes}`
-                                )} horas
-                            </PrimaryTag>
-                            {hasExtras.length !== 0 && (
-                                <PrimaryTag>
-                                    ...
-                                </PrimaryTag>
-                            )}
-                        </View>
-                    </View>
-                    <View style={styles.right}>
-                        <View style={styles.amountContainer}>
-                            <Text style={styles.amount}>{total.toFixed(0)}€</Text>
-                        </View>
-                    </View>
-                </View>
-            </Card>
-        </TouchableOpacity>
-    )
+      <TouchableOpacity activeOpacity={0.8} onPress={onSelect}>
+        <Card>
+          <View style={styles.topContainer}>
+            <ItemTitle>
+              {eventData.name ? eventData.name : offerData.name}
+            </ItemTitle>
+            <DarkTag>
+              {datesLength === 1
+                ? formatDate(offerData.schedule[0].day)
+                : `${formatDate(offerData.schedule[0].day)} - ${formatDate(
+                    offerData.schedule[datesLength - 1].day,
+                  )}`}
+            </DarkTag>
+          </View>
+          <View style={styles.bottomContainer}>
+            <View style={styles.left}>
+              <ItemDetails
+                category={offerData.category}
+                companyName={companyData.companyName}
+                address={eventData.location.address.split(",")[0]}
+              />
+              <View style={styles.importants}>
+                <PrimaryTag>
+                  {formattedSalary(offerData.salary)}€/hora
+                </PrimaryTag>
+                <PrimaryTag>
+                  {hours}
+                  {minutes !== 0 &&
+                    (minutes < 10 ? `:0${minutes}` : `:${minutes}`)}{" "}
+                  horas
+                </PrimaryTag>
+                {hasExtras.length !== 0 && <PrimaryTag>...</PrimaryTag>}
+              </View>
+            </View>
+            <View style={styles.right}>
+              <View style={styles.amountContainer}>
+                <Text style={styles.amount}>{total.toFixed(0)}€</Text>
+              </View>
+            </View>
+          </View>
+        </Card>
+      </TouchableOpacity>
+    );
 }
 
 const styles = StyleSheet.create({

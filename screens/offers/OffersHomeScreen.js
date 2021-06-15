@@ -3,7 +3,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 
 // React Native
-import { StyleSheet, FlatList } from 'react-native';
+import { StyleSheet, FlatList, Text } from 'react-native';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,6 +21,7 @@ import OfferItem from '../../components/offers/OfferItem';
 
 const OffersHomeScreen = ({ navigation }) => {
   const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const offers = useSelector((state) => state.offers.openOffers);
 
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const OffersHomeScreen = ({ navigation }) => {
     try {
       await dispatch(offersActions.fetchOpenOffers());
     } catch (e) {
-      console.log('error', e.message);
+      setError(true);
     }
   };
 
@@ -52,13 +53,13 @@ const OffersHomeScreen = ({ navigation }) => {
         leftComponent={<HeaderTitle title='Ofertas' />}
         description='Aquí llegarán las ofertas de trabajo de las empresas que busquen contratarte.'
       />
-      {isLoading ? (
-        <IsLoadingMini text="tus ofertas" />
-      ) : (
-        <>
-          {offers.length === 0 ? (
-            <NoOffers />
-          ) : (
+      {isLoading
+        ? <IsLoadingMini text="tus ofertas" />
+        : error
+          ? <Text>Hola</Text>
+          : offers.length === 0
+            ? <NoOffers />
+            : (
             <FlatList
               showsVerticalScrollIndicator={false}
               contentContainerStyle={styles.contentContainer}
@@ -67,13 +68,16 @@ const OffersHomeScreen = ({ navigation }) => {
               renderItem={({ item }) => (
                 <OfferItem
                   {...item}
-                  onSelect={() => navigation.navigate('OffersStack', { screen: 'OfferDetails', params: { offerId: item.id } })}
+                  onSelect={() => 
+                    navigation.navigate(
+                      'OffersStack',
+                      { screen: 'OfferDetails', params: { offerId: item.id } }
+                    )
+                  }
                 />
               )}
             />
           )}
-        </>
-      )}
     </Screen>
   );
 };

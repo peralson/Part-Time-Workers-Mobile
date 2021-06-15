@@ -32,39 +32,15 @@ const WorksHomeScreen = ({
 }) => {
 	const [applicationsLoading, setApplicationsLoading] = useState(true)
 	const [jobsLoading, setJobsLoading] = useState(true)
-
-	const loadApplications = async () => {
-		try {
-			await fetchApplications()
-		} catch ({ message }) {
-			console.log('error', message)
-		}
-	}
-
-	const loadJobs = async () => {
-		try {
-			await fetchJobs()
-		} catch ({ message }) {
-			console.log('error', message)
-		}
-	}
-
-	// Aseguramos que la pantalla repita el fetch cada vez que entre
-	useFocusEffect(
-		useCallback(() => {
-			loadJobs()
-			loadApplications()
-		}, [setJobsLoading, setApplicationsLoading])
-	)
-
+	
 	// Cargamos los proyectos de una manera visible al entrar por primera vez
 	useEffect(() => {
-		setJobsLoading(true)
-		setApplicationsLoading(true)
-		loadJobs()
-			.then(() => setJobsLoading(false))
-		loadApplications()
-			.then(() => setApplicationsLoading(false))
+		if (userJobs.length === 0) setJobsLoading(true)
+		if (userApplications.length === 0) setApplicationsLoading(true)
+		fetchJobs()
+			.then(() => setJobsLoading(false));
+		fetchApplications().
+			then(() => setApplicationsLoading(false));
 	}, [])
 
 	const applicationDetailHandler = (offerId, applicationId) => {

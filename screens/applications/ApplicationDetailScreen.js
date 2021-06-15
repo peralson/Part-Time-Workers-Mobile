@@ -92,7 +92,7 @@ const ApplicationDetailScreen = ({
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ padding: 16, paddingBottom: 32 }}>
                 <OfferHeader
                     category={offerData.category}
-                    name={eventData.name}
+                    name={eventData.name ? eventData.name : offerData.name}
                     totalSalary={totalSalary}
                 />
                 <DetailsContainer>
@@ -156,7 +156,7 @@ const ApplicationDetailScreen = ({
 						/>
 					}
 				/>
-                {eventData.description.length !== 0 && (
+                {eventData.description && eventData.description.length !== 0 && (
                     <>
                         <OfferInfoItem left='Descrición' />
                         <Description>{eventData.description}</Description>

@@ -11,25 +11,29 @@ import sortByDate from '../../libs/sortByDate'
 import Application from '../../models/Application'
 
 export const fetchApplications = () => {
-    return async (dispatch, getState) => {
-        const token = getState().auth.token
+	return async (dispatch, getState) => {
+		const token = getState().auth.token
 
-        const response = await fetch(
-            `https://us-central1-partime-60670.cloudfunctions.net/api/application/myApplications`,
-            {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-              	}
-            }
-        )
+		const response = await fetch(
+			`https://us-central1-partime-60670.cloudfunctions.net/api/application/myApplications`,
+			{
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${token}`
+				}
+			}
+		)
 
-		if (!response.ok && response.status === 404) return []
-    	if (!response.ok) throw new Error()
+		if (!response.ok && response.status === 404)
+      return dispatch({
+        type: FETCH_APPLICATIONS,
+        userApplications: [],
+      });
+    if (!response.ok) throw new Error()
 
-        const resData = await response.json()
-        const loadedApplications = []
+		const resData = await response.json()
+		const loadedApplications = []
 		
 		resData.body.map(application => {
 			loadedApplications.push(
@@ -43,11 +47,11 @@ export const fetchApplications = () => {
 			)
 		})
 
-        dispatch({
+		dispatch({
 			type: FETCH_APPLICATIONS,
 			userApplications: sortByDate(loadedApplications, 'DES')
-        })
-    }
+		})
+	}
 }
 
 export const sendApplication = offerId => {
@@ -66,8 +70,8 @@ export const sendApplication = offerId => {
 			}
 		)
 
-    	if (!response.ok && response.status === 400) throw new Error('Ya has aplicado a esta oferta')
-    	if (!response.ok) throw new Error('Ha ocurrido un error')
+		if (!response.ok && response.status === 400) throw new Error('Ya has aplicado a esta oferta')
+		if (!response.ok) throw new Error('Ha ocurrido un error')
 
 		const resData = await response.json()
 		

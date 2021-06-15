@@ -21,10 +21,12 @@ export const fetchJobs = () => {
 		 	}
 		)
 		
-		if (!response.ok && response.status === 404) return []
-    	if (!response.ok) throw new Error()
+		if (!response.ok && response.status === 404)
+      return dispatch({ type: FETCH_JOBS, userJobs: [] });
+    if (!response.ok) throw new Error();
 		
 		const resData = await response.json()
+		console.log(resData);
 		const loadedJobs = []
 
 		resData.body.map(job => {
@@ -40,8 +42,10 @@ export const fetchJobs = () => {
 		})
 
 		loadedJobs.sort((a, b) => {
-			if (a.eventData.date < b.eventData.date) return -1
-			if (a.eventData.date < b.eventData.date) return 1
+			if (a.eventData.dates[0]._seconds < b.eventData.dates[0]._seconds)
+        return -1;
+      if (a.eventData.dates[0]._seconds < b.eventData.dates[0]._seconds)
+        return 1;
 			return 0
 		})
 
@@ -98,11 +102,13 @@ export const cancelJob = jobId => {
 			}
 		)
 
-		if (!response.ok) throw new Error('Ha ocurrido un error')
+		if (!response.ok) {
+      const resData = await response.json();
+      console.log(resData);
+      throw new Error("Ha ocurrido un error");
+    }
 
 		const resData = await response.json()
-
-		console.log(resData)
 
 		dispatch({
 			type: CANCEL_JOB,

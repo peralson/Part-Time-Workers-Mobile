@@ -78,7 +78,7 @@ const OfferDetailScreen = ({
 			>
 				<OfferHeader
 					category={offerData.category}
-					name={eventData.name}
+					name={eventData.name ? eventData.name : offerData.name}
 					totalSalary={totalSalary}
 				/>
 				<DetailsContainer>
@@ -129,7 +129,7 @@ const OfferDetailScreen = ({
 						/>
 					}
 				/>
-				{eventData.description.length !== 0 && (
+				{eventData.description && eventData.description.length !== 0 && (
 					<>
 						<OfferInfoItem left='Descripción' />
 						<Description>{eventData.description}</Description>

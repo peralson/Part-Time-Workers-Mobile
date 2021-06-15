@@ -8,20 +8,20 @@ import { StyleSheet, View } from "react-native"
 import Colors from '../../constants/Colors'
 
 const Card = ({ noMargin, noPadding, children }) => (
-    <View
-        style={
-			noMargin
-				? noPadding
-					? { ...styles.shadow, ...{ marginBottom: 0, padding: 0 } }
-					: { ...styles.shadow, ...{ marginBottom: 0 } }
-				: noPadding
-					? { ...styles.shadow, ...{ padding: 0 } }
-					: styles.shadow
-        }
-    >
-      	{ children}
-    </View>
-)
+  <View
+    style={
+      noMargin
+        ? noPadding
+          ? { ...styles.shadow, ...{ marginBottom: 0, padding: 0 } }
+          : { ...styles.shadow, ...{ marginBottom: 0 } }
+        : noPadding
+        ? { ...styles.shadow, ...{ padding: 0 } }
+        : styles.shadow
+    }
+  >
+    {children}
+  </View>
+);
 
 const styles = StyleSheet.create({
 	shadow: {

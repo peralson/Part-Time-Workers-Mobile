@@ -10,16 +10,14 @@ import Family from '../../constants/FontFamily'
 import Size from '../../constants/FontSize'
 
 const ApplyButton = ({ locked, children, onSelect }) => (
-		<TouchableOpacity
-			style={locked ? styles.lockedContainer : styles.buttonContainer}
-			activeOpacity={0.8}
-			onPress={locked ? () => {} : onSelect}
-		>
-			<Text style={locked ? styles.lockedButton : styles.button}>
-				{children}
-			</Text>
-		</TouchableOpacity>
-)
+  <TouchableOpacity
+    style={locked ? styles.lockedContainer : styles.buttonContainer}
+    activeOpacity={0.8}
+    onPress={locked ? () => {} : onSelect}
+  >
+    <Text style={locked ? styles.lockedButton : styles.button}>{children}</Text>
+  </TouchableOpacity>
+);
 
 const styles = StyleSheet.create({
 	buttonContainer: {

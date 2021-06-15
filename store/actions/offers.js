@@ -26,18 +26,21 @@ export const fetchOpenOffers = () => {
         if (!response.ok) throw new Error()
 
         const resData = await response.json()
+
+        if (resData.body === "") throw new Error();
+
         const loadedOffers = []
 
-        await resData.body.map(offer => {
-            loadedOffers.push(
-                new Offer(
-                    offer.id,
-                    offer.offerData,
-                    offer.eventData,
-                    offer.companyData
-                )
-            )
-        })
+        resData.body.map((offer) => {
+          loadedOffers.push(
+            new Offer(
+              offer.id,
+              offer.offerData,
+              offer.eventData,
+              offer.companyData,
+            ),
+          );
+        });
 
         dispatch({
             type: FETCH_OPEN_OFFERS,
