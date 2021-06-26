@@ -44,7 +44,6 @@ const ProfileDetailsScreen = ({
 }) => {
   const { profile } = route.params;
   const [isLoading, setIsLoading] = useState(false);
-
   const formik = useFormik({
     initialValues: {
       name: profile.name,
@@ -55,9 +54,9 @@ const ProfileDetailsScreen = ({
       lng: profile.contact.location.lng,
       birthday: profile.birthday,
       gender: profile.gender,
-      bio: profile.bio,
+      // bio: profile.bio,
       main: profile.images.main,
-      profesional: profile.images.profesional
+      // profesional: profile.images.profesional
     },
     onSubmit: async (values) => {
       setIsLoading(true);
@@ -71,9 +70,9 @@ const ProfileDetailsScreen = ({
           values.lng,
           values.gender,
           values.birthday,
-          values.bio,
+          // values.bio,
           values.main,
-          values.profesional
+          // values.profesional
         );
       } catch (err) {
         Alert.alert(
@@ -86,7 +85,7 @@ const ProfileDetailsScreen = ({
       }
     },
   });
-
+  console.log('genter: ', formik.values.gender)
   return (
     <Screen>
       <HomeWrapper
@@ -108,15 +107,15 @@ const ProfileDetailsScreen = ({
       >
         <SideScrollPicker>
           <ImagePickerComponent
-            title='Personal'
+            title='Imagen de perfil'
             placeholder={formik.values.main}
             onChange={formik.handleChange('main')}
           />
-          <ImagePickerComponent
+          {/* <ImagePickerComponent
             title='Profesional'
             placeholder={formik.values.profesional}
             onChange={formik.handleChange('profesional')}
-          />
+          /> */}
         </SideScrollPicker>
         <View style={{ marginHorizontal: 16 }}>
           <CustomInputComponent
@@ -198,11 +197,11 @@ const ProfileDetailsScreen = ({
               </Text>
             </TouchableOpacity>
           </InputContainer>
-          <Label>Biografía</Label>
+          {/* <Label>Biografía</Label>
           <MultilineInput
             placeholder={formik.values.bio}
             onChange={formik.handleChange('bio')}
-          />
+          /> */}
         </View>
       </ScrollView>
     </Screen>

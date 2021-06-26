@@ -58,7 +58,7 @@ const ProfileHomeScreen = ({
 						icon="arrow-forward"
 						onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfilePrivateDetails", params: { profile: profile } })}
 					/>
-					<LinkItem
+					{/* <LinkItem
 						title="Transporte"
 						icon="arrow-forward"
 						onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfileDrivingDetails", params: { profile: profile } })}
@@ -67,7 +67,7 @@ const ProfileHomeScreen = ({
 						title="Listas"
 						icon="arrow-forward"
 						onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfileListsScreen" })}
-					/>
+					/> */}
 					<LinkItem
 						bottom
 						title="Historial"

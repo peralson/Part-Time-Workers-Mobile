@@ -1,5 +1,5 @@
 // React
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // React Native
 import {
@@ -44,7 +44,10 @@ const ProfileEditDate = ({ navigation, route }) => {
 
     navigation.goBack();
   };
-
+  useEffect(() => {
+    setShow(false)
+    console.log('hola')
+  }, [date])
   return (
     <Screen>
       <HomeWrapper
@@ -136,7 +139,6 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: Colors.grey,
     marginTop: 8,
-    marginHorizontal: 16,
     borderRadius: 4,
   },
   dateText: {

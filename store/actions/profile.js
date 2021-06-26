@@ -41,7 +41,7 @@ export const fetchProfile = () => {
       resData.body[0].data.payments,
       resData.body[0].data.transport,
     );
-    
+
     dispatch({
       type: FETCH_PROFILE,
       profile: profile,
@@ -98,9 +98,9 @@ export const updateProfileGeneral = (
   lng,
   gender,
   birthday,
-  bio,
+  // bio,
   main,
-  profesional
+  // profesional
 ) => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
@@ -109,15 +109,14 @@ export const updateProfileGeneral = (
     currentProfile.profile.name = name;
     currentProfile.profile.contact.email = email;
     currentProfile.profile.images.main = main;
-    currentProfile.profile.images.profesional = profesional;
+    // currentProfile.profile.images.profesional = profesional;
     currentProfile.profile.contact.phoneNumber = phoneNumber;
     currentProfile.profile.contact.location.address = address;
     currentProfile.profile.contact.location.lat = lat;
     currentProfile.profile.contact.location.lng = lng;
     currentProfile.profile.gender = gender;
-    currentProfile.profile.bio = bio;
-    currentProfile.profile.birthday = birthday;
-
+    // currentProfile.profile.bio = bio;
+      currentProfile.profile.birthday = birthday;
     const updatedProfile = { ...currentProfile.profile };
 
     const response = await fetch(
@@ -136,10 +135,8 @@ export const updateProfileGeneral = (
       const errorResData = await response.text();
       console.log(errorResData);
     }
-
     const resData = await response.text();
 
-    console.log(resData);
 
     dispatch({
       type: UPDATE_PROFILE_GENERAL,
