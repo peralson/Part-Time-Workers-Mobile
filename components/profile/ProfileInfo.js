@@ -29,13 +29,13 @@ const ProfileInfo = ({ title, image, percentage }) => (
           </Text>
         )}
       </View>
-      <View style={styles.imageContainer}>
+      {/* <View style={styles.imageContainer}>
         {image ? (
           <Image source={{ uri: image, width: 48, height: 48 }} />
         ) : (
           <Image source={noPicture} style={{ width: 40, height: 40 }} />
         )}
-      </View>
+      </View> */}
     </View>
   </View>
 );
@@ -59,7 +59,10 @@ const styles = StyleSheet.create({
 	},
 	profileMainText: {
 		flex: 1,
-		marginRight: 16,
+		// marginRight: 16,
+    flexDirection: 'row',
+    justifyContent:'space-between',
+    alignItems: 'flex-end'
 	},
 	name: {
 		fontFamily: Family.bold,

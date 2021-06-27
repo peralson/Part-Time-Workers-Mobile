@@ -8,7 +8,7 @@ import * as Font from 'expo-font'
 
 // Navigator
 import { NavigationContainer } from '@react-navigation/native'
-import AuthNavigation from './navigation/AuthNavigation'
+import MainNavigation from './navigation/MainNavigation'
 
 // Firebase Init
 import firebaseConfig from './env'
@@ -69,7 +69,7 @@ const App = () => {
     <Provider store={store}>
       <StatusBar style="light" />
       <NavigationContainer>
-        <AuthNavigation />
+        <MainNavigation />
       </NavigationContainer>
     </Provider>
   );

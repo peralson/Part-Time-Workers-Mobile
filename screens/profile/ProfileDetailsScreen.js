@@ -85,7 +85,7 @@ const ProfileDetailsScreen = ({
       }
     },
   });
-  console.log('genter: ', formik.values.gender)
+  
   return (
     <Screen>
       <HomeWrapper

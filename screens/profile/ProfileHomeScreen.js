@@ -1,38 +1,28 @@
 // React
-import React, { useCallback } from 'react'
-import { useFocusEffect } from '@react-navigation/native';
+import React, { useCallback, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 
 // React Native
-import {
-    ScrollView,
-    StyleSheet,
-    Linking,
-    Alert
-} from 'react-native'
+import { View, ScrollView, StyleSheet, Linking, Alert } from "react-native";
 
 // Redux && Actions
-import { connect } from 'react-redux'
-import { logout } from '../../store/actions/auth'
-import { fetchProfile } from '../../store/actions/profile'
+import { connect } from "react-redux";
+import { logout } from "../../store/actions/auth";
+import { fetchProfile } from "../../store/actions/profile";
 
 // Icons
-import ayuda from '../../assets/icons/chat.png'
-import perfil from '../../assets/icons/contact-book.png'
-import gestion from '../../assets/icons/notebook.png'
-import config from '../../assets/icons/settings.png'
+import ayuda from "../../assets/icons/chat.png";
+import perfil from "../../assets/icons/contact-book.png";
+import gestion from "../../assets/icons/notebook.png";
+import config from "../../assets/icons/settings.png";
 
 // Components
-import ProfileInfo from '../../components/profile/ProfileInfo'
-import Screen from '../../components/UI/Screen'
-import LinkItem from '../../components/profile/LinkItem'
-import ProfileSection from '../../components/profile/ProfileSection'
+import ProfileInfo from "../../components/profile/ProfileInfo";
+import Screen from "../../components/UI/Screen";
+import LinkItem from "../../components/profile/LinkItem";
+import ProfileSection from "../../components/profile/ProfileSection";
 
-const ProfileHomeScreen = ({
-	navigation,
-	logout,
-	profile,
-	fetchProfile
-}) => {
+const ProfileHomeScreen = ({ navigation, logout, profile, fetchProfile }) => {
 	useFocusEffect(
 		useCallback(() => {
 			fetchProfile();
@@ -41,8 +31,15 @@ const ProfileHomeScreen = ({
 
 	return (
 		<Screen>
-			<ProfileInfo title={profile.name} image={profile.images.main} percentage={100} />
-			<ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
+			<ProfileInfo
+				title={profile.name}
+				// image={profile.images.main}
+				percentage={100}
+			/>
+			<ScrollView
+				contentContainerStyle={styles.scroll}
+				showsVerticalScrollIndicator={false}
+			>
 				<ProfileSection
 					title="Mi perfil"
 					description="Visualiza y modifica toda tu información."
@@ -51,12 +48,22 @@ const ProfileHomeScreen = ({
 					<LinkItem
 						title="General"
 						icon="arrow-forward"
-						onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfileDetails", params: { profile: profile } })}
+						onSelect={() =>
+							navigation.navigate("ProfileStack", {
+								screen: "ProfileDetails",
+								params: { profile: profile },
+							})
+						}
 					/>
 					<LinkItem
 						title="Legal"
 						icon="arrow-forward"
-						onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfilePrivateDetails", params: { profile: profile } })}
+						onSelect={() =>
+							navigation.navigate("ProfileStack", {
+								screen: "ProfilePrivateDetails",
+								params: { profile: profile },
+							})
+						}
 					/>
 					{/* <LinkItem
 						title="Transporte"
@@ -72,7 +79,11 @@ const ProfileHomeScreen = ({
 						bottom
 						title="Historial"
 						icon="arrow-forward"
-						onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfileJobHistory" })}
+						onSelect={() =>
+							navigation.navigate("ProfileStack", {
+								screen: "ProfileJobHistory",
+							})
+						}
 					/>
 				</ProfileSection>
 				<ProfileSection
@@ -81,25 +92,33 @@ const ProfileHomeScreen = ({
 					image={gestion}
 				>
 					<LinkItem
-						title='Firma digital'
-						icon='arrow-forward'
+						title="Firma digital"
+						icon="arrow-forward"
 						onSelect={() =>
-							navigation.navigate('ProfileStack', {
-								screen: 'ProfileSignatureScreen',
+							navigation.navigate("ProfileStack", {
+								screen: "ProfileSignatureScreen",
 								params: { profile: profile },
-							}
-						)}
+							})
+						}
 					/>
 					<LinkItem
 						title="Contratos"
 						icon="arrow-forward"
-						onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfileContracts" })}
+						onSelect={() =>
+							navigation.navigate("ProfileStack", {
+								screen: "ProfileContracts",
+							})
+						}
 					/>
 					<LinkItem
 						bottom
 						title="Nóminas"
 						icon="arrow-forward"
-						onSelect={() => navigation.navigate("ProfileStack", { screen: "ProfilePayrolls" })}
+						onSelect={() =>
+							navigation.navigate("ProfileStack", {
+								screen: "ProfilePayrolls",
+							})
+						}
 					/>
 				</ProfileSection>
 				<ProfileSection
@@ -113,7 +132,7 @@ const ProfileHomeScreen = ({
 						onSelect={() => {
 							Linking.openURL(
 								`whatsapp://send?text=Hola Pablo, tengo una duda sobre Part Time Workers&phone=34607570778`
-							).catch(() => Alert("Debes tener Whatsapp instalado"))
+							).catch(() => Alert("Debes tener Whatsapp instalado"));
 						}}
 					/>
 					<LinkItem
@@ -121,16 +140,13 @@ const ProfileHomeScreen = ({
 						title="Correo electrónico"
 						icon="mail-outline"
 						onSelect={() => {
-							Linking.openURL(
-								`mailto: pabloperaltapalacios@gmail.com`
-							).catch(() => Alert("Debes tener un correo instalado"))
+							Linking.openURL(`mailto: pabloperaltapalacios@gmail.com`).catch(
+								() => Alert("Debes tener un correo instalado")
+							);
 						}}
 					/>
 				</ProfileSection>
-				<ProfileSection
-					image={config}
-					title="Configuración"
-				>
+				<ProfileSection image={config} title="Configuración">
 					<LinkItem
 						bottom
 						title="Cerrar sesión"
@@ -138,14 +154,20 @@ const ProfileHomeScreen = ({
 						onSelect={() => {
 							Alert.alert("¿Quieres cerrar la sesión?", "", [
 								{ text: "No" },
-								{ text: "Cerrar", style: "destructive", onPress: () => logout() }
-							])
+								{
+									text: "Cerrar",
+									style: "destructive",
+									onPress: () => {
+										logout();
+									},
+								},
+							]);
 						}}
 					/>
 				</ProfileSection>
 			</ScrollView>
 		</Screen>
-	)
+	);
 };
 
 const styles = StyleSheet.create({
@@ -154,17 +176,20 @@ const styles = StyleSheet.create({
 		paddingBottom: 80,
 		paddingTop: 16,
 	},
-})
+	wrapper: {
+		flex: 1,
+	},
+});
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
 	return {
-		profile: state.profile.profile
-	}
-}
+		profile: state.profile.profile,
+	};
+};
 
 const mapDispatchToProps = {
 	logout,
-	fetchProfile
-}
+	fetchProfile,
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileHomeScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileHomeScreen);
