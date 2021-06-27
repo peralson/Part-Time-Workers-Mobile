@@ -26,8 +26,8 @@ const MapScreen = ({ navigation, route }) => (
 				initialRegion={{
 					latitude: route.params.lat,
 					longitude: route.params.lng,
-					latitudeDelta: 0.0922,
-					longitudeDelta: 0.0421,
+					latitudeDelta: 0.004,
+					longitudeDelta: 0.005,
 				}}
 			>
 				<Marker
